@@ -1,0 +1,87 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+     Counting task - table {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+<p>
+    The <b> sum</b>  that your team submitted is <b> {{participant.sumE}}.</b> This sum is <b> wrong.</b>
+</p>
+Please coordinate again with your partner using the chat to both enter the same sum:
+<br>
+
+
+
+                {% if player.round_number == 1 %}
+
+<img src="https://imgur.com/YdJE0Qh.png" width="300px" />
+
+<br>
+<p>
+
+  {{ formfields }}
+  {{ chat }}
+</p>
+
+
+
+{% elif player.round_number == 2 %}
+
+<img src="https://imgur.com/cizKPKB.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+{% elif player.round_number == 3 %}
+
+<img src="https://imgur.com/9LiTz9N.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+{% elif player.round_number == 4 %}
+
+<img src="https://imgur.com/LtvO89s.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+{% elif player.round_number == 5 %}
+
+<img src="https://imgur.com/PsKIaAG.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+{% elif player.round_number == 6 %}
+
+<img src="https://imgur.com/orBDWBn.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+
+{% endif %}
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+
+
+{% endblock %}
+
+
+
+
+

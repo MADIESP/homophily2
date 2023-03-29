@@ -1,0 +1,22 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+     Counting task - table {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+<p>
+    The <b> sum</b>  that your team submitted is <b> {{participant.sum2}}.</b> This sum is <b> correct.</b>
+</p>
+Click the submit bottom to move to the next table.
+<br>
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+{% endblock %}
+
+
+
+
+

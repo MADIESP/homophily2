@@ -7,31 +7,24 @@
 
 {% block content %}
 
-<p>
-You entered <b> {{participant.answerA}} </b> in <b> part A </b>   and <b> {{participant.answerB}}</b>  in <b> Part B.</b>
-</p>
-<p>
-    The <b> sum</b>  that you submitted is <b> {{participant.sum1}}.</b>  This sum is wrong.
-</p>
-Please enter again the number of 0s in both sub-tables.
-<br>
-
 
                 {% if player.round_number == 1 %}
 
 <img src="https://imgur.com/YdJE0Qh.png" width="300px" />
 
+<br>
+<p>
+
         {{ formfields }}
-
-
+</p>
 
 {% elif player.round_number == 2 %}
 
 <img src="https://imgur.com/cizKPKB.png" width="300px" />
 <br>
- {{ formfields }}
-
-
+ <p>
+        {{ formfields }}
+ </p>
 
 {% elif player.round_number == 3 %}
 
@@ -39,6 +32,7 @@ Please enter again the number of 0s in both sub-tables.
 <br>
  <p>
         {{ formfields }}
+
  </p>
 
 {% elif player.round_number == 4 %}
@@ -47,6 +41,7 @@ Please enter again the number of 0s in both sub-tables.
 <br>
  <p>
         {{ formfields }}
+
  </p>
 
 {% elif player.round_number == 5 %}
@@ -55,6 +50,7 @@ Please enter again the number of 0s in both sub-tables.
 <br>
  <p>
         {{ formfields }}
+
  </p>
 
 {% elif player.round_number == 6 %}
@@ -63,16 +59,18 @@ Please enter again the number of 0s in both sub-tables.
 <br>
  <p>
         {{ formfields }}
+
  </p>
 
 
 {% endif %}
 
-
 <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
 
 
 {% endblock %}
+
+
 
 
 

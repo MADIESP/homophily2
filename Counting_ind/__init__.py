@@ -4,11 +4,11 @@ import random
 
 
 doc = """
-Counting Task 
+Counting Task: No communication. Can re-submit once. 
 """
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Counting2'
+    NAME_IN_URL = 'Counting_ind'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
     TIME_PER_PROBLEM = 45
@@ -17,24 +17,22 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
-
+   pass
 
 class Group(BaseGroup):
-
-            pass
-
-
+   pass
 
 class Player(BasePlayer):
      answerA= models.IntegerField(label="How many 0s are in Sub-Table A?")
      answerB = models.IntegerField(label="How many 0s are in Sub-Table B?")
-     answerA2 = models.IntegerField(label="How many 0s are in Sub-Table A?")
-     answerB2 = models.IntegerField(label="How many 0s are in Sub-Table B?")
-     sum1=models.IntegerField(doc="First Sum submitted")
-     sum2=models.IntegerField(doc="Second Sum submitted")
-     correct = models.BooleanField( doc="Whether the first sum provided is correct.")
+     sum1=models.IntegerField(doc="First Sum submitted (individually) ")
+     sum2 = models.IntegerField(label="How many 0s are in the Table?", doc=" First Sum submitted in group ")
+     sum3=models.IntegerField(label="How many 0s are in the Table?", doc="Second Sum submitted in group")
+     correct = models.BooleanField( doc="Whether the first sum provided is correct.", default=False)
+     correctG1=models.BooleanField( doc="Whether the first sum provided in group is correct.")
      timed_out = models.BooleanField(doc="Whether the participant submitted an answer within the allotted time.")
+     confidence=models.IntegerField(widget=widgets.RadioSelect,
+                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that the number of 0s you just counted in the table is correct?")
 
 def set_sum1(player):
         sum1= player.answerA + player.answerB
@@ -44,9 +42,9 @@ def set_sum1(player):
         player.participant.answerB = player.answerB
 
 
-def set_sum2(player):
-    sum2 = player.answerA2 + player.answerB2
-    player.sum2 = sum2
+
+
+
 
 def set_correct(player):
     correct_answers = [49, 52, 49, 50, 46, 53]
@@ -58,6 +56,10 @@ def set_correct(player):
 
     player.correct = correct
 
+def get_timeout_seconds(player):
+        participant = player.participant
+        import time
+        return participant.expiry - time.time()
 
 class Start(Page):
 
@@ -67,14 +69,13 @@ class Start(Page):
         import time
 
         # remember to add 'expiry' to PARTICIPANT_FIELDS. 3 minutes to count as many correct tables.
-        participant.expiry = time.time() + 3*60
+        participant.expiry = time.time() + 1*60
 
     def is_displayed(player):
         return player.round_number == 1
- #def get_timeout_seconds(player):
-   # participant = player.participant
-   # import time
-  #  return participant.expiry - time.time()
+
+
+
 
 class Count(Page):
     form_model = 'player'
@@ -86,28 +87,40 @@ class Count(Page):
         import time
         return min(C.TIME_PER_PROBLEM,participant.expiry - time.time())
 
+    def is_displayed(player):
+        return get_timeout_seconds(player) > 3
+
     def before_next_page(player, timeout_happened):
         # player.timed_out = True if player.timed_out else False
         # if player.round_number == C.NUM_ROUNDS:
         set_sum1(player)
         set_correct(player)
 
-
-
-class Count2(Page):
-    @staticmethod
-    def get_timeout_seconds(player):
-        participant = player.participant
-        import time
-        return  participant.expiry - time.time()
+class Confidence(Page):
+    form_model = 'player'
+    form_fields = ['confidence']
 
     def is_displayed(player):
-        return player.correct == False
+        return get_timeout_seconds(player) > 3
 
-    form_model = 'player'
-    form_fields = ['answerA2', 'answerB2']
 
-    def before_next_page(player, timeout_happened):
-        set_sum2(player)
+class count2(Page):
+        @staticmethod
+        def get_timeout_seconds(player):
+            participant = player.participant
+            import time
+            return participant.expiry - time.time()
 
-page_sequence = [Start,Count, Count2]
+        form_model = 'player'
+        form_field = ['sum2']
+
+        def is_displayed(player):
+            return player.correct == False and  get_timeout_seconds(player) > 3
+
+
+
+
+
+
+
+page_sequence = [Start,Count, Confidence, count2]

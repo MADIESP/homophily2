@@ -1,0 +1,172 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+     Counting task - table {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+<p>
+    The <b> answer</b>  that your team submitted is <b> {{participant.answer1}}.</b> This sum is wrong.
+</p>
+Please coordinate again with your partner using the chat to both enter the answer:
+<br>
+
+ {% if player.round_number == 1 %}
+<p>
+<b> How long is the border between the United States and Canada? </b>
+    </p>
+<p>
+1- 3,525 miles
+</p>
+<p>
+ 2- 4,525 miles
+</p>
+<p>
+3- 5,525 miles
+</p>
+<p>
+4- 6,525 miles
+</p>
+
+
+<br>
+<p>
+
+        {{ formfields }}
+    {{chat}}
+</p>
+
+{% elif player.round_number == 2 %}
+
+<p>
+<b> What is the largest active volcano in the world? </b>
+    </p>
+<p>
+1- Mount Etna
+</p>
+<p>
+ 2- Mount Vesuvius
+</p>
+<p>
+3- Mouna Loa
+</p>
+<p>
+4- Mount Batur
+</p>
+
+<br>
+ <p>
+        {{ formfields }}
+     {{chat}}
+
+ </p>
+
+{% elif player.round_number == 3 %}
+
+<b> When did Salt Lake City host the Winter Olympics? </b>
+    </p>
+<p>
+1- 1992
+</p>
+<p>
+ 2- 1998
+</p>
+<p>
+3- 2002
+</p>
+<p>
+4- 2008
+</p>
+<br>
+ <p>
+        {{ formfields }}
+     {{chat}}
+
+ </p>
+
+{% elif player.round_number == 4 %}
+<b> When did Hitler invade Poland? </b>
+    </p>
+<p>
+1- 1st September 1939
+</p>
+<p>
+ 2- 11th November 1939
+</p>
+<p>
+3- 8th May 1940
+</p>
+<p>
+4- 1st December 1940
+</p>
+
+
+<br>
+ <p>
+        {{ formfields }}
+     {{chat}}
+
+ </p>
+
+{% elif player.round_number == 5 %}
+
+<b> In which country is the baht the currency? </b>
+    </p>
+<p>
+1- Vietnam
+</p>
+<p>
+ 2- Malaysia
+</p>
+<p>
+3- Indonesia
+</p>
+<p>
+4- Thailand
+</p>
+<br>
+ <p>
+        {{ formfields }}
+     {{chat}}
+
+ </p>
+
+{% elif player.round_number == 6 %}
+
+<b> Apart from water, what is the most popular drink in the world? </b>
+    </p>
+<p>
+1- Tea
+</p>
+<p>
+ 2- Coffee
+</p>
+<p>
+3- Bear
+</p>
+<p>
+4- Orange Juice
+</p>
+<br>
+ <p>
+        {{ formfields }}
+     {{chat}}
+
+ </p>
+
+
+{% endif %}
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+
+
+
+
+{% endblock %}
+
+
+
+
+

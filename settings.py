@@ -1,24 +1,14 @@
 from os import environ
 
 SESSION_CONFIGS = [
-     dict(
-        name='CountingTask',
-        app_sequence=['CountingTask'],
-        num_demo_participants=1,
-     ),
-    dict(
-        name='counting2',
-        app_sequence=['counting2'],
-        num_demo_participants=2,
-    ),
-    dict(
-        name='communication',
-        app_sequence=['communication'],
+dict(
+        name='Counting_Collab',
+        app_sequence=['Counting_Collab'],
         num_demo_participants=2,
     ),
 dict(
-        name='Communication2',
-        app_sequence=['Communication2'],
+        name='Counting_Collab_feedback',
+        app_sequence=['Counting_Collab_feedback'],
         num_demo_participants=2,
     ),
 ]
@@ -34,6 +24,7 @@ ROOMS = [
         name='econ_lab',
         display_name='Experimental Economics Lab'
     ),
+
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -45,7 +36,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['expiry', 'sum1', 'answerA', 'answerB', 'sum2', 'sumE']
+PARTICIPANT_FIELDS = ['expiry', 'sum1', 'answerA', 'answerB', 'sum2', 'sumE', 'answer1']
 SESSION_FIELDS = []
 
 # ISO-639 code

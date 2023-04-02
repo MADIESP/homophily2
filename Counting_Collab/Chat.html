@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+     Counting task - table {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+<p>
+You entered <b> {{participant.answerA}} </b> in <b> part A </b>   and <b> {{participant.answerB}}</b>  in <b> Part B.</b>
+</p>
+<p>
+    The <b> sum</b>  that you submitted is <b> {{participant.sum1}}.</b>
+</p>
+Please coordinate with your partner using the chat to both enter the same sum:
+<br>
+<p>
+
+  {{ formfields }}
+  {{ chat }}
+</p>
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+
+
+{% endblock %}
+
+
+
+
+

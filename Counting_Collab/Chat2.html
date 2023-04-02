@@ -7,60 +7,70 @@
 
 {% block content %}
 
+<p>
+    The <b> sum</b>  that your team submitted is <b> {{participant.sum2}}.</b> This sum is wrong.
+</p>
+Please coordinate again with your partner using the chat to both enter the same sum:
+<br>
+
+
 
                 {% if player.round_number == 1 %}
 
-<img src="https://imgur.com/YdJE0Qh.png" width="300px" />
+<img src="https://i.imgur.com/YC0YXSA.png" width="300px" />
 
 <br>
 <p>
+  {{ formfields }}
+    {{ chat }}
 
-        {{ formfields }}
 </p>
+
+
 
 {% elif player.round_number == 2 %}
 
-<img src="https://imgur.com/cizKPKB.png" width="300px" />
+<img src="https://i.imgur.com/pE1P1vP.png" width="300px" />
 <br>
  <p>
         {{ formfields }}
+   {{ chat }}
  </p>
 
 {% elif player.round_number == 3 %}
+<img src="https://i.imgur.com/CoDmXFt.png" width="300px" />
 
-<img src="https://imgur.com/LtvO89s.png" width="300px" />
 <br>
  <p>
         {{ formfields }}
-        {{ chat }}
+   {{ chat }}
  </p>
 
 {% elif player.round_number == 4 %}
-<img src="https://imgur.com/9LiTz9N.png" width="300px" />
 
-
+<img src="https://i.imgur.com/rAc2k3s.png" width="300px" />
 <br>
  <p>
         {{ formfields }}
-     {{ chat }}
+   {{ chat }}
  </p>
 
 {% elif player.round_number == 5 %}
 
-<img src="https://imgur.com/PsKIaAG.png" width="300px" />
+<img src="https://i.imgur.com/0aG7g1s.png" width="300px" />
 <br>
  <p>
         {{ formfields }}
-     {{ chat }}
+   {{ chat }}
  </p>
 
 {% elif player.round_number == 6 %}
 
-<img src="https://imgur.com/orBDWBn.png" width="300px" />
+<img src="https://i.imgur.com/7Uq6HaV.png" width="300px" />
 <br>
  <p>
         {{ formfields }}
-
+   {{ chat }}
  </p>
 
 
@@ -70,8 +80,6 @@
 
 
 {% endblock %}
-
-
 
 
 

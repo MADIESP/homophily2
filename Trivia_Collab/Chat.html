@@ -2,19 +2,11 @@
 {% load otree static %}
 
 {% block title %}
-     Counting task - table {{ view.round_number }}
+     Trivia Game - Question {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
 
-</p>
-Please coordinate with your partner using the chat to both enter the same answer:
-<br>
-<p>
-
-  {{ formfields }}
-  {{ chat }}
-</p>
 
  {% if player.round_number == 1 %}
 <p>

@@ -7,7 +7,6 @@ doc = """
 Trivia Task: Communication and feedback. But can't submit a new answer. 
 """
 
-
 class C(BaseConstants):
     NAME_IN_URL = 'Trivia_Collab_feedback'
     PLAYERS_PER_GROUP = 2
@@ -31,10 +30,10 @@ class Player(BasePlayer):
     answerD = models.IntegerField(label="What is the likelihood (in %) that Option 4 is correct?")
     answer1 = models.IntegerField(widget=widgets.RadioSelectHorizontal,
                                   choices=[1, 2, 3, 4],
-                                  label="Coordinate with your partner using the chat to select the correct answer.")
+                                  label="Coordinate with your partner using the chat to select the correct answer:")
     answer2 = models.IntegerField(widget=widgets.RadioSelectHorizontal,
                                   choices=[1, 2, 3, 4],
-                                  label="Coordinate with your partner using the chat to select the correct answer.")
+                                  label="Coordinate with your partner using the chat to select the correct answer:")
     correctG1 = models.BooleanField(doc="Whether the first sum provided in group is correct.", default=False)
     timed_out = models.BooleanField(doc="Whether the participant submitted an answer within the allotted time.")
     correctE = models.BooleanField(default=True)
@@ -85,7 +84,6 @@ class Solo(Page):
     def is_displayed(player):
         return get_timeout_seconds(player) > 3
 
-    def before_next_page(player, timeout_happened):
 
 
 # player.timed_out = True if player.timed_out else False

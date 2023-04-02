@@ -11,6 +11,16 @@ dict(
         app_sequence=['Counting_Collab_feedback'],
         num_demo_participants=2,
     ),
+dict(
+        name='Trivia_Collab',
+        app_sequence=['Trivia_Collab'],
+        num_demo_participants=2,
+    ),
+dict(
+        name='Trivia_Collab_feedback',
+        app_sequence=['Trivia_Collab_feedback'],
+        num_demo_participants=2,
+    ),
 ]
 
 ROOMS = [

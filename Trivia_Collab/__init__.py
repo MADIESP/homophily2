@@ -29,13 +29,13 @@ class Player(BasePlayer):
      answerC = models.IntegerField(label="What is the likelihood (in %) that Option 3 is correct?")
      answerD= models.IntegerField(label="What is the likelihood (in %) that Option 4 is correct?")
      answer1=models.IntegerField(widget=widgets.RadioSelectHorizontal,
-                       choices=[1,2,3,4], label= "Coordinate with your partner using the chat to select the correct answer.")
+                       choices=[1,2,3,4], label= "Coordinate with your partner using the chat to select the correct answer:")
      answer2 = models.IntegerField(widget=widgets.RadioSelectHorizontal,
                                    choices=[1, 2, 3, 4],
-                                   label="Coordinate with your partner using the chat to select the correct answer.")
-     correctG1=models.BooleanField( doc="Whether the first sum provided in group is correct.", default=False)
+                                   label="Coordinate with your partner using the chat to select the correct answer:")
+     correctG1=models.BooleanField( doc="Whether the first answer provided in group is correct.", default=False)
      timed_out = models.BooleanField(doc="Whether the participant submitted an answer within the allotted time.")
-     correctE=models.BooleanField(default=True)
+
 
 
 
@@ -85,9 +85,6 @@ class Solo(Page):
 
     def is_displayed(player):
         return get_timeout_seconds(player) > 3
-    def before_next_page(player, timeout_happened):
-        # player.timed_out = True if player.timed_out else False
-        # if player.round_number == C.NUM_ROUNDS:
 
 class WaitForChat(WaitPage):
     @staticmethod
@@ -150,4 +147,4 @@ class WaitforNext2(WaitPage):
         return player.correctG1 == False and get_timeout_seconds(player) > 3
 
 
-page_sequence = [Start,Solo, Chat, WaitforNext,  Chat2, WaitforNext2]
+page_sequence = [Start,Solo,WaitForChat, Chat, WaitforNext,  Chat2, WaitforNext2]

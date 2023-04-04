@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-     Counting task - table {{ view.round_number }}
+    Collaborative Counting Task - table {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
@@ -63,6 +63,26 @@
         {{ formfields }}
 
  </p>
+
+{% elif player.round_number == 7 %}
+
+<img src="https://i.imgur.com/XQrRZE2.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+
+{% elif player.round_number == 8 %}
+
+<img src="https://i.imgur.com/m5hrgWb.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
 
 
 {% endif %}

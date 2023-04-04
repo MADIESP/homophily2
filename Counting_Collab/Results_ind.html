@@ -1,0 +1,25 @@
+{% block content %}
+    <style>
+    h1 {text-align: center;}
+    p {text-align: center;}
+
+    </style>
+
+    <h1>
+        Results
+    </h1>
+<br>
+
+<p>
+
+<p>
+   Remember that each correct table  earns you  1 point.
+</p>
+
+<p>
+    Your payoff for this part of the experiment is <b>{{participant.ind_payoff}}. </b>
+</p>
+
+{% next_button %}
+
+{% endblock %}

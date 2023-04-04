@@ -2,37 +2,18 @@ from os import environ
 
 SESSION_CONFIGS = [
 dict(
-        name='Counting_Collab',
-        app_sequence=['Counting_Collab'],
+        name='Counting',
+        app_sequence=['Counting_part1','Counting_Collab'],
         num_demo_participants=2,
     ),
-dict(
-        name='Counting_Collab_feedback',
-        app_sequence=['Counting_Collab_feedback'],
-        num_demo_participants=2,
-    ),
-dict(
-        name='Trivia_Collab',
-        app_sequence=['Trivia_Collab'],
-        num_demo_participants=2,
-    ),
-dict(
-        name='Trivia_Collab_feedback',
-        app_sequence=['Trivia_Collab_feedback'],
-        num_demo_participants=2,
-    ),
+
 ]
 
 ROOMS = [
+
     dict(
-        name='econ101',
-        display_name='Econ 101 class',
-        participant_label_file='_rooms/econ101.txt',
-        use_secure_urls=True
-    ),
-    dict(
-        name='econ_lab',
-        display_name='Experimental Economics Lab'
+        name='Class',
+        display_name='Class'
     ),
 
 ]
@@ -46,7 +27,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['expiry', 'sum1', 'answerA', 'answerB', 'sum2', 'sumE', 'answer1']
+PARTICIPANT_FIELDS = ['expiry', 'sum1', 'answerA', 'answerB', 'sum2', 'sumE', 'answer1','sum', 'answerA_ind', 'answerB_ind', 'ind_payoff']
 SESSION_FIELDS = []
 
 # ISO-639 code

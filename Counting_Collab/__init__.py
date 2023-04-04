@@ -10,15 +10,14 @@ Counting Task: Communication
 class C(BaseConstants):
     NAME_IN_URL = 'Counting_Collab'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 6
+    NUM_ROUNDS = 8
     TIME_PER_PROBLEM = 45
     #PAYMENT_CURRENT_PER_ITEM = cu(1)
 
 
 
 class Subsession(BaseSubsession):
-   pass
-
+    pass
 class Group(BaseGroup):
     same1 = models.BooleanField(doc="Whether players submit the same first sum as a group")
     same2 = models.BooleanField(doc="Whether players submit the same second sum as a group")
@@ -36,9 +35,9 @@ class Player(BasePlayer):
      correct = models.BooleanField( doc="Whether the first sum provided is correct.")
      correctG1=models.BooleanField( doc="Whether the first sum provided in group is correct.", default=False)
      timed_out = models.BooleanField(doc="Whether the participant submitted an answer within the allotted time.")
-     correctE=models.BooleanField(default=True)
+     correctG2=models.BooleanField(default=False)
      confidence=models.IntegerField(widget=widgets.RadioSelectHorizontal,
-                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that the number of 0s you just counted in the table is correct?")
+                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that this sum is correct?")
 
 def set_sum1(player):
         sum1= player.answerA + player.answerB
@@ -50,7 +49,7 @@ def set_sum1(player):
 
 def set_correctG1(player):
     player.participant.sum2 = player.sum2
-    correct_answers = [75, 77, 71, 74, 80, 74]
+    correct_answers = [75, 77, 71, 74, 80, 74, 71,69]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.sum2 == correct:
             correctG1 = True
@@ -58,6 +57,7 @@ def set_correctG1(player):
             correctG1 = False
 
     player.correctG1 = correctG1
+
 
 
 def set_same1(group):
@@ -90,7 +90,7 @@ def set_same2(group):
 
 
 def set_correct(player):
-    correct_answers = [75, 77, 71, 74, 80, 74]
+    correct_answers = [75, 77, 71, 74, 80, 74,71,69]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.sum1 == correct:
             correct = True
@@ -100,9 +100,22 @@ def set_correct(player):
     player.correct = correct
 
 def get_timeout_seconds(player):
-        participant = player.participant
-        import time
-        return participant.expiry - time.time()
+    participant=player.participant
+    import time
+    return participant.expiry - time.time()
+
+class Results_ind(Page):
+    @staticmethod
+    def is_displayed(player: BasePlayer):
+        return player.round_number == 1
+class waitforend(WaitPage):
+    wait_for_all_groups = True
+    @staticmethod
+    def is_displayed(player: BasePlayer):
+        return player.round_number == 1
+
+    body_text = "Please wait for all participants to finish."
+
 
 class Start(Page):
 
@@ -112,30 +125,38 @@ class Start(Page):
         import time
 
         # remember to add 'expiry' to PARTICIPANT_FIELDS. 3 minutes to count as many correct tables.
-        participant.expiry = time.time() + 6*60
+        participant.expiry = time.time() + 12 * 60
 
     def is_displayed(player):
         return player.round_number == 1
 
 
 
+
 class Count(Page):
     form_model = 'player'
     form_fields = ['answerA', 'answerB']
+    timer_text = 'Time left to count this table:'
 
     @staticmethod
     def get_timeout_seconds(player):
         participant = player.participant
         import time
-        return min(C.TIME_PER_PROBLEM,participant.expiry - time.time())
+        return min(C.TIME_PER_PROBLEM, participant.expiry - time.time())
 
-    def is_displayed(player):
-        return get_timeout_seconds(player) > 3
+    #def is_displayed(player):
+        #return get_timeout_seconds(player) > 3
+
     def before_next_page(player, timeout_happened):
         # player.timed_out = True if player.timed_out else False
         # if player.round_number == C.NUM_ROUNDS:
         set_sum1(player)
         set_correct(player)
+
+
+    def is_displayed(player):
+       return get_timeout_seconds(player) > 3
+
 
 
 
@@ -148,6 +169,7 @@ class Confidence(Page):
 
 
 class WaitforChat(WaitPage):
+    body_text = "Please wait for your partner to finish."
     @staticmethod
     def get_timeout_seconds(player):
         participant = player.participant
@@ -167,6 +189,7 @@ class Chat(Page):
 
     form_model = 'player'
     form_fields = ['sum2']
+    timer_text = 'Time left to finish the game:'
 
     def is_displayed(player):
         return get_timeout_seconds(player) > 3
@@ -174,6 +197,7 @@ class Chat(Page):
         set_correctG1(player)
 
 class WaitforNext(WaitPage):
+    body_text = "Please wait for your partner to finish."
     @staticmethod
     def get_timeout_seconds(player):
         participant = player.participant
@@ -192,6 +216,8 @@ class Chat2(Page):
 
     form_model = 'player'
     form_fields = ['sum3']
+    timer_text = 'Time left to finish the game:'
+
 
     def is_displayed(player):
         return player.correctG1 == False and get_timeout_seconds(player) > 3
@@ -199,6 +225,7 @@ class Chat2(Page):
 
 
 class WaitforNext2(WaitPage):
+    body_text = "Please wait for your partner to finish."
     @staticmethod
     def get_timeout_seconds(player):
         participant = player.participant
@@ -211,4 +238,4 @@ class WaitforNext2(WaitPage):
 
 
 
-page_sequence = [Start,Count, Confidence, WaitforChat, Chat, WaitforNext,  Chat2, WaitforNext2]
+page_sequence = [Results_ind, waitforend, Start, Count, Confidence, WaitforChat, Chat, WaitforNext,  Chat2, WaitforNext2]

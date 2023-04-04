@@ -2,11 +2,25 @@
 {% load otree static %}
 
 {% block title %}
-     Counting task - table {{ view.round_number }}
+     Collaborative Counting Task - table {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
+<style>
+    .otree-timer {
+        display: none;
+    }
+</style>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds <= 120) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
 <p>
     The <b> sum</b>  that your team submitted is <b> {{participant.sum2}}.</b> This sum is <b>wrong.</b>
 </p>
@@ -74,10 +88,29 @@ Please coordinate again with your partner using the chat to both enter the same 
  </p>
 
 
+{% elif player.round_number == 7 %}
+
+<img src="https://i.imgur.com/XQrRZE2.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+
+{% elif player.round_number == 8 %}
+
+<img src="https://i.imgur.com/m5hrgWb.png" width="300px" />
+<br>
+ <p>
+        {{ formfields }}
+   {{ chat }}
+ </p>
+
+
 {% endif %}
 
 <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
-
 
 {% endblock %}
 

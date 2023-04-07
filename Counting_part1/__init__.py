@@ -29,7 +29,9 @@ class Player(BasePlayer):
      correct_ind = models.BooleanField( doc="Whether the sum is correct.")
      timed_out = models.BooleanField(doc="Whether the participant submitted an answer within the allotted time.")
      points = models.IntegerField(doc="Number of correct answers {0,...5}.")
-
+     answerA_trial = models.IntegerField(label="How many 0s are in Sub-Table A?")
+     answerB_trial = models.IntegerField(label="How many 0s are in Sub-Table B?")
+     sum_trial = models.IntegerField(doc="Sum submitted ")
 def set_sum(player):
         sum= player.answerA_ind + player.answerB_ind
         player.sum=sum
@@ -83,6 +85,19 @@ class Start(Page):
     def is_displayed(player):
         return player.round_number == 1
 
+class CountTrial(Page):
+    timeout_seconds = C.TIME_PER_PROBLEM
+    form_model = 'player'
+    form_fields = ['answerA_trial', 'answerB_trial']
+
+    timer_text = 'Time left to count this table:'
+
+    def is_displayed(player):
+        return player.round_number == 1
+
+class Start2(Page):
+    def is_displayed(player):
+        return player.round_number == 1
 
 
 
@@ -122,4 +137,4 @@ class Count(Page):
 
 
 
-page_sequence = [Start, Count]
+page_sequence = [Start, CountTrial, Start2, Count]

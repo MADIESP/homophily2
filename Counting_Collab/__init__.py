@@ -109,12 +109,12 @@ class Results_ind(Page):
     def is_displayed(player: BasePlayer):
         return player.round_number == 1
 class waitforend(WaitPage):
-    wait_for_all_groups = True
+   # wait_for_all_groups = True
     @staticmethod
     def is_displayed(player: BasePlayer):
         return player.round_number == 1
 
-    body_text = "Please wait for all participants to finish."
+    body_text = "Please wait for your partner to finish."
 
 
 class Start(Page):
@@ -125,7 +125,7 @@ class Start(Page):
         import time
 
         # remember to add 'expiry' to PARTICIPANT_FIELDS. 3 minutes to count as many correct tables.
-        participant.expiry = time.time() + 12 * 60
+        participant.expiry = time.time() + 2 * 60
 
     def is_displayed(player):
         return player.round_number == 1

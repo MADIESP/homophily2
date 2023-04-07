@@ -3,7 +3,7 @@ from otree.api import *
 
 class Constants(BaseConstants):
     name_in_url = 'Survey'
-    players_per_group = None
+    players_per_group = 2
     num_rounds = 1
 
 
@@ -23,8 +23,8 @@ class Player(BasePlayer):
                                  choices=[[0, "Female"], [1, "Male"], [2, "Other"]])
 
 class WaitCounting(WaitPage):
-    wait_for_all_groups = True
-    body_text = "Please wait for all participants to finish."
+   # wait_for_all_groups = True
+    body_text = "Please wait for your partner to finish."
 
 class Survey(Page):
     form_model = 'player'

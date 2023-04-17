@@ -125,7 +125,7 @@ class Start(Page):
         import time
 
         # remember to add 'expiry' to PARTICIPANT_FIELDS. 3 minutes to count as many correct tables.
-        participant.expiry = time.time() + 12 * 60
+        participant.expiry = time.time() + 30 * 60
 
     def is_displayed(player):
         return player.round_number == 1

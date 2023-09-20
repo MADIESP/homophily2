@@ -2,11 +2,37 @@ from os import environ
 
 SESSION_CONFIGS = [
 dict(
-        name='Counting',
-        app_sequence=['Counting_part1','Counting_Collab', 'Survey'],
+        name='Test',
+        app_sequence=['TestGame'],
         num_demo_participants=2,
     ),
 
+
+dict(
+        name='CVPlay',
+        app_sequence=['CV','IndPlay','CollectivePlay'],
+        num_demo_participants=8,
+    ),
+dict(
+        name='TestNames',
+        app_sequence=['TestNames'],
+        num_demo_participants=2,
+    ),
+dict(
+        name='CV',
+        app_sequence=['CV'],
+        num_demo_participants=8,
+    ),
+dict(
+        name='CVIndPlay',
+        app_sequence=['CV', 'IndPlay'],
+        num_demo_participants=8,
+    ),
+dict(
+        name='TestChoice',
+        app_sequence=['TestChoice'],
+        num_demo_participants=1,
+    ),
 ]
 
 ROOMS = [
@@ -27,16 +53,24 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['expiry', 'sum1', 'answerA', 'answerB', 'sum2', 'sumE', 'answer1','sum', 'answerA_ind', 'answerB_ind', 'ind_payoff']
-SESSION_FIELDS = []
-
+PARTICIPANT_FIELDS = ['expiry', 'sum1', 'InGroupA', 'InGroupB', 'InGroupC', 'InGroupD', 'ind_payoff', 'vec_couple', 'vec_cv', 'vec_matching', 'name_partner', 'name', 'gender', 'name', 'FemaleNames', 'MaleNames', 'Message', 'partner_name', 'partner_gender']
+SESSION_FIELDS = ['Group_A', 'Group_B', 'Group_C', 'Group_D', 'cv_A_1', 'cv_A_2', 'cv_A_3', 'cv_A_4', 'cv_B_1', 'cv_B_2', 'cv_B_3', 'cv_B_4', 'cvA','cvB', 'groupA_ch', 'groupB_ch', 'team_1_2_3_4','zeros_counts', 'zeros_counts2', 'all_names','all_gender','name_selected', 'name_NOTselected', 'Message_selected' ]
+STATIC_ROOT = '_static/global'
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
+STATIC_URL = '/static/'
+
 LANGUAGE_CODE = 'en'
+INSTALLED_APPS = [
+    'CV',
+    'CollectivePlay',
+    ...
+]
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
+use_browser_bots=True
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

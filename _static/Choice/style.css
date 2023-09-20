@@ -1,0 +1,4 @@
+/* style.css */
+.hidden-label label {
+    display: none;
+}

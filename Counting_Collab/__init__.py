@@ -36,8 +36,14 @@ class Player(BasePlayer):
      correctG1=models.BooleanField( doc="Whether the first sum provided in group is correct.", default=False)
      timed_out = models.BooleanField(doc="Whether the participant submitted an answer within the allotted time.")
      correctG2=models.BooleanField(default=False)
-     confidence=models.IntegerField(widget=widgets.RadioSelectHorizontal,
-                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that this sum is correct?")
+     confidenceA=models.IntegerField(widget=widgets.RadioSelectHorizontal,
+                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that the answer <b> you </b> submitted in <b> Part A </b> is correct?")
+     confidenceA_partner=models.IntegerField(widget=widgets.RadioSelectHorizontal,
+                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that the answer <b> your partner </b> submitted in <b> Part A </b> is correct?")
+     confidenceB=models.IntegerField(widget=widgets.RadioSelectHorizontal,
+                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that the answer  <b>you </b> submitted in <b> Part B </b> is correct?")
+     confidenceB_partner=models.IntegerField(widget=widgets.RadioSelectHorizontal,
+                       choices=[1,2,3,4,5,6,7,8,9,10], label= "How confident are you that the answer <b> your partner </b> submitted in <b> Part B </b> is correct?")
 
 def set_sum1(player):
         sum1= player.answerA + player.answerB
@@ -162,7 +168,7 @@ class Count(Page):
 
 class Confidence(Page):
     form_model = 'player'
-    form_fields = ['confidence']
+    form_fields = ['confidenceA', 'confidenceA_partner', 'confidenceB', 'confidenceB_partner']
 
     def is_displayed(player):
         return get_timeout_seconds(player) > 3

@@ -3,3 +3,28 @@
 # otherwise, oTree will automatically overwrite it.
 otree>=5.0.0a21
 psycopg2>=2.8.4
+
+
+Save the requirements.txt file.
+
+Install the Requirements:
+
+Open a terminal or command prompt.
+Navigate to the root directory of your oTree app.
+Run the following command to install the specified requirements:
+bash
+Copy code
+pip install -r requirements.txt
+This command will install matplotlib and any other packages listed in the requirements.txt file.
+
+
+Run Your oTree App:
+
+After installing the requirements, you can start or run your oTree app as you normally would.
+By adding matplotlib to the requirements.txt file and installing it as described above, you can use matplotlib.pyplot within your oTree app for generating plots and images.
+
+
+
+
+
+

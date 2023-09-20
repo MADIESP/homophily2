@@ -1,0 +1,11 @@
+{% block content %}
+    <form method="post">
+        {% for name in available_names  %}
+            <label>
+                {{ formfield player.chosen_name }}
+            </label>
+            <br>
+        {% endfor %}
+        <input type="submit" value="Continue">
+    </form>
+{% endblock %}

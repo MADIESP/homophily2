@@ -237,7 +237,8 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
     ]
 
         # Chargement de la police
-    font = ImageFont.truetype("arial.ttf", 18)  # Remplacez "arial.ttf" par le chemin vers votre police
+    font = ImageFont.truetype("arial", 18)
+    #font = ImageFont.truetype("arial.ttf", 18)  # Remplacez "arial.ttf" par le chemin vers votre police
     font_gras = ImageFont.truetype("arialbd.ttf", 18)
 
         # Dessin des cadres autour de chaque CV

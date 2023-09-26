@@ -259,10 +259,11 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
     ]
     import otree.settings
     static_path = otree.settings.STATIC_ROOT
+    font_path = os.path.join(static_path, 'arial.ttf')
         # Chargement de la police
-    font = ImageFont.truetype("static_path/arial.ttf", 18)
+    font = ImageFont.truetype(font_path, 18)
     #font = ImageFont.truetype("arial.ttf", 18)  # Remplacez "arial.ttf" par le chemin vers votre police
-    font_gras = ImageFont.truetype("static_path/arial.ttf", 18)
+    font_gras = ImageFont.truetype(font_path, 18)
 
         # Dessin des cadres autour de chaque CV
     draw.rectangle([top_left_frame, (top_left_frame[0] + frame_width, top_left_frame[1] + frame_height)],

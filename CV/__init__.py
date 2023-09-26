@@ -17,7 +17,7 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    Treatment = models.IntegerField()
 
 
 class Group(BaseGroup):
@@ -92,6 +92,11 @@ class Player(BasePlayer):
     InGroupB=models.BooleanField(default=False,)
     vec_couple = models.LongStringField()
     vec_cv = models.LongStringField()
+    name = models.IntegerField()
+    partner_name = models.IntegerField()
+    partner_gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
+                                     choices=[[0, "Female"], [1, "Male"]])
+
 
 
 
@@ -99,11 +104,28 @@ class Player(BasePlayer):
 
  #FUNCTIONS
 
+def creating_session(subsession: Subsession):
+    subsession.Treatment = subsession.session.config['Treatment']
+
 def creating_couple_id_gender(player):
     vec_couple = []
     vec_couple.extend((player.id_in_group, player.gender))
     player.vec_couple = str(vec_couple)
     player.participant.vec_couple = player.vec_couple
+
+
+def gender(player):
+    player.participant.gender=player.gender
+
+def Femalename(player):
+    player.participant.FemaleNames=player.FemaleNames
+    player.participant.name=player.participant.FemaleNames
+
+def Malename(player):
+    player.participant.MaleNames=player.MaleNames
+    player.participant.name=player.participant.MaleNames
+
+
 
 def creating_CV_ind(player):
     vec_cv = []
@@ -235,11 +257,12 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
             ["No", "Yes"]
 
     ]
-
+    import otree.settings
+    static_path = otree.settings.STATIC_ROOT
         # Chargement de la police
-    font = ImageFont.truetype("arial", 18)
+    font = ImageFont.truetype("static_path/arial.ttf", 18)
     #font = ImageFont.truetype("arial.ttf", 18)  # Remplacez "arial.ttf" par le chemin vers votre police
-    font_gras = ImageFont.truetype("arialbd.ttf", 18)
+    font_gras = ImageFont.truetype("static_path/arial.ttf", 18)
 
         # Dessin des cadres autour de chaque CV
     draw.rectangle([top_left_frame, (top_left_frame[0] + frame_width, top_left_frame[1] + frame_height)],
@@ -334,11 +357,11 @@ class Survey(Page):
     form_model = 'player'
     form_fields = ['gender', 'BornPA', 'Job', 'College']
 
+    def before_next_page(player, timeout_happened):
+        gender(player)
 
-        #creating_4_group(group)
 
-    #def before_next_page(group, timeout_happened):
-        #creatingGroups(group)
+
 class WaitForNames(WaitPage):
     pass
 
@@ -354,6 +377,7 @@ class FemaleNames(Page):
     def before_next_page(player, timeout_happened):
         creating_couple_id_gender(player)
         creating_CV_ind(player)
+        Femalename(player)
 
 class MaleNames(Page):
 
@@ -367,6 +391,7 @@ class MaleNames(Page):
     def before_next_page(player, timeout_happened):
         creating_couple_id_gender(player)
         creating_CV_ind(player)
+        Malename(player)
 
 class MyWaitPage(WaitPage):
     # ...

@@ -1,0 +1,23 @@
+{% block title %}
+Table {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<p>
+  {{ session.name_NOTselected }} just sent you a message:
+
+
+<br>
+  <p>
+        {{ session.Message_selected }}
+    </p>
+
+{{ next_button }}
+{% endblock %}
+
+
+
+

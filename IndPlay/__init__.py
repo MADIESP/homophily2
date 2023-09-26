@@ -21,7 +21,8 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    Treatment = models.IntegerField()
+
 
 
 class Group(BaseGroup):
@@ -107,6 +108,10 @@ class Player(BasePlayer):
 
 
  #FUNCTIONS
+
+def creating_session(subsession: Subsession):
+    subsession.Treatment = subsession.session.config['Treatment']
+
 
 def creating_couple_id_gender(player):
     vec_couple = []

@@ -9,7 +9,9 @@ Table {{ view.round_number }}
 
 {% block content %}
 
-
+<p>
+  You are paired with  {{ participant.name_partner }}.
+</p>
 
 <p>
    {{ session.name_selected }}'s answer was randomly  selected as the team answer.
@@ -17,22 +19,12 @@ Table {{ view.round_number }}
 <br>
 <p>
      Unfortunately, {{ session.name_selected }} provided
-a wrong answer and your  team got 0 points...
+a wrong answer and your  team got 0 points &#128542;
 </p>
 
-<p>
-    Please select and send a message to {{ participant.name_partner }}:
-</p>
-
-<p>
-
-        {{ formfields }}
-
-    </p>
 
 
- <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Send </button>
-
+ {{ next_button }}
 
 {% endblock %}
 

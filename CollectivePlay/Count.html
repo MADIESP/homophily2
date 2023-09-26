@@ -6,11 +6,14 @@
 {% endblock %}
 
 {% block content %}
+<p>
+You are paired with {{ participant.name_partner }}.
+    </p>
 
 
                 {% if player.round_number == 1 %}
 
-<img src="{{ static 'global/table_1.png'}}" width="300px"/>
+<img src="{{ static 'global/table_1.png'}}" width="380px"/>
 
 <br>
 <p>
@@ -20,7 +23,7 @@
 
 {% elif player.round_number == 2 %}
 
-<img src="{{ static 'global/table_2.png'}}" width="300px"/>
+<img src="{{ static 'global/table_2.png'}}" width="380px"/>
 <br>
  <p>
         {{ formfields }}
@@ -29,7 +32,7 @@
 
 {% elif player.round_number == 3 %}
 
-<img src="{{ static 'global/table_3.png'}}" width="300px"/>
+<img src="{{ static 'global/table_3.png'}}" width="380px"/>
 <br>
  <p>
         {{ formfields }}
@@ -37,7 +40,7 @@
  </p>
 
 {% elif player.round_number == 4 %}
-<img src="{{ static 'global/table_4.png'}}" width="300px"/>
+<img src="{{ static 'global/table_4.png'}}" width="380px"/>
 
 
 <br>
@@ -47,7 +50,7 @@
  </p>
 
 {% elif player.round_number == 5 %}
-<img src="{{ static 'global/table_5.png'}}" width="300px"/>
+<img src="{{ static 'global/table_5.png'}}" width="380px"/>
 
 
 <br>
@@ -57,7 +60,7 @@
  </p>
 
 {% elif player.round_number == 6 %}
-<img src="{{ static 'global/table_6.png'}}" width="300px"/>
+<img src="{{ static 'global/table_6.png'}}" width="380px"/>
 
 
 <br>

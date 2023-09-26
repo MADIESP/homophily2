@@ -11,12 +11,12 @@ class C(BaseConstants):
     NAME_IN_URL = 'TestGame'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 30
+    TIME_PER_PROBLEM = 5
 
 
 
 class Subsession(BaseSubsession):
-    pass
+    Treatment = models.IntegerField()
 
 
 
@@ -26,6 +26,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    Treatment = models.IntegerField()
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[0, "Female"], [1, "Male"]], default=1)
     FemaleNames = models.IntegerField(label="Please select one name.", widget=widgets.RadioSelect,
@@ -39,14 +40,15 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
-    Message = models.IntegerField(label="Please select one message:", widget=widgets.RadioSelect,
+    Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
                                     choices=[[1, "It’s okay, this matrix is tricky."], [2, "Mistakes happen; we’ll nail it in the next round."], [3, "You need to be more careful with these matrices."], [4, "It’s crucial to get the exact count; let’s focus more."]])
 
 
 
-# FUNCTIONS
+# FUNCTIONS verbose_name='',
 
-
+def creating_session(subsession: Subsession):
+    subsession.Treatment = subsession.session.config['Treatment']
 def set_correct(player):
     correct_answers = [50, 52, 47, 52,46,61]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
@@ -312,11 +314,22 @@ class FeedbackNegative(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected==True
+        return player.correct_Group == False and player.partner_selected==True  and player.subsession.Treatment != 1
 
     #@staticmethod
     #def is_displayed(player: Player):
         #return player.partner_selected == True
+
+class FeedbackNegControl(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == False  and player.subsession.Treatment == 1
+
+class FeedbackNeg2(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == False  and player.partner_selected!=True and player.subsession.Treatment == 2
+
 class Message(Page):
 
     form_model = 'player'
@@ -324,7 +337,7 @@ class Message(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected!=True
+        return player.correct_Group == False and player.partner_selected!=True and player.subsession.Treatment==3
 
     def before_next_page(player, timeout_happened):
         message(player)
@@ -333,7 +346,7 @@ class Message(Page):
 class WaitforCommunication(WaitPage):
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False
+        return player.correct_Group == False and player.subsession.Treatment==3
 
     after_all_players_arrive = send_message
     body_text = "Waiting for your partner."
@@ -341,12 +354,12 @@ class WaitforCommunication(WaitPage):
 class MessageSent(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected != True
+        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment==3
 
 class MessageReceived(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected == True
+        return player.correct_Group == False and player.partner_selected == True and player.subsession.Treatment==3
 
 
 class WaitforNextTable(WaitPage):
@@ -354,4 +367,4 @@ class WaitforNextTable(WaitPage):
 
 
 
-page_sequence = [Survey, FemaleNames,MaleNames,MyWaitPage,Count, WaitforFeedback, FeedbackPositive,  FeedbackNegative, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+page_sequence = [Survey, FemaleNames,MaleNames,MyWaitPage,Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]

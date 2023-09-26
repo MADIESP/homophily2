@@ -3,23 +3,18 @@ Table {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
-
 <p>
   You are paired with  {{ participant.name_partner }}.
 </p>
-
-
 <p>
-   Your answer was randomly  chosen as the team answer.
+One of your answers was randomly chosen as the
+team answer.
+<p>
+     Unfortunately, your team provided a wrong answer and got 0 points &#128542;
 
+     <p>
 <br>
-   <p>
-  Unfortunately, you provided
-a wrong answer and your  team got 0 points &#128542;
 
-</p>
-
-<br>
 {{ next_button }}
 {% endblock %}
 

@@ -11,7 +11,8 @@ class C(BaseConstants):
     NAME_IN_URL = 'CollectivePlay'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 5
+    TIME_PER_PROBLEM = 4
+    CHOICES = ["cvA", "cvB", "cvC", "cvD"]
 
 
 
@@ -20,6 +21,10 @@ class Subsession(BaseSubsession):
     groupB_ch = models.LongStringField()
     team_1_2_3_4= models.LongStringField()
     Treatment = models.IntegerField()
+    team1_1=models.LongStringField()
+    team1_2 = models.LongStringField()
+    team1_3 = models.LongStringField()
+    team1_4 = models.LongStringField()
     #variant = models.BooleanField()
 
 
@@ -32,47 +37,33 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    rank1st = models.IntegerField(
-        choices=[[1, ' A'],
-                 [2, 'B'],
-                 [3, '  C'],
-                 [4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 1st:</b>',
-        widget=widgets.RadioSelectHorizontal,
-        initial=1
-
+    rank1 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 1st: </b>"
     )
 
-    rank2nd = models.IntegerField(
-        choices=[[1, 'A'],
-                 [2, 'B'],
-                 [3, ' C'],
-                 [4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 2nd: </b>',
-        widget=widgets.RadioSelectHorizontal,
-        initial=2
-
+    rank2 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 2nd: </b>"
     )
 
-    rank3rd = models.IntegerField(
-        choices=[[1, ' A'],
-                 [2, 'B'],
-                 [3, ' C'],
-                 [4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 3rd: </b>',
-        widget=widgets.RadioSelectHorizontal,
-        initial=3
-
+    rank3 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 3rd: </b>"
     )
 
-    rank4th = models.IntegerField(choices=[[1, ' A'], [2, 'B'], [3, ' C'], [4, ' D'], ],
-                                  # widget=widgets.Select,
-                                  verbose_name='<b>Rank 4th: </b>',
-                                  widget=widgets.RadioSelectHorizontal,
-                                  initial=4)
+    rank4 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 4th: </b>"
+    )
+
+    rank1st = models.IntegerField()
+
+    rank2nd = models.IntegerField()
+
+    rank3rd = models.IntegerField()
+
+    rank4th = models.IntegerField()
     name = models.IntegerField()
     gender=models.IntegerField()
     name_partner=models.IntegerField()
@@ -84,9 +75,9 @@ class Player(BasePlayer):
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
                                   choices=[[1, "It’s okay, this matrix is tricky."],
-                                           [2, "Mistakes happen; we’ll nail it in the next round."],
+                                           [2, "Don't worry, mistakes happen."],
                                            [3, "You need to be more careful with these matrices."],
-                                           [4, "It’s crucial to get the exact count; let’s focus more."]])
+                                           [4, "It’s crucial to get the exact count; this was off."]])
 
 
 # FUNCTIONS
@@ -96,6 +87,48 @@ class Player(BasePlayer):
 
 def creating_session(subsession: Subsession):
     subsession.Treatment = subsession.session.config['Treatment']
+
+def cv(player):
+
+    if player.rank1=="cvA":
+        rank1st=1
+    elif player.rank1=="cvB":
+        rank1st=2
+    elif player.rank1=="cvC":
+        rank1st=3
+    elif player.rank1=="cvD":
+        rank1st=4
+    if player.rank2=="cvA":
+        rank2nd=1
+    elif player.rank2=="cvB":
+        rank2nd=2
+    elif player.rank2=="cvC":
+        rank2nd=3
+    elif player.rank2=="cvD":
+        rank2nd=4
+    if player.rank3=="cvA":
+        rank3rd=1
+    elif player.rank3=="cvB":
+        rank3rd=2
+    elif player.rank3=="cvC":
+        rank3rd=3
+    elif player.rank3=="cvD":
+        rank3rd=4
+    if player.rank4=="cvA":
+        rank4th=1
+    elif player.rank4=="cvB":
+        rank4th=2
+    elif player.rank4=="cvC":
+        rank4th=3
+    elif player.rank4=="cvD":
+        rank4th=4
+
+    player.rank1st=rank1st
+    player.rank2nd=rank2nd
+    player.rank3rd=rank3rd
+    player.rank4th=rank4th
+
+
 def creating_group_with_choices_round_1(subsession):
     Group_A_ch= []
     Group_B_ch = []
@@ -133,31 +166,42 @@ def making_team_round_1(subsession):
     player_B_chosen=[]
     player_A_chosen = []
 
+    if subsession.round_number == 1:
 
-    for i in range (4):
-        player_A = random.choice([p_a for p_a in Group_A_ch if p_a not in player_A_chosen ])
-        player_A_chosen.append(player_A)
-        player_A_id = player_A[0]
-        choices_B = player_A[1]  # Classement des choix du joueur A dans le groupe B
+        for i in range (4):
+            player_A = random.choice([p_a for p_a in Group_A_ch if p_a not in player_A_chosen ])
+            player_A_chosen.append(player_A)
+            player_A_id = player_A[0]
+            choices_B = player_A[1]  # Classement des choix du joueur A dans le groupe B
 
         # Recherche du choix préféré non encore pris
-        for player_B_id in choices_B:
-            if player_B_id not in (p_b_id for (p_a_id, p_b_id) in team_1_2_3_4):
-                team_1_2_3_4.append((player_A_id, player_B_id))
-                break
+            for player_B_id in choices_B:
+                if player_B_id not in (p_b_id for (p_a_id, p_b_id) in team_1_2_3_4):
+                    team_1_2_3_4.append((player_A_id, player_B_id))
+                    break
 
 
-    team1_1=team_1_2_3_4[0]
-    team1_2=team_1_2_3_4[1]
-    team1_3=team_1_2_3_4[2]
-    team1_4=team_1_2_3_4[3]
+        team1_1=team_1_2_3_4[0]
+        team1_2=team_1_2_3_4[1]
+        team1_3=team_1_2_3_4[2]
+        team1_4=team_1_2_3_4[3]
+        subsession.session.team1_1=str(team1_1)
+        subsession.session.team1_2 = str(team1_2)
+        subsession.session.team1_3 = str(team1_3)
+        subsession.session.team1_4 = str(team1_4)
 
 
 
-    new_matrix=[team1_1, team1_2, team1_3, team1_4]
-    subsession.set_group_matrix(new_matrix)
-    subsession.team_1_2_3_4 = str(team_1_2_3_4)
-    subsession.session.team_1_2_3_4 = str(subsession.team_1_2_3_4)
+        new_matrix=[team1_1, team1_2, team1_3, team1_4]
+        subsession.set_group_matrix(new_matrix)
+        subsession.team_1_2_3_4 = str(team_1_2_3_4)
+        subsession.session.team_1_2_3_4 = str(subsession.team_1_2_3_4)
+
+    else:
+        subsession.group_like_round(1)
+
+
+
 
 import numpy as np
 from PIL import Image
@@ -272,20 +316,26 @@ def set_correct(player):
 
     player.correct = correct
 
-
 def select_group_answer(group):
     all_counts = [player.count for player in group.get_players()]
     selected_count = random.choice(all_counts)
-    group.selected_count= selected_count
-    selected_player = random.choice(group.get_players())
+
+    # Assign selected_count to the group before using it for player comparisons
+    group.selected_count = selected_count
+
+    # Choose a player based on selected_count
+    selected_player = random.choice([p for p in group.get_players() if p.count == selected_count])
     selected_player_id = selected_player.id_in_group
-    group.selected_player= selected_player_id
+    group.selected_player = selected_player_id
 
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
         else:
             player.partner_selected = False
+import random
+
+
 
 import random
 def select_group_answer(group):
@@ -345,11 +395,11 @@ def send_message(group):
             if player.participant.Message == 1:
                 player.session.Message_selected = '"It’s okay, this matrix is tricky."'
             elif player.participant.Message == 2:
-                player.session.Message_selected = '"Mistakes happen; we’ll nail it in the next round."'
+                player.session.Message_selected = '"Don’t worry; mistakes happen."'
             elif player.participant.Message == 3:
                 player.session.Message_selected = '"You need to be more careful with these matrices."'
             elif player.participant.Message == 4:
-                player.session.Message_selected = '"It’s crucial to get the exact count; let’s focus more."'
+                player.session.Message_selected = '"It’s crucial to get the exact count; this was off."'
 
 
 
@@ -383,9 +433,10 @@ class ChoiceCV_groupA(Page):
         return participant.InGroupA== True and player.round_number == 1
 
     form_model = 'player'
-    form_fields = ['rank1st', 'rank2nd', 'rank3rd', 'rank4th']
+    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
 
-    #def before_next_page(player, timeout_happened):
+    def before_next_page(player, timeout_happened):
+        cv(player)
         #creating_m(player)
 
 
@@ -400,7 +451,10 @@ class ChoiceCV_groupB(Page):
         return participant.InGroupA == False and player.round_number == 1
 
     form_model = 'player'
-    form_fields = ['rank1st', 'rank2nd', 'rank3rd', 'rank4th']
+    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
+
+    def before_next_page(player, timeout_happened):
+        cv(player)
 
 
 
@@ -419,8 +473,8 @@ class WaitForMatching(WaitPage):
 
     after_all_players_arrive = call_both_functions
 
-    def is_displayed(player):
-        return player.round_number == 1
+    #def is_displayed(player):
+        #return player.round_number == 1
 
     #after_all_players_arrive= creating_group_with_choices_round_1
 
@@ -461,7 +515,7 @@ class FeedbackNegative(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected==True  and player.subsession.Treatment != 1
+        return player.correct_Group == False and player.partner_selected==True and player.subsession.Treatment != 1
 
     #@staticmethod
     #def is_displayed(player: Player):
@@ -511,6 +565,8 @@ class MessageReceived(Page):
 
 class WaitforNextTable(WaitPage):
     body_text = "Waiting for your partner."
+
+
 
 
 

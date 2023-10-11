@@ -2,18 +2,18 @@
 {% load otree static %}
 
 {% block title %}
-     Counting Task - table {{ view.round_number }}
+     Table {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
 <p>
-     You are paired with {{ participant.name_partner }}.
+
     </p>
 
 
                 {% if player.round_number == 1 %}
 
-<img src="{{ static 'global/table_1.png'}}" width="380px"/>
+<img src="{{ static 'global/table_1.png'}}" width="300px"/>
 
 <br>
 <p>

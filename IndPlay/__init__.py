@@ -15,13 +15,14 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
     TIME_PER_PROBLEM = 5
+    CHOICES = ["cvA", "cvB", "cvC", "cvD"]
    # MEN_NAMES = [(1, 'James'), (2, 'David'), (3, 'John'), (4, 'Robert')]
     #WOMEN_NAMES =[(1, 'Mary'), (2, 'Emma'), (3, 'Patricia'), (4, 'Elizabeth')]
 
 
 
 class Subsession(BaseSubsession):
-    Treatment = models.IntegerField()
+    pass
 
 
 
@@ -57,43 +58,33 @@ class Player(BasePlayer):
     MaleNames = models.IntegerField(label="Please select one name.", widget=widgets.RadioSelect,
                                       choices=[[1, "James"], [2, "David"], [3, "John"], [4, "Robert"]], initial=1)
 
-    rank1st = models.IntegerField(
-        choices=[[1, ' A'],
-                 [2, 'B'],
-                 [3, '  C'],
-                 [4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 1st:</b>',
-        widget=widgets.RadioSelectHorizontal,
-
+    rank1 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 1st: </b>"
     )
 
-    rank2nd = models.IntegerField(
-        choices=[[1, 'A'],
-                 [2, 'B'],
-                 [3, ' C'],
-                 [4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 2nd: </b>',
-        widget=widgets.RadioSelectHorizontal
+    rank2 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 2nd: </b>"
     )
 
-    rank3rd = models.IntegerField(
-        choices=[[1, ' A'],
-                 [2, 'B'],
-                 [3, ' C'],
-                 [4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 3rd: </b>',
-        widget=widgets.RadioSelectHorizontal,
-
+    rank3 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 3rd: </b>"
     )
 
-    rank4th = models.IntegerField( choices=[[1, ' A'],[2, 'B'],[3, ' C'],[4, ' D'], ],
-        # widget=widgets.Select,
-        verbose_name='<b>Rank 4th: </b>',
-        widget=widgets.RadioSelectHorizontal,
-                                  )
+    rank4 = models.StringField(
+        choices=C.CHOICES,
+        label="<b> Rank 4th: </b>"
+    )
+
+    rank1st = models.IntegerField()
+
+    rank2nd = models.IntegerField()
+
+    rank3rd = models.IntegerField()
+
+    rank4th = models.IntegerField()
 
     InGroupA= models.BooleanField(default=False,)
     InGroupB=models.BooleanField(default=False,)
@@ -109,8 +100,45 @@ class Player(BasePlayer):
 
  #FUNCTIONS
 
-def creating_session(subsession: Subsession):
-    subsession.Treatment = subsession.session.config['Treatment']
+def cv(player):
+
+    if player.rank1=="cvA":
+        rank1st=1
+    elif player.rank1=="cvB":
+        rank1st=2
+    elif player.rank1=="cvC":
+        rank1st=3
+    elif player.rank1=="cvD":
+        rank1st=4
+    if player.rank2=="cvA":
+        rank2nd=1
+    elif player.rank2=="cvB":
+        rank2nd=2
+    elif player.rank2=="cvC":
+        rank2nd=3
+    elif player.rank2=="cvD":
+        rank2nd=4
+    if player.rank3=="cvA":
+        rank3rd=1
+    elif player.rank3=="cvB":
+        rank3rd=2
+    elif player.rank3=="cvC":
+        rank3rd=3
+    elif player.rank3=="cvD":
+        rank4th=4
+    if player.rank4=="cvA":
+        rank4th=1
+    elif player.rank4=="cvB":
+        rank4th=2
+    elif player.rank4=="cvC":
+        rank4th=3
+    elif player.rank4=="cvD":
+        rank4th=4
+
+    player.rank1st=rank1st
+    player.rank2nd=rank2nd
+    player.rank3rd=rank3rd
+    player.rank4th=rank4th
 
 
 def creating_couple_id_gender(player):
@@ -583,7 +611,10 @@ class ChoiceCV_groupA(Page):
         return player.InGroupA== True
 
     form_model = 'player'
-    form_fields = ['rank1st', 'rank2nd', 'rank3rd', 'rank4th']
+    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
+
+    def before_next_page(player, timeout_happened):
+        cv(player)
 
 
 
@@ -595,7 +626,10 @@ class ChoiceCV_groupB(Page):
         return player.InGroupB == True
 
     form_model = 'player'
-    form_fields = ['rank1st', 'rank2nd', 'rank3rd', 'rank4th']
+    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
+
+    def before_next_page(player, timeout_happened):
+        cv(player)
 
 
 class WaitForMatching(WaitPage):

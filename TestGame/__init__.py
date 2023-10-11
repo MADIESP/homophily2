@@ -11,7 +11,9 @@ class C(BaseConstants):
     NAME_IN_URL = 'TestGame'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 5
+    TIME_PER_PROBLEM = 30
+    Fnames = ["Mary", "Emma", "Patricia", "Elizabeth"]
+    Mnames = ["James", "David", "John", "Robert"]
 
 
 
@@ -29,10 +31,8 @@ class Player(BasePlayer):
     Treatment = models.IntegerField()
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[0, "Female"], [1, "Male"]], default=1)
-    FemaleNames = models.IntegerField(label="Please select one name.", widget=widgets.RadioSelect,
-                                      choices=[[1, "Mary"], [2, "Emma"], [3, "Patricia"], [4, "Elizabeth"]])
-    MaleNames = models.IntegerField(label="Please select one name.", widget=widgets.RadioSelect,
-                                    choices=[[1, "James"], [2, "David"], [3, "John"], [4, "Robert"]])
+    FemaleNames = models.IntegerField()
+    MaleNames = models.IntegerField()
     name = models.IntegerField()
     partner_name = models.IntegerField()
     partner_gender=models.IntegerField()
@@ -41,14 +41,53 @@ class Player(BasePlayer):
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
-                                    choices=[[1, "It’s okay, this matrix is tricky."], [2, "Mistakes happen; we’ll nail it in the next round."], [3, "You need to be more careful with these matrices."], [4, "It’s crucial to get the exact count; let’s focus more."]])
-
+                                    choices=[[1, "It’s okay, this matrix is tricky."], [2, "Don't worry; mistakes happen."], [3, "You need to be more careful with these matrices."], [4, "It’s crucial to get the exact count; this was off."]])
+    belief_own=models.IntegerField(label="  Your guess about your <b> own performance  </b>  in round 1:")
+    belief_partner = models.IntegerField(label=" Your guess about your <b> partner's performance  </b> in round 1: </b>")
+    chosen_nameF = models.StringField(
+        choices=C.Fnames,
+        label="Please select a name that will be assigned to you throughout the experiment:",
+        initial="",
+    )
+    chosen_nameM = models.StringField(
+        choices=C.Mnames,
+        label="Please select a name that will be assigned to you throughout the experiment:",
+        initial="",
+    )
 
 
 # FUNCTIONS verbose_name='',
 
 def creating_session(subsession: Subsession):
     subsession.Treatment = subsession.session.config['Treatment']
+
+def Fnames(player):
+    if player.chosen_nameF=="Mary":
+        FemaleNames=1
+    elif player.chosen_nameF=="Emma":
+        FemaleNames=2
+    elif player.chosen_nameF=="Patricia":
+        FemaleNames = 3
+    elif player.chosen_nameF=="Elizabeth":
+        FemaleNames = 4
+
+    player.FemaleNames=FemaleNames
+
+
+def Mnames(player):
+
+    if player.chosen_nameM == "James":
+        MaleNames = 1
+    elif player.chosen_nameM == "David":
+        MaleNames = 2
+    elif player.chosen_nameM == "John":
+        MaleNames = 3
+    elif player.chosen_nameM == "Robert":
+        MaleNames = 4
+
+
+    player.MaleNames = MaleNames
+
 def set_correct(player):
     correct_answers = [50, 52, 47, 52,46,61]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
@@ -187,11 +226,11 @@ def send_message(group):
             if player.participant.Message == 1:
                 player.session.Message_selected = '"It’s okay, this matrix is tricky."'
             elif player.participant.Message == 2:
-                player.session.Message_selected = '"Mistakes happen; we’ll nail it in the next round."'
+                player.session.Message_selected = '"Don’t worry; mistakes happen."'
             elif player.participant.Message == 3:
                 player.session.Message_selected = '"You need to be more careful with these matrices."'
             elif player.participant.Message == 4:
-                player.session.Message_selected = '"It’s crucial to get the exact count; let’s focus more."'
+                player.session.Message_selected = '"It’s crucial to get the exact count; this was off."'
 
 
 
@@ -228,31 +267,41 @@ class Survey(Page):
 class WaitForNames(WaitPage):
     pass
 
-class FemaleNames(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.gender == 0 and player.round_number == 1
-
+class NameSelectionF(Page):
     form_model = 'player'
-    form_fields = ['FemaleNames']
+    form_fields = ['chosen_nameF']
+
+    def is_displayed(player):
+         return player.chosen_nameF == "" and player.gender==0 and player.round_number==1
+
+        # Show the page if the player hasn't chosen a name yet
+
+    def error_message(self, values):
+        chosen_nameF = values['chosen_nameF']
+        if chosen_nameF in [p.chosen_nameF for p in self.group.get_players()]:
+            return "This name was already taken. Please select another name."
 
     def before_next_page(player, timeout_happened):
+        Fnames(player)
         Femalename(player)
 
 
-
-
-class MaleNames(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.gender== 1 and player.round_number == 1
-
+class NameSelectionM(Page):
     form_model = 'player'
-    form_fields = ['MaleNames']
+    form_fields = ['chosen_nameM']
+
+    def is_displayed(player):
+         return player.chosen_nameM == "" and player.gender==1 and player.round_number==1
+
+        # Show the page if the player hasn't chosen a name yet
+
+    def error_message(self, values):
+        chosen_nameM = values['chosen_nameM']
+        if chosen_nameM in [p.chosen_nameM for p in self.group.get_players()]:
+            return "This name was already taken. Please select another name."
 
     def before_next_page(player, timeout_happened):
+        Mnames(player)
         Malename(player)
 
 
@@ -276,6 +325,19 @@ class MyWaitPage(WaitPage):
 
 
 
+class Belief(Page):
+    form_model = 'player'
+    form_fields = ['belief_own', 'belief_partner']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return  player.round_number == 1
+
+class WaitforFirstTable(WaitPage):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 
 class Count(Page):
@@ -367,4 +429,4 @@ class WaitforNextTable(WaitPage):
 
 
 
-page_sequence = [Survey, FemaleNames,MaleNames,MyWaitPage,Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM,MyWaitPage, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]

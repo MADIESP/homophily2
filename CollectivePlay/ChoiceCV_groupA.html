@@ -1,29 +1,16 @@
 
 
-
-
 {% block content %}
+<!--<form method="post" class="form"> -->
+<img src="{{ static 'global/Image2.png'}}" width="300px"/>
 
-    <p class="center">
-
-    <h3>
-       Partner Selection
-    </h3>
-
-
-<img src="{{ static 'global/ImageB.png'}}" width="300px"/>
-
-    <p>
-        {{ formfields }}
-    </p>
-
-
-
-
-
-    {{ next_button }}
-
+<br>
+    {{ formfields }}
+    <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+<script src="{% static 'Choice/rank_choix11.js' %}"></script>
 {% endblock %}
+
 
 
 

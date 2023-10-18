@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'TestGame'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 30
+    TIME_PER_PROBLEM = 4
     Fnames = ["Mary", "Emma", "Patricia", "Elizabeth"]
     Mnames = ["James", "David", "John", "Robert"]
 
@@ -42,8 +42,9 @@ class Player(BasePlayer):
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
                                     choices=[[1, "It’s okay, this matrix is tricky."], [2, "Don't worry; mistakes happen."], [3, "You need to be more careful with these matrices."], [4, "It’s crucial to get the exact count; this was off."]])
-    belief_own=models.IntegerField(label="  Your guess about your <b> own performance  </b>  in round 1:")
-    belief_partner = models.IntegerField(label=" Your guess about your <b> partner's performance  </b> in round 1: </b>")
+    belief_own=models.IntegerField(label="")
+    belief_partner = models.IntegerField(label="")
+
     chosen_nameF = models.StringField(
         choices=C.Fnames,
         label="Please select a name that will be assigned to you throughout the experiment:",
@@ -305,6 +306,84 @@ class NameSelectionM(Page):
         Malename(player)
 
 
+class InstructionsRanking(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+
+class WaitforInstructions2(WaitPage):
+    wait_for_all_groups = True
+
+
+class InstructionsRanking2(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+
+class WaitforInstructions3(WaitPage):
+    wait_for_all_groups = True
+
+
+class Instructions(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment != 3
+
+class InstructionsTreatment2(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 3
+
+
+class WaitforInstructions4(WaitPage):
+    wait_for_all_groups = True
+
+
+class InstructionsPos(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+
+class WaitforInstructions5(WaitPage):
+    wait_for_all_groups = True
+
+
+class InstructionsNegControl(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 1
+
+
+class InstructionsNegTreatment1(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 2
+
+
+class InstructionsNegTreatment2(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 3
+
 
 class MyWaitPage(WaitPage):
 
@@ -332,6 +411,7 @@ class Belief(Page):
     @staticmethod
     def is_displayed(player: Player):
         return  player.round_number == 1
+
 
 class WaitforFirstTable(WaitPage):
 
@@ -429,4 +509,4 @@ class WaitforNextTable(WaitPage):
 
 
 
-page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM,MyWaitPage, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]

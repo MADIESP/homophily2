@@ -1,18 +1,33 @@
 {% block title %}
-Round 2 - Team Play
+Part 3 - Team Play - Partner: {{ participant.name_partner }}
 {% endblock %}
 
 {% block content %}
 
 <p>
   You are paired with  <b> {{ participant.name_partner }}.</b>
+  </p>
+
+   Your guess about your <b> own performance  </b>  in Part 2:
+    {{ form.belief_own}}
+
+    <br>
+    Your guess about <b> {{ participant.name_partner }}'s performance </b> in Part 2:
+    {{ form.belief_partner }}
 
 
-  {{ formfields }}
+
+
 </p>
 
 
  <input type="submit" class="btn btn-primary" value="Submit">
+
+
+
+
+
+
 {% endblock %}
 
 

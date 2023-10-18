@@ -37,6 +37,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    belief_own = models.IntegerField(label="", initial=0)
+    belief_partner = models.IntegerField(
+        label="", initial=0)
+
     rank1 = models.StringField(
         choices=C.CHOICES,
         label="<b> Rank 1st: </b>"
@@ -307,7 +311,7 @@ def creating_m(player):
     session.zeros_counts2=zeros_counts
 
 def set_correct(player):
-    correct_answers = [50, 52, 47, 52,46,61]
+    correct_answers = [44, 55, 49, 40,50,52]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.count == correct:
             correct = True
@@ -405,7 +409,7 @@ def send_message(group):
 
 
 def set_correct_group(group):
-    correct_answers = [50, 52, 47, 52,46,61]
+    correct_answers = [44, 55, 49, 40,50,52]
     for group, correct in zip(group.in_all_rounds(), correct_answers):
         if group.selected_count == correct:
             correct_group = True
@@ -425,6 +429,81 @@ def set_correct_group(group):
 
 # PAGES
 
+class InstructionsRanking(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+    
+
+class WaitforInstructions2(WaitPage):
+    wait_for_all_groups = True
+
+class InstructionsRanking2(Page):
+    
+    form_model= 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 
+
+class WaitforInstructions3(WaitPage):
+    wait_for_all_groups = True
+
+class Instructions (Page):
+    
+    form_model='player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number==1 and player.subsession.Treatment !=3
+
+
+class InstructionsTreatment2(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 3
+
+class WaitforInstructions4(WaitPage):
+    wait_for_all_groups = True
+
+class InstructionsPos(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+class WaitforInstructions5(WaitPage):
+    wait_for_all_groups = True
+
+class InstructionsNegControl(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 1
+
+class InstructionsNegTreatment1(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 2
+
+class InstructionsNegTreatment2(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.subsession.Treatment == 3
+
+
+class WaitforChoice(WaitPage):
+    wait_for_all_groups = True
 class ChoiceCV_groupA(Page):
 
     @staticmethod
@@ -455,6 +534,7 @@ class ChoiceCV_groupB(Page):
 
     def before_next_page(player, timeout_happened):
         cv(player)
+        #partner_name(group)
 
 
 
@@ -473,10 +553,38 @@ class WaitForMatching(WaitPage):
 
     after_all_players_arrive = call_both_functions
 
-    #def is_displayed(player):
-        #return player.round_number == 1
+    def is_displayed(player):
+        return player.round_number == 1
 
     #after_all_players_arrive= creating_group_with_choices_round_1
+
+class WaitforPartnerName(WaitPage):
+    after_all_players_arrive =partner_name
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return  player.round_number == 1
+
+class WaitforMatching2(WaitPage):
+    wait_for_all_groups = True
+    after_all_players_arrive =  making_team_round_1
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number !=1
+
+
+
+
+class Belief(Page):
+    form_model = 'player'
+    form_fields = ['belief_own', 'belief_partner']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return  player.round_number == 1
+
+
 
 
 class Count(Page):
@@ -494,7 +602,7 @@ class WaitforFeedback(WaitPage):
 
     @staticmethod
     def call_functions(group):
-        partner_name(group)
+        #partner_name(group)
         select_group_answer(group)
         set_correct_group(group)
 
@@ -566,12 +674,17 @@ class MessageReceived(Page):
 class WaitforNextTable(WaitPage):
     body_text = "Waiting for your partner."
 
+class WaitforSurvey(WaitPage):
+    wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 6
 
 
-
-
-page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+#page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, Belief, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforSurvey]
 
 #page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforNextTable]
 
+page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, Belief, Count,  WaitforNextTable, WaitforSurvey]
 

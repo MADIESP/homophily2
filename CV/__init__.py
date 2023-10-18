@@ -41,17 +41,17 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                      choices=[[0, "Female"], [1, "Male"]], initial=1)
-    BornPA = models.IntegerField(label="Were you born in Pennsylvania?", widget=widgets.RadioSelectHorizontal,
+    BornPA = models.IntegerField(label="Were you born in Ile De France?", widget=widgets.RadioSelectHorizontal,
                                      choices=[[1, "Yes"], [0, "No"]], initial=1)
-    Job = models.IntegerField(label="Do you have a part-time job?", widget=widgets.RadioSelectHorizontal,
+    Job = models.IntegerField(label="Do you have a Student job?", widget=widgets.RadioSelectHorizontal,
                                   choices=[[1, "Yes"], [0, "No"]], initial=1)
-    College = models.IntegerField(label="Which year of college are you in?", widget=widgets.RadioSelectHorizontal,
-                                      choices=[[0, "<=2"], [1, ">2"]], initial=1)
+    College = models.IntegerField(label="What is your level of study?", widget=widgets.RadioSelectHorizontal,
+                                      choices=[[0, "Licence"], [1, "Master"]], initial=1)
     FemaleNames = models.IntegerField()
     MaleNames = models.IntegerField()
     chosen_nameF = models.StringField(
         choices=C.Fnames,
-        label="Please select a name that will be assigned to you throughout the experiment:",
+        label="Please select a name that will be assigned to for Part 3 of the experiment:",
         initial="",
     )
     chosen_nameM = models.StringField(
@@ -149,6 +149,9 @@ def creating_couple_id_gender(player):
 
 def gender(player):
     player.participant.gender = player.gender
+    player.participant.College=player.College
+    player.participant.BornPA=player.BornPA
+    player.participant.Job=player.Job
 
 
 def Femalename(player):
@@ -317,10 +320,10 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
     bottom_right = (bottom_right_frame[0] + 10, bottom_right_frame[1] + 10)
 
     # Définition des questions et réponses pour chaque CV
-    questions = ["Name:", "Year in college:", "Born in PA:", "Job:"]
+    questions = ["Name:", "Level of Study:", "Born in Ile De France:", "Student Job:"]
     answers = [
         [["Mary", "James"], ["Emma", "David"], ["Patricia", "John"], ["Elizabeth", "Robert"]],
-        ["<=2", ">=2"],
+        ["Licence", "Master"],
         ["No", "Yes"],
         ["No", "Yes"]
 
@@ -418,9 +421,14 @@ def image_cv(group):
 
 
 # PAGES
+class Instructions(Page):
+    form_model = 'player'
+
+class WaitForSurvey(WaitPage):
+    pass
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['gender', 'BornPA', 'Job', 'College']
+    form_fields = ['gender', 'College', 'BornPA', 'Job' ]
 
     def before_next_page(player, timeout_happened):
         gender(player)
@@ -548,4 +556,6 @@ class end(Page):
 
 
 
-page_sequence = [Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
+
+page_sequence = [ Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]

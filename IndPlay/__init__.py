@@ -522,121 +522,16 @@ def set_correct(player):
 
 
 # PAGES
-class Survey(Page):
-    form_model = 'player'
-    form_fields = ['gender', 'BornPA', 'Job', 'College']
 
-    def is_displayed(player):
+class Instructions(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
         return player.round_number == 1
 
-
-
-        #creating_4_group(group)
-
-    #def before_next_page(group, timeout_happened):
-        #creatingGroups(group)
-class WaitForNames(WaitPage):
+class WaitforStart(WaitPage):
     pass
-
-class FemaleNames(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.gender== 0 and player.round_number == 1
-
-    form_model = 'player'
-    form_fields = ['FemaleNames']
-
-    def before_next_page(player, timeout_happened):
-        creating_couple_id_gender(player)
-        creating_CV_ind(player)
-        #live_update_choices(player)
-
-
-
-class MaleNames(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.gender== 1 and player.round_number == 1
-
-    form_model = 'player'
-    form_fields = ['MaleNames']
-
-    def before_next_page(player, timeout_happened):
-        creating_couple_id_gender(player)
-        creating_CV_ind(player)
-        #creating_m(player)
-
-
-
-
-class MyWaitPage(WaitPage):
-    pass
-
-    #wait_for_all_groups = True
-    # ...
-
-    # Define a new function that calls both functions
-    #@staticmethod
-    #def call_both_functions(group):
-        #creatingGroups(group)
-        #image_cv(group)
-
-    # Assign the new function to after_all_players_arrive
-    #after_all_players_arrive = call_both_functions
-    #after_all_players_arrive = creatingGroups
-
-    #@staticmethod
-    #def call_functions(subsession, group):
-        #creating_m(subsession, subsession.session)
-        #creatingGroups(group)
-
-
-
-
-
-    #def is_displayed(player):
-        #return player.round_number == 1
-
-
-
-
-
-
-class ChoiceCV_groupA(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.InGroupA== True
-
-    form_model = 'player'
-    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
-
-    def before_next_page(player, timeout_happened):
-        cv(player)
-
-
-
-
-class ChoiceCV_groupB(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.InGroupB == True
-
-    form_model = 'player'
-    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
-
-    def before_next_page(player, timeout_happened):
-        cv(player)
-
-
-class WaitForMatching(WaitPage):
-
-    after_all_players_arrive= creating_group_with_choices_round_1
-
-
 class Count(Page):
     timeout_seconds = C.TIME_PER_PROBLEM
     form_model = 'player'
@@ -646,25 +541,11 @@ class Count(Page):
     def before_next_page(player, timeout_happened):
         set_correct(player)
 
-class Test(Page):
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.correct_ind == True
 
 
 class WaitForCollective(WaitPage):
     body_text = "Please wait for the other participants to finish"
 
-    #def call_player_function(self, player):
-        #player.set_correct()
-
-    # Call the player-level function for each player in a group
-    #def after_all_players_arrive(self):
-        #for player in self.group.get_players():
-            #self.call_player_function(player)
-
-    #after_all_players_arrive = set_correct
 
 
 
@@ -674,4 +555,6 @@ class WaitForCollective(WaitPage):
 
 
 
+
+#page_sequence = [Instructions, WaitforStart, Count, WaitForCollective]
 page_sequence = [ Count, WaitForCollective]

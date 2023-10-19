@@ -1,0 +1,28 @@
+{{ block title }}
+    Part 4  - Partner: {{ participant.name_partner }}
+{{ endblock }}
+{{ block content }}
+<p>
+On a 1-7 scale, how much did you enjoy performing Part 4 with {{ participant.name_partner }}?
+    </p>
+
+
+
+    <p>
+ 1 = I hated it.
+    </p>
+<p>
+ 7 = I loved it.
+    </p>
+<p>
+Note: Your answer will remain undisclosed. 
+    </p>
+
+
+
+
+    {{ formfields }}
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+
+{{ endblock }}

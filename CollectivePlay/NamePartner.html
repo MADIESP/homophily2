@@ -1,0 +1,34 @@
+{% block title %}
+Part 3 - Partner: {{ participant.name_partner }}
+{% endblock %}
+
+{% block content %}
+
+<p>
+ Based on the rankings of this session's participants,  you have been paired with  <b> {{ participant.name_partner }}.</b>
+  </p>
+
+   Before moving to Table 1, you will have to guess both your own and {{ participant.name_partner }}'s performance
+in Part 2 of the experiment. </p>
+
+<p> For example, if you think you provided 1 correct answer in Part 2, your guess for your own performance should be "1".
+Similarly, if you think {{ participant.name_partner }} provided 1 correct answer in Part 2, your guess for {{ participant.name_partner }}'s performance should be "1". </p>
+
+<p> Each correct guess earns you 1 point.</p>
+
+    <p> If you have any question, please raise your hand, and the experimenter will assist you.</p>
+
+
+
+ <input type="submit" class="btn btn-primary" value="Start">
+
+
+
+
+
+
+{% endblock %}
+
+
+
+

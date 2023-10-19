@@ -51,12 +51,12 @@ class Player(BasePlayer):
     MaleNames = models.IntegerField()
     chosen_nameF = models.StringField(
         choices=C.Fnames,
-        label="Please select a name that will be assigned to for Part 3 of the experiment:",
+        label="Please select a name that will be assigned to you for Part 3 of the experiment:",
         initial="",
     )
     chosen_nameM = models.StringField(
         choices=C.Mnames,
-        label="Please select a name that will be assigned to you throughout the experiment:",
+        label="Please select a name that will be assigned to you for Part 3 of the experiment:",
         initial="",
     )
 
@@ -556,6 +556,6 @@ class end(Page):
 
 
 
-#page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
+page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [ Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]

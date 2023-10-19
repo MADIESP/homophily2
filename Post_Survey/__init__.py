@@ -21,6 +21,12 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    clear=models.LongStringField(label= "Were the instructions clear?")
+    easy = models.LongStringField(label="Was it easy to count the 0s in 30s?")
+    object = models.LongStringField(label="What do you think is the object of our study? Why?")
+    comment = models.LongStringField(label="Do you have any comments/suggestions?")
+
+
     rank_mary= models.IntegerField(
         choices=[[1, ' Rank 1st'],
                  [2, 'Rank 2nd'],
@@ -191,6 +197,11 @@ class Player(BasePlayer):
 
 
 # PAGES
+class Instructions(Page):
+    form_model= 'player'
+
+class WaitforSurvey(WaitPage):
+    pass
 
 class Ranking_gender(Page):
     form_model= 'player'
@@ -211,10 +222,15 @@ class BFNE(Page):
     form_model = 'player'
     form_fields = ['BFNE_q1', 'BFNE_q2', 'BFNE_q3', 'BFNE_q4', 'BFNE_q5','BFNE_q6','BFNE_q7','BFNE_q8','BFNE_q9','BFNE_q10','BFNE_q11','BFNE_q12']
 
+class feedback(Page):
+    form_model = 'player'
+    form_fields = ['clear','easy','object','comment']
 
 
 
 
 
 
-page_sequence = [ Ranking_gender, WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE]
+
+#page_sequence = [ Ranking_gender, WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE]
+page_sequence = [ Instructions, WaitPageforPart3, feedback]

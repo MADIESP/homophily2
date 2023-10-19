@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'TestGame'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 4
+    TIME_PER_PROBLEM = 30
     Fnames = ["Mary", "Emma", "Patricia", "Elizabeth"]
     Mnames = ["James", "David", "John", "Robert"]
 
@@ -90,7 +90,7 @@ def Mnames(player):
     player.MaleNames = MaleNames
 
 def set_correct(player):
-    correct_answers = [50, 52, 47, 52,46,61]
+    correct_answers = [44, 55, 49, 40,50,52]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.count == correct:
             correct = True
@@ -237,7 +237,7 @@ def send_message(group):
 
 
 def set_correct_group(group):
-    correct_answers = [50, 52, 47, 52,46,61]
+    correct_answers = [44, 55, 49, 40,50,52]
     for group, correct in zip(group.in_all_rounds(), correct_answers):
         if group.selected_count == correct:
             correct_group = True
@@ -509,4 +509,4 @@ class WaitforNextTable(WaitPage):
 
 
 
-page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4,InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]

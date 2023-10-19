@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Round3'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 4
+    TIME_PER_PROBLEM = 30
     CHOICES = ["cvA", "cvB", "cvC", "cvD"]
 
 
@@ -34,6 +34,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal, )
     belief_own = models.IntegerField(label="", initial=0)
     belief_partner = models.IntegerField(
         label="", initial=0)
@@ -566,7 +567,19 @@ class WaitforMatching2(WaitPage):
     def is_displayed(player: Player):
         return player.round_number != 1
 
+class NamePartner(Page):
+    form_model='player'
 
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+class WaitforBelief(WaitPage):
+    wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 class Belief(Page):
     form_model = 'player'
     form_fields = ['belief_own', 'belief_partner']
@@ -664,6 +677,14 @@ class MessageReceived(Page):
 class WaitforNextTable(WaitPage):
     body_text = "Waiting for your partner."
 
+class Enjoy(Page):
+    form_model = 'player'
+    form_fields = ['enjoy']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 6
+
 
 class WaitforSurvey(WaitPage):
     wait_for_all_groups = True
@@ -673,7 +694,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [ ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, WaitforMatching2, Belief, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, WaitforSurvey]
+page_sequence = [ ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief, Belief, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
 
 # page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforNextTable]
 

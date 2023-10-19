@@ -459,4 +459,4 @@ class MyWaitPage(WaitPage):
 
 
 
-page_sequence = [ NameSelectionF, NameSelectionM, MyWaitPage]
+page_sequence = [Instructions, WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]

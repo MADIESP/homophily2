@@ -14,7 +14,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'IndPlay'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
-    TIME_PER_PROBLEM = 5
+    TIME_PER_PROBLEM = 30
     CHOICES = ["cvA", "cvB", "cvC", "cvD"]
    # MEN_NAMES = [(1, 'James'), (2, 'David'), (3, 'John'), (4, 'Robert')]
     #WOMEN_NAMES =[(1, 'Mary'), (2, 'Emma'), (3, 'Patricia'), (4, 'Elizabeth')]
@@ -556,5 +556,5 @@ class WaitForCollective(WaitPage):
 
 
 
-#page_sequence = [Instructions, WaitforStart, Count, WaitForCollective]
-page_sequence = [ Count, WaitForCollective]
+page_sequence = [Instructions, WaitforStart, Count, WaitForCollective]
+#page_sequence = [ Count, WaitForCollective]

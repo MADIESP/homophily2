@@ -40,13 +40,13 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
-                                     choices=[[0, "Female"], [1, "Male"]], initial=1)
+                                     choices=[[0, "Female"], [1, "Male"]])
     BornPA = models.IntegerField(label="Were you born in Ile De France?", widget=widgets.RadioSelectHorizontal,
-                                     choices=[[1, "Yes"], [0, "No"]], initial=1)
+                                     choices=[[1, "Yes"], [0, "No"]])
     Job = models.IntegerField(label="Do you have a Student job?", widget=widgets.RadioSelectHorizontal,
-                                  choices=[[1, "Yes"], [0, "No"]], initial=1)
+                                  choices=[[1, "Yes"], [0, "No"]])
     College = models.IntegerField(label="What is your level of study?", widget=widgets.RadioSelectHorizontal,
-                                      choices=[[0, "Licence"], [1, "Master"]], initial=1)
+                                      choices=[[0, "Licence"], [1, "Master"]])
     FemaleNames = models.IntegerField()
     MaleNames = models.IntegerField()
     chosen_nameF = models.StringField(

@@ -590,6 +590,14 @@ class Belief(Page):
     def is_displayed(player: Player):
         return player.round_number == 1
 
+class WaitforTable1(WaitPage):
+    wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+
 
 class Count(Page):
     timeout_seconds = C.TIME_PER_PROBLEM
@@ -695,7 +703,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [ ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief, Belief, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [ ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
 
 # page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforNextTable]
 

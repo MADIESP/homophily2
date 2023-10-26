@@ -35,9 +35,9 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal, )
-    belief_own = models.IntegerField(label="")
+    belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,)
     belief_partner = models.IntegerField(
-        label="")
+        label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,)
 
     rank1 = models.StringField(
         choices=C.CHOICES,

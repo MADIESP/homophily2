@@ -42,7 +42,7 @@ def creating_m(player):
     zeros_counts = {}
 
     # Generate and save 10 tables as images
-    for i in range(18):
+    for i in range(22):
         # Generate a table of random 0s and 1s
         table = np.random.randint(2, size=(rows, columns))
 

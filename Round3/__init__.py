@@ -35,9 +35,9 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal, )
-    belief_own = models.IntegerField(label="")
+    belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,)
     belief_partner = models.IntegerField(
-        label="")
+        label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,)
 
     rank1 = models.StringField(
         choices=C.CHOICES,
@@ -303,7 +303,7 @@ def creating_m(player):
 
 
 def set_correct(player):
-    correct_answers = [49, 42, 45, 48, 49, 51]
+    correct_answers = [44, 55, 49, 40, 50, 52]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.count == correct:
             correct = True
@@ -403,7 +403,7 @@ def send_message(group):
 
 
 def set_correct_group(group):
-    correct_answers = [49, 42, 45, 48, 49, 51]
+    correct_answers = [44, 55, 49, 40, 50, 52]
     for group, correct in zip(group.in_all_rounds(), correct_answers):
         if group.selected_count == correct:
             correct_group = True

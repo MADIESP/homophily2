@@ -510,7 +510,7 @@ def creating_m(player):
 
 
 def set_correct(player):
-    correct_answers = [44, 55, 49, 40]
+    correct_answers = [51, 46, 54, 51]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.count_ind == correct:
             correct_ind = True

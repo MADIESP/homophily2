@@ -22,9 +22,9 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     clear=models.LongStringField(label= "Were the instructions clear?")
-    easy = models.LongStringField(label="Was it easy to count the 0s in 30s?")
-    object = models.LongStringField(label="What do you think is the object of our study? Why?")
-    comment = models.LongStringField(label="Do you have any comments/suggestions?")
+    easy = models.LongStringField(label="Ressentez-vous un effet d’apprentissage ? Pensez- vous avoir mieux réussi que la semaine dernière?")
+    object = models.LongStringField(label="Quel est selon-vous l'objet de l'étude? Pourquoi?")
+    comment = models.LongStringField(label="Avez vous des commentaires/suggestions?")
 
 
     rank_mary= models.IntegerField(
@@ -224,7 +224,7 @@ class BFNE(Page):
 
 class feedback(Page):
     form_model = 'player'
-    form_fields = ['clear','easy','object','comment']
+    form_fields = ['easy','object','comment']
 
 
 

@@ -38,9 +38,9 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     enjoy=models.IntegerField(label="", choices=[1,2,3,4,5,6,7],widget=widgets.RadioSelectHorizontal,)
-    belief_own = models.IntegerField(label="")
+    belief_own = models.IntegerField(label="", choices=[0,1,2,3,4],widget=widgets.RadioSelectHorizontal,)
     belief_partner = models.IntegerField(
-        label="")
+        label="",choices=[0,1,2,3,4],widget=widgets.RadioSelectHorizontal,)
 
     rank1 = models.StringField(
         choices=C.CHOICES,
@@ -312,7 +312,7 @@ def creating_m(player):
     session.zeros_counts2=zeros_counts
 
 def set_correct(player):
-    correct_answers = [44, 55, 49, 40,50,52]
+    correct_answers = [49, 42, 45, 48,49,51]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.count == correct:
             correct = True
@@ -410,7 +410,7 @@ def send_message(group):
 
 
 def set_correct_group(group):
-    correct_answers = [44, 55, 49, 40,50,52]
+    correct_answers = [49, 42, 45, 48,49,51]
     for group, correct in zip(group.in_all_rounds(), correct_answers):
         if group.selected_count == correct:
             correct_group = True
@@ -596,6 +596,13 @@ class Belief(Page):
     def is_displayed(player: Player):
         return  player.round_number == 1
 
+class WaitforTable1(WaitPage):
+    wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
 
 
 
@@ -703,7 +710,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief ,Belief, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
 
 #page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforNextTable]
 

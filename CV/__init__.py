@@ -39,9 +39,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    survey_error_displayed = models.BooleanField(initial=False)
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                      choices=[[0, "Female"], [1, "Male"]])
-    BornPA = models.IntegerField(label="Were you born in Ile De France?", widget=widgets.RadioSelectHorizontal,
+    BornPA = models.IntegerField(label="Were you born in Auvergne Rhône-Alpes?", widget=widgets.RadioSelectHorizontal,
                                      choices=[[1, "Yes"], [0, "No"]])
     Job = models.IntegerField(label="Do you have a Student job?", widget=widgets.RadioSelectHorizontal,
                                   choices=[[1, "Yes"], [0, "No"]])
@@ -320,7 +321,7 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
     bottom_right = (bottom_right_frame[0] + 10, bottom_right_frame[1] + 10)
 
     # Définition des questions et réponses pour chaque CV
-    questions = ["Name:", "Level of Study:", "Born in Ile De France:", "Student Job:"]
+    questions = ["Name:", "Level of Study:", "Born in Rhône-Alpes:", "Student Job:"]
     answers = [
         [["Mary", "James"], ["Emma", "David"], ["Patricia", "John"], ["Elizabeth", "Robert"]],
         ["Licence", "Master"],
@@ -432,6 +433,12 @@ class Survey(Page):
 
     def before_next_page(player, timeout_happened):
         gender(player)
+
+    def error_message(player, timeout_happened):
+        if not player.survey_error_displayed:
+            player.survey_error_displayed = True  # Set the flag to True
+            return "Please confirm your answers and press Next."
+
 
 
 

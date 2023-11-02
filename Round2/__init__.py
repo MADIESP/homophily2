@@ -76,10 +76,11 @@ class Player(BasePlayer):
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
-                                  choices=[[1, "It’s okay, this matrix is tricky."],
-                                           [2, "Don't worry, mistakes happen."],
-                                           [3, "You need to be more careful with these matrices."],
-                                           [4, "It’s crucial to get the exact count; this was off."]])
+                                  choices=[[1, "No stress, this matrix can be tricky! "],
+                                           [2, "Don't worry, mistakes happen!"],
+                                           [3, "I know it's tough, but try to focus more. "],
+                                           [4,
+                                            "It's crucial to get the exact count, you should try another counting method. "]])
 
 
 # FUNCTIONS
@@ -393,13 +394,13 @@ def send_message(group):
     for player in group.get_players():
         if player.partner_selected == False:
             if player.participant.Message_round2 == 1:
-                player.session.Message_selected_round2 = '"It’s okay, this matrix is tricky."'
+                player.session.Message_selected_round2 = '"No stress, this matrix can be tricky!"'
             elif player.participant.Message_round2 == 2:
-                player.session.Message_selected_round2 = '"Don’t worry; mistakes happen."'
+                player.session.Message_selected_round2 = '"Don’t worry, mistakes happen!"'
             elif player.participant.Message_round2 == 3:
-                player.session.Message_selected_round2 = '"You need to be more careful with these matrices."'
+                player.session.Message_selected_round2 = '"I know it’s tough, but try to focus more."'
             elif player.participant.Message_round2 == 4:
-                player.session.Message_selected_round2 = '"It’s crucial to get the exact count; this was off."'
+                player.session.Message_selected_round2 = '"It’s crucial to get the exact count, you should try another counting method."'
 
 
 def set_correct_group(group):

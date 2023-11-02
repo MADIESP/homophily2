@@ -40,10 +40,13 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
-    Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
-                                    choices=[[1, "It’s okay, this matrix is tricky."], [2, "Don't worry; mistakes happen."], [3, "You need to be more careful with these matrices."], [4, "It’s crucial to get the exact count; this was off."]])
     belief_own=models.IntegerField(label="")
     belief_partner = models.IntegerField(label="")
+    Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
+                                  choices=[[1, "No stress, this matrix can be tricky! "],
+                                           [2, "Don't worry, mistakes happen!"],
+                                           [3, "I know it's tough, but try to focus more. "],
+                                           [4, "It's crucial to get the exact count, you should try another counting method. "]])
 
     chosen_nameF = models.StringField(
         choices=C.Fnames,
@@ -225,13 +228,13 @@ def send_message(group):
     for player in group.get_players():
         if player.partner_selected == False:
             if player.participant.Message == 1:
-                player.session.Message_selected = '"It’s okay, this matrix is tricky."'
+                player.session.Message_selected = '"No stress, this matrix can be tricky!"'
             elif player.participant.Message == 2:
-                player.session.Message_selected = '"Don’t worry; mistakes happen."'
+                player.session.Message_selected = '"Don’t worry, mistakes happen!"'
             elif player.participant.Message == 3:
-                player.session.Message_selected = '"You need to be more careful with these matrices."'
+                player.session.Message_selected = '"I know it’s tough, but try to focus more."'
             elif player.participant.Message == 4:
-                player.session.Message_selected = '"It’s crucial to get the exact count; this was off."'
+                player.session.Message_selected = '"It’s crucial to get the exact count, you should try another counting method."'
 
 
 
@@ -509,4 +512,5 @@ class WaitforNextTable(WaitPage):
 
 
 
-page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4,InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+#page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4,InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM,  MyWaitPage, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]

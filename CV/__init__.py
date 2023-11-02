@@ -42,7 +42,7 @@ class Player(BasePlayer):
     survey_error_displayed = models.BooleanField(initial=False)
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                      choices=[[0, "Female"], [1, "Male"]])
-    BornPA = models.IntegerField(label="Were you born in Auvergne Rhône-Alpes?", widget=widgets.RadioSelectHorizontal,
+    BornPA = models.IntegerField(label="Did you do your undergraduate studies (licence) in Ile de France?", widget=widgets.RadioSelectHorizontal,
                                      choices=[[1, "Yes"], [0, "No"]])
     Job = models.IntegerField(label="Do you have a Student job?", widget=widgets.RadioSelectHorizontal,
                                   choices=[[1, "Yes"], [0, "No"]])
@@ -321,7 +321,7 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
     bottom_right = (bottom_right_frame[0] + 10, bottom_right_frame[1] + 10)
 
     # Définition des questions et réponses pour chaque CV
-    questions = ["Name:", "Level of Study:", "Born in Rhône-Alpes:", "Student Job:"]
+    questions = ["Name:", "Level of Study:", "Licence in Ile De France:", "Student Job:"]
     answers = [
         [["Mary", "James"], ["Emma", "David"], ["Patricia", "John"], ["Elizabeth", "Robert"]],
         ["Licence", "Master"],

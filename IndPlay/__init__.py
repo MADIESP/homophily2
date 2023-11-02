@@ -530,6 +530,7 @@ class Instructions(Page):
     def is_displayed(player: Player):
         return player.round_number == 1
 
+
 class WaitforStart(WaitPage):
     pass
 class Count(Page):

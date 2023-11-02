@@ -44,7 +44,7 @@ dict(
 
 dict(
         name='CVPlayMessage',
-        app_sequence=['CV','IndPlay','CollectivePlay','cvRound2','Round2','cvRound3', 'Round3'],
+        app_sequence=['CV','IndPlay','CollectivePlay','cvRound2','Round2','cvRound3', 'Round3', 'Post_Survey'],
         num_demo_participants=8,
         Treatment=3,
     ),

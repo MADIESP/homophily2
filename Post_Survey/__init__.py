@@ -636,11 +636,14 @@ class feedback(Page):
     form_model = 'player'
     form_fields = ['easy','object','comment']
 
+class WaitforEnd(WaitPage):
+    pass
+
+
+class End(Page):
+    form_model = 'player'
 
 
 
-
-
-
-page_sequence = [ Instructions,WaitforSurvey,  RankingTrait,  WaitPageforPart2, Ranking_gender, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ]
+page_sequence = [ Instructions,WaitforSurvey,  RankingTrait,  WaitPageforPart2, Ranking_gender, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ, WaitforEnd, End]
 #page_sequence = [ Instructions, WaitPageforPart3, feedback]

@@ -27,8 +27,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    easy = models.LongStringField(
-        label=("Was it easy to count the 0s in 30 secondes?")
+    easy = models.LongStringField(label=("Was it easy to count the 0s in 30 secondes?"))
     Treatment = models.IntegerField()
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[0, "Female"], [1, "Male"]], default=1)

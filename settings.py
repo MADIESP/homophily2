@@ -159,10 +159,10 @@ DEMO_PAGE_INTRO_HTML = """ """
 SECRET_KEY = '4308297569828'
 
 
-environ['OTREE_ADMIN_PASSWORD'] = '0812'
-environ['OTREE_PRODUCTION'] = '1'
-environ['OTREE_AUTH_LEVEL'] ='STUDY'
+#environ['OTREE_ADMIN_PASSWORD'] = '0812'
+#environ['OTREE_PRODUCTION'] = '1'
+#environ['OTREE_AUTH_LEVEL'] ='STUDY'
 
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
-AUTH_LEVEL= environ.get('OTREE_AUTH_LEVEL')
+#ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+#DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
+#AUTH_LEVEL= environ.get('OTREE_AUTH_LEVEL')

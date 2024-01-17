@@ -1,0 +1,43 @@
+{% block title %}
+Partie 3 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner }}
+<style>
+    .hidden-label label {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+
+<p>
+   La réponse de {{ participant.name_partner }} a été aléatoirement choisie pour être la réponse de l'équipe.
+
+<br>
+<p>
+     Malheureusement, {{ participant.name_partner }} a donné une mauvaise réponse et votre équipe a donc gagné
+ 0 points &#128542;
+</p>
+
+<p>
+    Veuillez sélectionner et envoyer un message à {{ participant.name_partner }}:
+</p>
+
+<p>
+
+        {{ formfields }}
+
+    </p>
+
+
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Envoyer </button>
+
+
+{% endblock %}
+
+
+
+
+
+

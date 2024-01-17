@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'TestGame'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 30
+    TIME_PER_PROBLEM = 3
     Fnames = ["Mary", "Emma", "Patricia", "Elizabeth"]
     Mnames = ["James", "David", "John", "Robert"]
 
@@ -40,8 +40,9 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
-    belief_own=models.IntegerField(label="")
-    belief_partner = models.IntegerField(label="")
+    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, )
+    belief_partner = models.IntegerField(
+        label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, )
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
                                   choices=[[1, "No stress, this matrix can be tricky! "],
                                            [2, "Don't worry, mistakes happen!"],
@@ -513,4 +514,4 @@ class WaitforNextTable(WaitPage):
 
 
 #page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4,InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
-page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM,  MyWaitPage, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
+page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM,  MyWaitPage,Belief, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]

@@ -7,6 +7,8 @@ dict(
         num_demo_participants=1,
 
     ),
+
+
 dict(
         name='TestControl',
         app_sequence=['TestGame'],
@@ -72,9 +74,42 @@ dict(
     ),
 dict(
         name='Post_Experiment_Survey',
-        app_sequence=['Post_Survey'],
+        app_sequence=['Post_Survey_FR'],
         num_demo_participants=1,
     ),
+
+dict(
+        name='CollectivePlay_Test_T1',
+        app_sequence=['CollectivePlay_Test'],
+        num_demo_participants=2,
+        Treatment=1,
+    ),
+
+
+
+dict(
+        name='Test_T1',
+        app_sequence=['NameSelection_Test','IndPlay_Test','CollectivePlay_Test','Round2_Test', 'Round3_Test'],
+        num_demo_participants=4,
+        Treatment=1,
+    ),
+dict(
+        name='IndPlay_Test',
+        app_sequence=['IndPlay_Test'],
+        num_demo_participants=1,
+    ),
+dict(
+        name='CVPlay_FR',
+        app_sequence=['CV_FR','IndPlay_Test','CollectivePlay_FR','Round2_FR', 'Round3_FR'],
+        num_demo_participants=8,
+        Treatment=1,
+    ),
+dict(
+        name='CVPlay_FR_Test',
+        app_sequence=['CollectivePlay_FR','Round2_FR', 'Round3_FR'],
+        num_demo_participants=2,
+        Treatment=3,
+    )
 ]
 
 ROOMS = [
@@ -102,7 +137,8 @@ STATIC_ROOT = '_static/global'
 # for example: de, fr, ja, ko, zh-hans
 STATIC_URL = '/static/'
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fr'
+#LANGUAGE_CODE = 'en'
 INSTALLED_APPS = [
     'CV',
     'CollectivePlay',

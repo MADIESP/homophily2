@@ -1,0 +1,42 @@
+{% block title %}
+Part 4 - Partner: {{ participant.name_partner_round2 }}
+{% endblock %}
+
+{% block content %}
+
+<p> You have been paired with <b> {{ participant.name_partner_round2 }} </b> based on the rankings in
+    part 4. </p>
+<p>
+Before proceeding to Table 1, estimate both your and {{ participant.name_partner_round2 }}'s performance in <b>Part 3.</b> For instance: </p>
+<p>
+    If you believe you correctly counted 0 out of 6 tables, guess "0".
+</p>
+    <p>
+    If you believe you correctly counted 1 out of 6 tables, guess "1".
+</p>
+    <p>
+    If 2 out of 6 tables, guess "2", etc.
+</p>
+    <p>
+
+Apply the same method to estimate {{ participant.name_partner_round2 }}'s performance.
+</p>
+
+<p> Each correct guess earns you 1 point.</p>
+
+    <p> If you have any question, please raise your hand, and the experimenter will assist you.</p>
+
+
+
+ <input type="submit" class="btn btn-primary" value="Start">
+
+
+
+
+
+
+{% endblock %}
+
+
+
+

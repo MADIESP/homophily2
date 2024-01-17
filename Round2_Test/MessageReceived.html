@@ -1,0 +1,23 @@
+{% block title %}
+Part 3 - Table {{ view.round_number }} - Partner: {{ participant.name_partner }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<p>
+  {{ participant.name_partner }} just sent you a message:
+
+
+<br>
+  <p>
+        {{ session.Message_selected }}
+    </p>
+
+{{ next_button }}
+{% endblock %}
+
+
+
+

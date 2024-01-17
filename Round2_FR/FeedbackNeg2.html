@@ -1,0 +1,35 @@
+{% block title %}
+Part 4 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_round2 }}
+<style>
+    .hidden-label label {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<p>
+
+</p>
+
+<p>
+   {{ participant.name_partner_round2 }}'s answer was randomly chosen as the team answer.
+
+<br>
+<p>
+     Unfortunately, {{ participant.name_partner_round2 }} provided
+a wrong answer and your  team got 0 points &#128542;
+</p>
+
+
+
+ {{ next_button }}
+
+{% endblock %}
+
+
+
+
+
+

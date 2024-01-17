@@ -1,0 +1,23 @@
+{% block title %}
+Partie 3 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<p>
+  {{ participant.name_partner }} vient de vous envoyer un message:
+
+
+<br>
+  <p>
+        {{ session.Message_selected }}
+    </p>
+
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Suivant </button>
+{% endblock %}
+
+
+
+

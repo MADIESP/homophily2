@@ -1,0 +1,21 @@
+{{ block title }}
+    Partie 6 - Sondage Post Expérimental - 1/4
+{{ endblock }}
+
+{{ block content }}
+<style>
+    h1 {text-align: center;}
+    p {text-align: justify;}
+    div {text-align: center;}
+ </style>
+<p>Veuillez considérer chaque caractéristique affichée sur les CVs que vous avez dû classer dans les parties 2, 3 et 4 de l’expérience. </p>
+<p>Veuillez indiquer à quel point chaque caractéristique vous a été utile pour déterminer le classement des CVs. </p>
+<p>Pour cela, sélectionnez “très utile”, “utile”, “un peu utile” ou « inutile » pour chacune des caractéristiques ci-dessous : </p>
+
+
+ {{ formfields }}
+
+      <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+{{ endblock }}
+
+

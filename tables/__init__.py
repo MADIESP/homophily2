@@ -69,7 +69,7 @@ def creating_m(player):
                 cell.set_facecolor('white')
 
         # Save the table as an image
-        image_filename = f'table_{i + 1}.png'
+        image_filename = f'tableau_Ex_{i + 1}.png'
         static_path = otree.settings.STATIC_ROOT
         image_path = os.path.join(static_path, image_filename)
         plt.savefig(image_path, bbox_inches='tight')

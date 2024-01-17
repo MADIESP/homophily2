@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+       Exemple - Exercice de Compréhension
+{% endblock %}
+
+{% block content %}
+
+<p> <b> Pour tester votre compréhension de la tâche à effectuer, nous vous proposons de vous exercer sur un tableau plus petit.
+    </b> </p>
+
+<br>
+
+<img src="{{ static 'global/table_ComprehensionCheck.png'}}" width="100px"  class="center"/>
+
+<br>
+<p>
+
+        {{ formfields }}
+</p>
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+       Exercice de Compréhension
+{% endblock %}
+
+{% block content %}
+
+<p> La réponse que vous avez indiquée est incorrecte. </p>
+
+<p> Il y avait  <font color="red">4 0s</font> dans le tableau.</p>
+
+<p> <b> Voici la réponse que vous auriez dû indiquer: </b></p>
+
+<br>
+
+<img src="{{ static 'global/Exemple_error.png'}}" width="400px"/>
+
+
+<p>
+
+      <b> Veuillez attendre qu'un instructeur vienne vous voir avant de continuer l'expérience.</b>
+</p>
+
+
+
+
+
+{% endblock %}
+

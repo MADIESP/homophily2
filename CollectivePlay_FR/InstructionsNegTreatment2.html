@@ -1,0 +1,53 @@
+{% block content %}
+    <style>
+    h1 {text-align: center;}
+    p {text-align: justify;}
+
+    </style>
+
+    <h1>
+       Partie 3 - Instructions - Jeu Collectif
+    </h1>
+<br>
+
+
+
+<p> Dans cet exemple, votre partenaire est James.  </p>
+
+
+<p> James et vous venez de compter le nombre de 0s dans le tableau 1.</p>
+
+<p> Une seule réponse, la vôtre ou celle de James, a été choisie au hasard comme réponse de l'équipe, et cette réponse est  <b> incorrecte. </b></p>
+
+<p> L'identité du partenaire dont la réponse a été choisi  <b> sera  révélée. </b> </p>
+<p> Le partenaire dont la réponse n'a pas été choisie pourra choisir <b> un message </b> dans une liste et l'envoyer à son partenaire.  </p>
+<p> Voici l'écran que vous verrez si votre réponse a été choisie.
+    Dans ce cas, James vous enverra un message :  </p>
+
+<p>
+
+<img src="{{ static 'global/negativeT1own.png'}}" width="450px"/>
+</p>
+
+<p> Voici l'écran que vous verrez si la réponse de James a été choisie.
+    Dans ce cas, vous sélectionnerez et enverrez un message à James:</p>
+
+
+<br>
+<p>
+
+<img src="{{ static 'global/negT2partner.png'}}" width="450px"/>
+</p>
+<br>
+
+<p> Si vous avez des questions, veuillez lever la main pour que nous puissions venir vous aider. </p>
+
+
+ <p> Cliquez sur le bouton pour commencer la Partie 3. </p>
+
+
+
+  <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Commencer </button>
+
+
+{% endblock %}

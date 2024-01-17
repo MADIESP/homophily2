@@ -27,6 +27,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    easy = models.LongStringField(
+        label=("Was it easy to count the 0s in 30 secondes?")
     Treatment = models.IntegerField()
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[0, "Female"], [1, "Male"]], default=1)
@@ -501,6 +503,13 @@ class MessageReceived(Page):
 
 class WaitforNextTable(WaitPage):
     body_text = "En attente de votre partenaire."
+
+class Survey(WaitPage):
+    form_model = 'player'
+    form_fields = ['easy']
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 6
 
 class END(Page):
     @staticmethod

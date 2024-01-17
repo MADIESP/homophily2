@@ -504,7 +504,7 @@ class MessageReceived(Page):
 class WaitforNextTable(WaitPage):
     body_text = "En attente de votre partenaire."
 
-class Survey(WaitPage):
+class Survey(Page):
     form_model = 'player'
     form_fields = ['easy']
     @staticmethod
@@ -523,4 +523,4 @@ class END(Page):
 #page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4,InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
 #page_sequence = [ MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
 
-page_sequence = [MyWaitPage, NamePartner,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl,  WaitforNextTable, END]
+page_sequence = [MyWaitPage, NamePartner,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl,  WaitforNextTable, Survey,END]

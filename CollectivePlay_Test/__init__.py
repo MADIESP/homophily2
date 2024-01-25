@@ -29,6 +29,37 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     Treatment = models.IntegerField()
+    test_ranking1 = models.IntegerField(
+        label="1- Avez-vous <b> plus de chance </b> d’être apparié au joueur que vous avez classé en première position ou en deuxième position ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[[0, "1ère position"], [1, "2ème position"]])
+    test_ranking2 = models.IntegerField(
+        label="2- Avez-vous <b> moins de chance </b> d’être apparié au joueur que vous avez classé en troisième position ou en quatrième position ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[[0, "3ème position"], [1, "4ème position"]])
+    test_JeuCollectif = models.IntegerField(
+        label="3- A chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
+        widget=widgets.RadioSelect,
+        choices=[[0, "Ma réponse sera toujours sélectionnée. "],
+                 [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
+                 [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]])
+    test_Belief1 = models.IntegerField(
+        label="Si vous pensez avoir correctement compté 3 tableaux dans la partie 3, quelle réponse devait vous indiquer ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[0,1,2,3,4])
+    test_Belief2= models.IntegerField(
+        label="Si vous pensez que votre partenaire a correctement compté 3 tableaux dans la partie 3, quelle réponse devait vous indiquer ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[0, 1, 2, 3, 4])
+    test_Belief3 = models.IntegerField(
+        label="Que gagnerez vous si vous avez correctement estimé votre performance au début de cette partie? ",
+        widget=widgets.RadioSelect,
+        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."],[1, "Je gagnerais un point supplémentaire."]])
+    test_Belief4 = models.IntegerField(
+        label="Que gagnerez vous si vous avez correctement estimé la performance de votre partenaire au début de cette partie? ",
+        widget=widgets.RadioSelect,
+        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je gagnerais un point supplémentaire."]])
+
     gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[0, "Female"], [1, "Male"]], default=1)
     FemaleNames = models.IntegerField()
@@ -393,6 +424,23 @@ class InstructionsNegTreatment2(Page):
     def is_displayed(player: Player):
         return player.round_number == 1 and player.subsession.Treatment == 3
 
+class WaitPage1(WaitPage):
+    pass
+
+class TestCompréhension(Page):
+    form_model = 'player'
+    form_fields = ['test_ranking1','test_ranking2', 'test_JeuCollectif']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+class Compréhension_Error(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.test_ranking1!=0 or player.round_number ==1 and player.test_ranking2!=1 or player.round_number ==1 and player.test_JeuCollectif!=2
+
 
 
 
@@ -412,6 +460,23 @@ class NamePartner(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
+
+class TestCompréhensionBeliefs(Page):
+    form_model = 'player'
+    form_fields = ['test_Belief1','test_Belief2','test_Belief3','test_Belief4']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+class Compréhension_Belief_Error(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.test_Belief1 != 3 or player.round_number == 1 and player.test_Belief2 != 3 or player.round_number == 1 and player.test_Belief3 != 1 or player.round_number == 1 and player.test_Belief4 != 1
+
+
+
 
 class WaitforBelief(WaitPage):
 
@@ -511,7 +576,7 @@ class WaitforCommunication(WaitPage):
         return player.correct_Group == False and player.subsession.Treatment==3
 
     after_all_players_arrive = send_message
-    body_text = "Veuillez attendre votre partenaire."
+    body_text = "En attente de votre partenaire."
 
 class MessageSent(Page):
     @staticmethod
@@ -543,4 +608,4 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [ Instructions, MyWaitPage, NamePartner, WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
+page_sequence = [ Instructions, WaitPage1, TestCompréhension, Compréhension_Error, MyWaitPage, NamePartner, TestCompréhensionBeliefs, Compréhension_Belief_Error, WaitforBelief, Belief, WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]

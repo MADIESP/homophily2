@@ -25,10 +25,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    count_ind = models.IntegerField(label="Combien de 0s il y a-t-il dans ce tableau?")
+    count_ind = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?")
     correct_ind = models.BooleanField(doc="Whether the first sum provided is correct.")
-    count_test = models.IntegerField(label="Combien de 0s il y a-t-il dans ce tableau?", initial=4)
-    count_error = models.IntegerField(label="Cette réponse est incorrecte, veuillez à nouveau entrer le nombre de 0s dans ce tableau.")
+    count_test = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?", initial=4)
+    count_error = models.IntegerField(label="Cette réponse est incorrecte, veuillez à nouveau entrer le nombre de zéros dans ce tableau.")
 
 
 

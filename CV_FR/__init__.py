@@ -14,8 +14,8 @@ class C(BaseConstants):
     NAME_IN_URL = 'CV_FR'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
-    Fnames = ["Mary", "Emma", "Patricia", "Elizabeth"]
-    Mnames = ["James", "David", "John", "Robert"]
+    Fnames = ["Jade", "Louise", "Ambre", "Alba", "Emma", "Rose", "Alice", "Romy", "Anna", "Lina"]
+    Mnames = ["Gabriel", "Léo", "Raphaël", "Louis", "Noah", "Jules", "Arthur", "Adam", "Lucas", "Sacha"]
 
 
 class Subsession(BaseSubsession):
@@ -78,27 +78,52 @@ class Player(BasePlayer):
  #FUNCTIONS
 
 def Fnames(player):
-    if player.chosen_nameF == "Mary":
+    if player.chosen_nameF == "Jade":
         FemaleNames = 1
-    elif player.chosen_nameF == "Emma":
+    elif player.chosen_nameF == "Louise":
         FemaleNames = 2
-    elif player.chosen_nameF == "Patricia":
+    elif player.chosen_nameF == "Ambre":
         FemaleNames = 3
-    elif player.chosen_nameF == "Elizabeth":
+    elif player.chosen_nameF == "Alba":
         FemaleNames = 4
+    elif player.chosen_nameF == "Emma":
+        FemaleNames = 5
+    elif player.chosen_nameF == "Rose":
+        FemaleNames = 6
+    elif player.chosen_nameF == "Alice":
+        FemaleNames = 7
+    elif player.chosen_nameF == "Romy":
+        FemaleNames = 8
+    elif player.chosen_nameF == "Anna":
+        FemaleNames = 9
+    elif player.chosen_nameF == "Lina":
+        FemaleNames = 10
+
 
     player.FemaleNames = FemaleNames
 
 
 def Mnames(player):
-    if player.chosen_nameM == "James":
+    if player.chosen_nameM == "Gabriel":
         MaleNames = 1
-    elif player.chosen_nameM == "David":
+    elif player.chosen_nameM == "Léo":
         MaleNames = 2
-    elif player.chosen_nameM == "John":
+    elif player.chosen_nameM == "Raphaël":
         MaleNames = 3
-    elif player.chosen_nameM == "Robert":
+    elif player.chosen_nameM == "Louis":
         MaleNames = 4
+    elif player.chosen_nameM == "Noah":
+        MaleNames = 5
+    elif player.chosen_nameM == "Jules":
+        MaleNames = 6
+    elif player.chosen_nameM == "Arthur":
+        MaleNames = 7
+    elif player.chosen_nameM == "Adam":
+        MaleNames = 8
+    elif player.chosen_nameM == "Lucas":
+        MaleNames = 9
+    elif player.chosen_nameM == "Sacha":
+        MaleNames = 10
 
     player.MaleNames = MaleNames
 
@@ -288,9 +313,9 @@ def create_image_cv(cv_1, cv_2, cv_3, cv_4):
 
 
     # Définition des questions et réponses pour chaque CV
-    questions = ["Prénom:","Genre:",  "Né.e en Ile De France:", "Temps de Trajet:"]
+    questions = ["Prénom:","Genre:",  "Naissance Ile De France:", "Temps de Trajet:"]
     answers = [
-        [["Mary", "James"], ["Emma", "David"], ["Patricia", "John"], ["Elizabeth", "Robert"]],
+        [["Jade", "Gabriel"], ["Louise", "Léo"], ["Ambre", "Raphaël"], ["Alba", "Louis"],["Emma", "Noah"],["Rose", "Jules"],["Alice", "Arthur"],["Romy", "Adam"],["Anna", "Lucas"],["Lina", "Sacha"]],
         ["Femme", "Homme"],
         ["Non", "Oui"],
         ["> 30 min", "< 30 min"]
@@ -439,7 +464,7 @@ class Survey(Page):
     def error_message(player, timeout_happened):
         if not player.survey_error_displayed:
             player.survey_error_displayed = True  # Set the flag to True
-            return "Veuillez vérifier vos réponses et cliquer sur Valider."
+            return "Veuillez vérifier que vos réponses sont exactes et cliquer sur Valider."
 
 
 
@@ -459,7 +484,7 @@ class NameSelectionF(Page):
     def error_message(self, values):
         chosen_nameF = values['chosen_nameF']
         if chosen_nameF in [p.chosen_nameF for p in self.group.get_players()]:
-            return "This name was already taken. Please select another name."
+            return "Ce prénom a déjà été choisi par un autre participant. Veuillez en sélectionner un nouveau."
 
     def before_next_page(player, timeout_happened):
         Fnames(player)
@@ -480,7 +505,7 @@ class NameSelectionM(Page):
     def error_message(self, values):
         chosen_nameM = values['chosen_nameM']
         if chosen_nameM in [p.chosen_nameM for p in self.group.get_players()]:
-            return "This name was already taken. Please select another name."
+            return "Ce prénom a déjà été choisi par un autre participant. Veuillez en sélectionner un nouveau."
 
     def before_next_page(player, timeout_happened):
         Mnames(player)

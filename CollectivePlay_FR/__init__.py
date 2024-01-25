@@ -74,15 +74,15 @@ class Player(BasePlayer):
     name_partner=models.IntegerField()
     partner_name = models.IntegerField()
     partner_gender = models.IntegerField()
-    count = models.IntegerField(label="Combien de 0s il y a-t-il dans ce tableau?")
+    count = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?")
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
-                                  choices=[[1, "No stress, this matrix can be tricky! "],
-                                           [2, "Don't worry, mistakes happen!"],
-                                           [3, "I know it's tough, but try to focus more. "],
-                                           [4, "It's crucial to get the exact count, you should try another counting method. "]])
+                                  choices=[[1, "Pas de pression, ce tableau n'est pas simple ! "],
+                                           [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"],
+                                           [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
+                                           [4, "Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "]])
 
 
 # FUNCTIONS

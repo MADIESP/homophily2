@@ -1,34 +1,42 @@
 {% block title %}
-Part 5 - Partner: {{ participant.name_partner_round3 }}
+Partie 5 - Partenaire: {{ participant.name_partner }}
 {% endblock %}
 
 {% block content %}
 
-<p> You have been paired with <b> {{ participant.name_partner_round3 }} </b> based on the rankings in
-    Part 5. </p>
+<p>Sur la base du classement des CVs de tous les participants, votre partenaire pour la partie 5 de l'expérience est <b> {{ participant.name_partner }}.</b>
+
 <p>
-Before proceeding to Table 1, estimate both your and {{ participant.name_partner_round3 }}'s performance in <b>Part 4.</b> For instance: </p>
+Avant de débuter la première période, nous allons vous demander d'estimer votre performance et celle de {{ participant.name_partner }} dans la  <b> Partie 4  </b> de l'expérience.  </p>
+
+<p> Pour cela, veuillez appliquer la même méthode d’estimation que lors des parties précédentes.  </p>
+
+
+<p> <u> Par exemple: </u></p>
+
 <p>
-    If you believe you correctly counted 0 out of 6 tables, guess "0".
+    Si vous pensez n'avoir obtenu aucune réponse correcte dans la partie 4 de l'expérience, sélectionnez "0".
 </p>
     <p>
-    If you believe you correctly counted 1 out of 6 tables, guess "1".
+    Si vous pensez avoir correctement compté  le nombre de zéros dans 1 tableau sur 6, sélectionnez "1".
 </p>
     <p>
-    If 2 out of 6 tables, guess "2", etc.
+    Si 2 tableaux sur 6, sélectionnez "2", etc.
 </p>
     <p>
 
-Apply the same method to estimate {{ participant.name_partner_round3 }}'s performance.
+Appliquez la même méthode pour estimer la performance de  {{ participant.name_partner }}.
 </p>
 
-<p> Each correct guess earns you 1 point.</p>
+<p> Vous gagnerez un point pour chaque estimation correcte. </p>
 
-    <p> If you have any question, please raise your hand, and the experimenter will assist you.</p>
+    <p> Si vous avez des questions, veuillez lever la main pour que nous puissions  vous aider. </p>
+
+<p> Cliquez sur le bouton pour commencer.</p>
 
 
 
- <input type="submit" class="btn btn-primary" value="Start">
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Commencer </button>
 
 
 

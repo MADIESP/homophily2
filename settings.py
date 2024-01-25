@@ -90,12 +90,12 @@ dict(
 dict(
         name='Test_T1',
         app_sequence=['NameSelection_Test','IndPlay_Test','CollectivePlay_Test','Round2_Test', 'Round3_Test'],
-        num_demo_participants=4,
+        num_demo_participants=2,
         Treatment=1,
     ),
 dict(
-        name='IndPlay_Test',
-        app_sequence=['IndPlay_Test'],
+        name='IndPlay_FR',
+        app_sequence=['IndPlay_FR'],
         num_demo_participants=1,
     ),
 dict(
@@ -159,10 +159,10 @@ DEMO_PAGE_INTRO_HTML = """ """
 SECRET_KEY = '4308297569828'
 
 
-environ['OTREE_ADMIN_PASSWORD'] = '0812'
-environ['OTREE_PRODUCTION'] = '1'
-environ['OTREE_AUTH_LEVEL'] ='STUDY'
+#environ['OTREE_ADMIN_PASSWORD'] = '0812'
+#environ['OTREE_PRODUCTION'] = '1'
+#environ['OTREE_AUTH_LEVEL'] ='STUDY'
 
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
-AUTH_LEVEL= environ.get('OTREE_AUTH_LEVEL')
+#ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+#DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
+#AUTH_LEVEL= environ.get('OTREE_AUTH_LEVEL')

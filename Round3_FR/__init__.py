@@ -34,29 +34,29 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal, )
-    belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,)
+    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal,initial=3 )
+    belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,initial=3)
     belief_partner = models.IntegerField(
-        label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,)
+        label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal, initial=3)
 
     rank1 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 1st: </b>"
+        label="<b> 1er Rang: </b>"
     )
 
     rank2 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 2nd: </b>"
+        label="<b> 2ème Rang: </b>"
     )
 
     rank3 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 3rd: </b>"
+        label="<b> 3ème Rang: </b>"
     )
 
     rank4 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 4th: </b>"
+        label="<b> 4ème Rang: </b>"
     )
 
     rank1st = models.IntegerField()
@@ -135,8 +135,8 @@ def cv(player):
 def creating_group_with_choices_round_1(subsession):
     Group_A_ch = []
     Group_B_ch = []
-    groupA = eval(subsession.session.Group_A_round3)
-    groupB = eval(subsession.session.Group_B_round3)
+    groupA = eval(subsession.session.Group_A)
+    groupB = eval(subsession.session.Group_B)
 
     for player in subsession.get_players():
         if player.participant.InGroupA == True:
@@ -160,7 +160,7 @@ import random
 
 def making_team_round_1(subsession):
     Group_A_ch = eval(subsession.session.groupA_ch_round3)
-    GroupA = eval(subsession.session.Group_A_round3)
+    GroupA = eval(subsession.session.Group_A)
 
     # Group_B_ch=eval(subsession.session.groupB_ch)
 
@@ -219,9 +219,9 @@ def partner_name(group):
         # player.participant.name = player.participant.MaleNames
 
         player.gender = player.participant.gender
-        player.name = player.participant.name_round3
+        player.name = player.participant.name
 
-    all_names = [player.participant.name_round3 for player in group.get_players()]
+    all_names = [player.participant.name for player in group.get_players()]
     all_gender = [player.participant.gender for player in group.get_players()]
 
     group.session.all_gender = str(all_gender)
@@ -235,72 +235,47 @@ def partner_name(group):
         player.participant.partner_gender_round3 = partner_gender
 
         if player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 1:
-            player.participant.name_partner_round3 = 'Thomas'
+            player.participant.name_partner_round3 = 'Gabriel'
         elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 2:
-            player.participant.name_partner_round3 = 'Christopher'
+            player.participant.name_partner_round3 = 'Léo'
         elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 3:
-            player.participant.name_partner_round3 = 'Charles'
+            player.participant.name_partner_round3 = 'Raphaël'
         elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 4:
-            player.participant.name_partner_round3 = 'Daniel'
+            player.participant.name_partner_round3 = 'Louis'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 5:
+            player.participant.name_partner_round3 = 'Noah'
+        elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 6:
+            player.participant.name_partner_round3 = 'Jules'
+        elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 7:
+            player.participant.name_partner_round3 = 'Arthur'
+        elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 8:
+            player.participant.name_partner_round3 = 'Adam'
+        elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 9:
+            player.participant.name_partner_round3 = 'Lucas'
+        elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 10:
+            player.participant.name_partner_round3 = 'Sacha'
         elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 1:
-            player.participant.name_partner_round3 = 'Jessica'
+            player.participant.name_partner_round3 = 'Jade'
         elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 2:
-            player.participant.name_partner_round3 = 'Sarah'
+            player.participant.name_partner_round3 = 'Louise'
         elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 3:
-            player.participant.name_partner_round3 = 'Karen'
+            player.participant.name_partner_round3 = 'Ambre'
         elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 4:
-            player.participant.name_partner_round3 = 'Lisa'
+            player.participant.name_partner_round3 = 'Alba'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 5:
+            player.participant.name_partner_round3 = 'Emma'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 6:
+            player.participant.name_partner_round3 = 'Rose'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 7:
+            player.participant.name_partner_round3 = 'Alice'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 8:
+            player.participant.name_partner_round3 = 'Romy'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 9:
+            player.participant.name_partner_round3 = 'Anna'
+        elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 10:
+            player.participant.name_partner_round3 = 'Lina'
 
 
-def creating_m(player):
-    session = player.session
-    subsession = player.subsession
-    np.random.seed(0)
-
-    # Define the dimensions of the table
-    rows, columns = 10, 10
-
-    # Initialize a dictionary to store the counts of 0s for each table
-    zeros_counts = {}
-
-    # Generate and save 10 tables as images
-    for i in range(10):
-        # Generate a table of random 0s and 1s
-        table = np.random.randint(2, size=(rows, columns))
-
-        # Count the number of 0s in the table
-        num_zeros = np.sum(table == 0)
-
-        # Store the count in the dictionary with a unique key
-        zeros_counts[f'TABLE{i + 1}'] = num_zeros
-
-        # Create a figure and axis for the table
-        fig, ax = plt.subplots()
-
-        # Hide axis labels and ticks
-        ax.axis('off')
-
-        # Create a table with 0s and 1s displayed as text, without cell borders
-        table_obj = ax.table(cellText=table, loc='center', cellLoc='center', edges='open', bbox=[0, 0, 1, 1])
-        for key, cell in table_obj._cells.items():
-            cell.set_text_props(fontsize=14)  # Adjust font size as needed
-            if key[0] == 0 or key[1] == -1 or key[1] == columns:
-                cell.set_facecolor('none')
-                cell.set_edgecolor('none')
-            else:
-                cell.set_facecolor('white')
-
-        # Save the table as an image
-        image_filename = f'table_{i + 1}.png'
-        static_path = otree.settings.STATIC_ROOT
-        image_path = os.path.join(static_path, image_filename)
-        plt.savefig(image_path, bbox_inches='tight')
-        plt.close(fig)
-
-    # Store the dictionary of zero counts in the session vars
-
-    session.vars['zeros_counts'] = zeros_counts
-    session.zeros_counts2 = zeros_counts
 
 
 def set_correct(player):
@@ -313,77 +288,20 @@ def set_correct(player):
 
     player.correct = correct
 
-
+import random
 def select_group_answer(group):
     all_counts = [player.count for player in group.get_players()]
     selected_count = random.choice(all_counts)
-
-    # Assign selected_count to the group before using it for player comparisons
-    group.selected_count = selected_count
-
-    # Choose a player based on selected_count
-    selected_player = random.choice([p for p in group.get_players() if p.count == selected_count])
-    selected_player_id = selected_player.id_in_group
-    group.selected_player = selected_player_id
-
-    for player in group.get_players():
-        if player.id_in_group == group.selected_player:
-            player.partner_selected = True
-        else:
-            player.partner_selected = False
-
-
-import random
-
-import random
-
-
-def select_group_answer(group):
-    all_counts = [player.count for player in group.get_players()]
-    selected_count = random.choice(all_counts)
-    group.selected_count = selected_count
+    group.selected_count= selected_count
     selected_player = random.choice(group.get_players())
     selected_player_id = selected_player.id_in_group
-    group.selected_player = selected_player_id
+    group.selected_player= selected_player_id
 
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
-            if player.participant.gender == 1 and player.participant.name_round3 == 1:
-                player.session.name_selected_round3 = 'James'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 2:
-                player.session.name_selected_round3 = 'David'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 3:
-                player.session.name_selected_round3 = 'John'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 4:
-                player.session.name_selected_round3 = 'Robert'
-            elif player.participant.gender == 0 and player.participant.name_round3 == 1:
-                player.session.name_selected_round3 = 'Mary'
-            elif player.participant.gender == 0 and player.participant.name_round3 == 2:
-                player.session.name_selected_round3 = 'Emma'
-            elif player.participant.gender == 0 and player.participant.name_round3 == 3:
-                player.session.name_selected_round3 = 'Patricia'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 4:
-                player.session.name_selected_round3 = 'Elizabeth'
-
         else:
             player.partner_selected = False
-            if player.participant.gender == 1 and player.participant.name_round3 == 1:
-                player.session.name_NOTselected_round3 = 'Liam'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 2:
-                player.session.name_NOTselected_round3 = 'Noah'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 3:
-                player.session.name_NOTselected_round3 = 'William'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 4:
-                player.session.name_NOTselected_round3 = 'Henry'
-            elif player.participant.gender == 0 and player.participant.name_round3 == 1:
-                player.session.name_NOTselected_round3 = 'Charlotte'
-            elif player.participant.gender == 0 and player.participant.name_round3 == 2:
-                player.session.name_NOTselected_round3 = 'Olivia'
-            elif player.participant.gender == 0 and player.participant.name_round3 == 3:
-                player.session.name_NOTselected_round3 = 'Sophia'
-            elif player.participant.gender == 1 and player.participant.name_round3 == 4:
-                player.session.name_NOTselected_round3 = 'Amelia'
 
 
 def message(player):
@@ -394,13 +312,13 @@ def send_message(group):
     for player in group.get_players():
         if player.partner_selected == False:
             if player.participant.Message_round3 == 1:
-                player.session.Message_selected_round3 = '"No stress, this matrix can be tricky!"'
+                player.session.Message_selected_round3 = '"Pas de pression, ce tableau n’est pas simple !"'
             elif player.participant.Message_round3 == 2:
-                player.session.Message_selected_round3 = '"Don’t worry, mistakes happen!"'
+                player.session.Message_selected_round3 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
             elif player.participant.Message_round3 == 3:
-                player.session.Message_selected_round3 = '"I know it’s tough, but try to focus more."'
+                player.session.Message_selected_round3 = '"Je sais que c’est difficile, mais essaye de te concentrer."'
             elif player.participant.Message_round3 == 4:
-                player.session.Message_selected_round3 = '"It’s crucial to get the exact count, you should try another counting method."'
+                player.session.Message_selected_round3 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
 
 
 def set_correct_group(group):
@@ -422,92 +340,16 @@ def set_correct_group(group):
 
 # PAGES
 
-class InstructionsRanking(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1
-
-
-class WaitforInstructions2(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
-    wait_for_all_groups = True
-
-
-class InstructionsRanking2(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1
-
-
-class WaitforInstructions3(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
-    wait_for_all_groups = True
-
-
 class Instructions(Page):
     form_model = 'player'
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and player.subsession.Treatment != 3
-
-
-class InstructionsTreatment2(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1 and player.subsession.Treatment == 3
-
-
-class WaitforInstructions4(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
-    wait_for_all_groups = True
-
-
-class InstructionsPos(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
         return player.round_number == 1
 
 
-class WaitforInstructions5(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
-    wait_for_all_groups = True
-
-
-class InstructionsNegControl(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1 and player.subsession.Treatment == 1
-
-
-class InstructionsNegTreatment1(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1 and player.subsession.Treatment == 2
-
-
-class InstructionsNegTreatment2(Page):
-    form_model = 'player'
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1 and player.subsession.Treatment == 3
-
 
 class WaitforChoice(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     wait_for_all_groups = True
 
 
@@ -542,7 +384,6 @@ class ChoiceCV_groupB(Page):
 
 
 class WaitForMatching(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     wait_for_all_groups = True
 
     @staticmethod
@@ -559,7 +400,6 @@ class WaitForMatching(WaitPage):
 
 
 class WaitforPartnerName(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     after_all_players_arrive = partner_name
 
     @staticmethod
@@ -568,7 +408,6 @@ class WaitforPartnerName(WaitPage):
 
 
 class WaitforMatching2(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     wait_for_all_groups = True
     after_all_players_arrive = making_team_round_1
 
@@ -584,7 +423,6 @@ class NamePartner(Page):
         return player.round_number == 1
 
 class WaitforBelief(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     wait_for_all_groups = True
 
     @staticmethod
@@ -599,7 +437,6 @@ class Belief(Page):
         return player.round_number == 1
 
 class WaitforTable1(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     wait_for_all_groups = True
 
     @staticmethod
@@ -619,7 +456,7 @@ class Count(Page):
 
 
 class WaitforFeedback(WaitPage):
-    body_text = "Veuillez attendre votre partenaire."
+    body_text = "En attente de votre partenaire."
 
     @staticmethod
     def call_functions(group):
@@ -678,7 +515,7 @@ class WaitforCommunication(WaitPage):
         return player.correct_Group == False and player.subsession.Treatment == 3
 
     after_all_players_arrive = send_message
-    body_text = "VeuilleZ attendre votre partenaire."
+    body_text = "En attente de votre partenaire."
 
 
 class MessageSent(Page):
@@ -694,7 +531,7 @@ class MessageReceived(Page):
 
 
 class WaitforNextTable(WaitPage):
-    body_text = "Veuillez attendre votre partenaire."
+    body_text = "En attente de votre partenaire."
 
 class Enjoy(Page):
     form_model = 'player'
@@ -706,7 +543,6 @@ class Enjoy(Page):
 
 
 class WaitforSurvey(WaitPage):
-    body_text = "Veuillez attendre les autres participants."
     wait_for_all_groups = True
 
     @staticmethod
@@ -714,7 +550,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [ ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
 
 # page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforNextTable]
 

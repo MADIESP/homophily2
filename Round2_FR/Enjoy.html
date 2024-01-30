@@ -1,9 +1,9 @@
 {{ block title }}
-    Partie 4  - Partenaire: {{ participant.name_partner }}
+    Partie 4  - Partenaire: {{ participant.name_partner_round2 }}
 {{ endblock }}
 {{ block content }}
 <p>
-Sur une échelle de 1 à 7, dans quelle mesure avez-vous apprécié effectuer la partie 4 avec {{ participant.name_partner }}?
+Sur une échelle de 1 à 7, dans quelle mesure avez-vous apprécié effectuer la partie 4 avec {{ participant.name_partner_round2 }}?
     </p>
 
 
@@ -23,6 +23,6 @@ Note: Votre réponse restera confidentielle.
 
     {{ formfields }}
 
-<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
 
 {{ endblock }}

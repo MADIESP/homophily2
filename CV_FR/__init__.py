@@ -449,6 +449,11 @@ def image_cv(group):
 
 
 # PAGES
+class Instructions_général(Page):
+    form_model = 'player'
+class WaitforPartie1(WaitPage):
+    pass
+
 class Instructions(Page):
     form_model = 'player'
 
@@ -464,10 +469,13 @@ class Survey(Page):
     def error_message(player, timeout_happened):
         if not player.survey_error_displayed:
             player.survey_error_displayed = True  # Set the flag to True
-            return "Veuillez vérifier que vos réponses sont exactes et cliquer sur Valider."
+            return "Veuillez vérifier que vos informations sont exactes et cliquer sur Valider."
 
+class WaitforInstructionPrénom(WaitPage):
+    pass
 
-
+class Prénom(Page):
+    form_model = 'player'
 
 class WaitForNames(WaitPage):
     pass
@@ -566,4 +574,4 @@ class MyWaitPage(WaitPage):
 
 #page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
+page_sequence = [ Instructions_général, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]

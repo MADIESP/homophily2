@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+       Exercice de Compréhension
+{% endblock %}
+
+{% block content %}
+
+<p> <b> Vous avez sélectionné au moins une réponse incorrecte.</b> </p>
+
+<p> <b> Voici les réponses correctes: </b></p>
+
+<br>
+
+<img src="{{ static 'global/Compréhension_Collectif_Error.png'}}" width="800px"/>
+
+
+<p>
+    <br>
+
+      <b> Veuillez attendre qu'un instructeur vienne vous voir avant de continuer l'expérience.</b>
+</p>
+
+
+
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Suivant </button>
+
+
+{% endblock %}
+

@@ -1,5 +1,5 @@
 {% block title %}
-Part 5 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_round3 }}
+Partie 5 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner_round3 }}
 {% endblock %}
 
 {% block content %}
@@ -10,17 +10,18 @@ Part 5 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_ro
 
 
 <p>
-   Your answer was randomly  chosen as the team answer.
+  Votre réponse a été aléatoirement choisie pour être la réponse de l'équipe.
 
 <br>
    <p>
-  Unfortunately, you provided
-a wrong answer and your  team got 0 points &#128542;
+  Malheureusement, vous avez donné une mauvaise réponse et votre équipe a donc gagné 0 points &#128542;
 
 </p>
 
 <br>
-{{ next_button }}
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Suivant </button>
+
 {% endblock %}
 
 

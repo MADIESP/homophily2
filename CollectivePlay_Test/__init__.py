@@ -70,15 +70,16 @@ class Player(BasePlayer):
     count = models.IntegerField(label="Combien de 0s il y a t-il dans ce tableau ?")
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
-    partner_selected = models.BooleanField(doc="Whether the count is correct.")
+    partner_selected = models.BooleanField()
     belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, )
     belief_partner = models.IntegerField(
         label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, )
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
-                                  choices=[[1, "No stress, this matrix can be tricky! "],
-                                           [2, "Don't worry, mistakes happen!"],
-                                           [3, "I know it's tough, but try to focus more. "],
-                                           [4, "It's crucial to get the exact count, you should try another counting method. "]])
+                                  choices=[[1, "Pas de pression, ce tableau n'est pas simple ! "],
+                                           [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"],
+                                           [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
+                                           [4,
+                                            "Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "]])
 
     chosen_nameF = models.StringField(
         choices=C.Fnames,
@@ -264,45 +265,12 @@ def select_group_answer(group):
     selected_player_id = selected_player.id_in_group
     group.selected_player= selected_player_id
 
-
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
-            if player.participant.gender == 1 and player.participant.name == 1:
-                player.session.name_selected = 'James'
-            elif player.participant.gender == 1 and player.participant.name == 2:
-                player.session.name_selected = 'David'
-            elif player.participant.gender == 1 and player.participant.name == 3:
-                player.session.name_selected = 'John'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_selected = 'Robert'
-            elif player.participant.gender == 0 and player.participant.name == 1:
-                player.session.name_selected = 'Mary'
-            elif player.participant.gender == 0 and player.participant.name == 2:
-                player.session.name_selected = 'Emma'
-            elif player.participant.gender == 0 and player.participant.name == 3:
-                player.session.name_selected = 'Patricia'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_selected = 'Elizabeth'
-
         else:
             player.partner_selected = False
-            if player.participant.gender == 1 and player.participant.name == 1:
-                player.session.name_NOTselected = 'James'
-            elif player.participant.gender == 1 and player.participant.name == 2:
-                player.session.name_NOTselected = 'David'
-            elif player.participant.gender == 1 and player.participant.name == 3:
-                player.session.name_NOTselected = 'John'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_NOTselected = 'Robert'
-            elif player.participant.gender == 0 and player.participant.name == 1:
-                player.session.name_NOTselected = 'Mary'
-            elif player.participant.gender == 0 and player.participant.name == 2:
-                player.session.name_NOTselected = 'Emma'
-            elif player.participant.gender == 0 and player.participant.name == 3:
-                player.session.name_NOTselected = 'Patricia'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_NOTselected = 'Elizabeth'
+
 
 def message(player):
     player.participant.Message=player.Message
@@ -605,7 +573,7 @@ class WaitforNextRound(WaitPage):
 
 
 #page_sequence = [ Survey,WaitForNames, NameSelectionF,NameSelectionM, InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4,InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, MyWaitPage,Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable]
-#page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
+page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [ Instructions, WaitPage1, TestCompréhension, Compréhension_Error, MyWaitPage, NamePartner, TestCompréhensionBeliefs, Compréhension_Belief_Error, WaitforBelief, Belief, WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
+#page_sequence = [ Instructions, WaitPage1, TestCompréhension, Compréhension_Error, MyWaitPage, NamePartner, TestCompréhensionBeliefs, Compréhension_Belief_Error, WaitforBelief, Belief, WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]

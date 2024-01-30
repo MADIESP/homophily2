@@ -14,7 +14,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'IndPlay_Test'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
-    TIME_PER_PROBLEM = 30
+    TIME_PER_PROBLEM = 3
 
 
 class Subsession(BaseSubsession):

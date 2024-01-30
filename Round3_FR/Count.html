@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-     Part 5 - Table {{ view.round_number }} -  Partner: {{ participant.name_partner_round3 }}
+     Partie 5 - Période {{ view.round_number }} -  Partenaire: {{ participant.name_partner_round3 }}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 
                 {% if player.round_number == 1 %}
 
-<img src="{{ static 'global/table_1.png'}}" width="380px"/>
+<img src="{{ static 'global/table_1.png'}}" width="500px"/>
 
 <br>
 <p>
@@ -23,7 +23,7 @@
 
 {% elif player.round_number == 2 %}
 
-<img src="{{ static 'global/table_2.png'}}" width="380px"/>
+<img src="{{ static 'global/table_2.png'}}" width="500px"/>
 <br>
  <p>
         {{ formfields }}
@@ -32,7 +32,7 @@
 
 {% elif player.round_number == 3 %}
 
-<img src="{{ static 'global/table_3.png'}}" width="380px"/>
+<img src="{{ static 'global/table_3.png'}}" width="500px"/>
 <br>
  <p>
         {{ formfields }}
@@ -40,7 +40,7 @@
  </p>
 
 {% elif player.round_number == 4 %}
-<img src="{{ static 'global/table_4.png'}}" width="380px"/>
+<img src="{{ static 'global/table_4.png'}}" width="500px"/>
 
 
 <br>
@@ -50,7 +50,7 @@
  </p>
 
 {% elif player.round_number == 5 %}
-<img src="{{ static 'global/table_5.png'}}" width="380px"/>
+<img src="{{ static 'global/table_5.png'}}" width="500px"/>
 
 
 <br>
@@ -60,7 +60,7 @@
  </p>
 
 {% elif player.round_number == 6 %}
-<img src="{{ static 'global/table_6.png'}}" width="380px"/>
+<img src="{{ static 'global/table_6.png'}}" width="500px"/>
 
 
 <br>
@@ -72,7 +72,7 @@
 
 {% endif %}
 
-<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Submit </button>
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
 
 
 {% endblock %}

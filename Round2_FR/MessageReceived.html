@@ -1,5 +1,5 @@
 {% block title %}
-Part 4 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_round2 }}
+Partie 4 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner_round2 }}
 {% endblock %}
 
 {% block content %}
@@ -7,7 +7,7 @@ Part 4 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_ro
 
 
 <p>
-  {{ participant.name_partner_round2 }} just sent you a message:
+  {{ participant.name_partner_round2 }} vient de vous envoyer un message:
 
 
 <br>
@@ -15,7 +15,7 @@ Part 4 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_ro
         {{ session.Message_selected_round2 }}
     </p>
 
-{{ next_button }}
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Suivant </button>
 {% endblock %}
 
 

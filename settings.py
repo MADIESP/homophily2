@@ -9,107 +9,45 @@ dict(
     ),
 
 
-dict(
-        name='TestControl',
-        app_sequence=['TestGame'],
-        num_demo_participants=2,
-        Treatment=1,
-    ),
 
-dict(
-        name='TestFeedback',
-        app_sequence=['TestGame'],
-        num_demo_participants=2,
-        Treatment=2,
-    ),
-
-dict(
-        name='TestMessage',
-        app_sequence=['TestGame'],
-        num_demo_participants=2,
-        Treatment=3,
-    ),
-
-
-dict(
-        name='CVPlayControl',
-        app_sequence=['CV','IndPlay','CollectivePlay','cvRound2','Round2','cvRound3', 'Round3', 'Post_Survey'],
-        num_demo_participants=8,
-        Treatment=1,
-    ),
-dict(
-        name='CVPlayFeedback',
-        app_sequence=['CV','IndPlay','CollectivePlay','cvRound2','Round2', 'cvRound3', 'Round3', 'Post_Survey'],
-        num_demo_participants=8,
-        Treatment=2,
-    ),
-
-dict(
-        name='CVPlayMessage',
-        app_sequence=['CV','IndPlay','CollectivePlay','cvRound2','Round2','cvRound3', 'Round3', 'Post_Survey'],
-        num_demo_participants=8,
-        Treatment=3,
-    ),
-dict(
-        name='TestNames',
-        app_sequence=['TestNames'],
-        num_demo_participants=4,
-    ),
-
-dict(
-        name='CV',
-        app_sequence=['CV'],
-        num_demo_participants=8,
-
-    ),
-dict(
-        name='CVIndPlay',
-        app_sequence=['CV', 'IndPlay'],
-        num_demo_participants=8,
-    ),
-dict(
-        name='TestChoice',
-        app_sequence=['TestChoice'],
-        num_demo_participants=1,
-    ),
 dict(
         name='Post_Experiment_Survey',
         app_sequence=['Post_Survey_FR'],
         num_demo_participants=1,
     ),
 
-dict(
-        name='CollectivePlay_Test_T1',
-        app_sequence=['CollectivePlay_Test'],
-        num_demo_participants=2,
-        Treatment=1,
-    ),
-
-
 
 dict(
-        name='Test_T1',
-        app_sequence=['NameSelection_Test','IndPlay_Test','CollectivePlay_Test','Round2_Test', 'Round3_Test'],
-        num_demo_participants=2,
-        Treatment=1,
-    ),
-dict(
-        name='IndPlay_FR',
-        app_sequence=['IndPlay_FR'],
-        num_demo_participants=1,
-    ),
-dict(
-        name='CVPlay_FR',
-        app_sequence=['CV_FR','IndPlay_Test','CollectivePlay_FR','Round2_FR', 'Round3_FR'],
+        name='Test_FR_Control',
+        app_sequence=['CV_FR','IndPlay_FR','CollectivePlay_FR','Round2_FR', 'Round3_FR','Post_Survey_FR'],
         num_demo_participants=8,
         Treatment=1,
     ),
 dict(
-        name='CVPlay_FR_Test',
-        app_sequence=['CollectivePlay_FR','Round2_FR', 'Round3_FR'],
-        num_demo_participants=2,
+        name='Test_FR_T1',
+        app_sequence=['CV_FR','IndPlay_FR','CollectivePlay_FR','Round2_FR', 'Round3_FR','Post_Survey_FR'],
+        num_demo_participants=8,
+        Treatment=2,
+    ),
+dict(
+        name='Test_FR_T2',
+        app_sequence=['CV_FR','IndPlay_FR','CollectivePlay_FR','Round2_FR', 'Round3_FR','Post_Survey_FR'],
+        num_demo_participants=8,
         Treatment=3,
-    )
+    ),
+dict(
+        name='Test_Surbooking_Control',
+        app_sequence=['Partie1_Surbooking','IndPlay_Surbooking','CollectivePlay_Surbooking','Round2_Surbooking','Round3_Surbooking', 'Post_Survey_FR'],
+        num_demo_participants=4,
+        Treatment=1,
+    ),
+dict(
+        name='Test_Surbooking_T1',
+        app_sequence=['Partie1_Surbooking','IndPlay_Surbooking','CollectivePlay_Surbooking','Round2_Surbooking','Round3_Surbooking', 'Post_Survey_FR'],
+        num_demo_participants=4,
+        Treatment=2,
+    ),
+
 ]
 
 ROOMS = [
@@ -159,10 +97,10 @@ DEMO_PAGE_INTRO_HTML = """ """
 SECRET_KEY = '4308297569828'
 
 
-#environ['OTREE_ADMIN_PASSWORD'] = '0812'
-#environ['OTREE_PRODUCTION'] = '1'
-#environ['OTREE_AUTH_LEVEL'] ='STUDY'
+environ['OTREE_ADMIN_PASSWORD'] = '0812'
+environ['OTREE_PRODUCTION'] = '1'
+environ['OTREE_AUTH_LEVEL'] ='STUDY'
 
-#ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-#DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
-#AUTH_LEVEL= environ.get('OTREE_AUTH_LEVEL')
+ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
+AUTH_LEVEL= environ.get('OTREE_AUTH_LEVEL')

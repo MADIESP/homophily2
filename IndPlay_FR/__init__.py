@@ -14,7 +14,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'IndPlay_FR'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
-    TIME_PER_PROBLEM = 30
+    TIME_PER_PROBLEM = 3
 
 
 class Subsession(BaseSubsession):
@@ -116,5 +116,5 @@ class WaitForCollective(WaitPage):
 
 
 
-#page_sequence = [Instructions,Instructions_Exemple, WaitforComprehension, ComprehensionCheck,ComprehensionCheck_error,  Start, WaitforCount,  Count, WaitForCollective]
-page_sequence = [ Instructions, WaitforCount, Count, WaitForCollective]
+page_sequence = [Instructions,Instructions_Exemple, WaitforComprehension, ComprehensionCheck,ComprehensionCheck_error,  Start, WaitforCount,  Count, WaitForCollective]
+#page_sequence = [ Instructions, WaitforCount, Count, WaitForCollective]

@@ -1,5 +1,5 @@
 {% block title %}
-Part 4 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_round2 }}
+Partie 4 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner_round2 }}
 <style>
     .hidden-label label {
         display: none;
@@ -12,16 +12,16 @@ Part 4 - Table {{ view.round_number }} - Partner: {{ participant.name_partner_ro
 
 
 <p>
-   {{ participant.name_partner_round2 }}'s answer was randomly  chosen as the team answer.
+   La réponse de {{ participant.name_partner_round2 }} a été aléatoirement choisie pour être la réponse de l'équipe.
 
 <br>
 <p>
-     Unfortunately, {{ participant.name_partner_round2 }} provided
-a wrong answer and your  team got 0 points &#128542;
+     Malheureusement, {{ participant.name_partner_round2 }} a donné une mauvaise réponse et votre équipe a donc gagné
+ 0 points &#128542;
 </p>
 
 <p>
-    Please select and send a message to {{ participant.name_partner_round2 }}:
+    Veuillez sélectionner et envoyer un message à {{ participant.name_partner_round2 }}:
 </p>
 
 <p>
@@ -31,7 +31,7 @@ a wrong answer and your  team got 0 points &#128542;
     </p>
 
 
- <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Send </button>
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Envoyer </button>
 
 
 {% endblock %}

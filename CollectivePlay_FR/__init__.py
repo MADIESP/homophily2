@@ -37,29 +37,60 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    enjoy=models.IntegerField(label="", choices=[1,2,3,4,5,6,7],widget=widgets.RadioSelectHorizontal,)
-    belief_own = models.IntegerField(label="", choices=[0,1,2,3,4],widget=widgets.RadioSelectHorizontal,)
+    enjoy=models.IntegerField(label="", choices=[1,2,3,4,5,6,7],widget=widgets.RadioSelectHorizontal, initial=3)
+    test_ranking1 = models.IntegerField(
+        label="1- Avez-vous <b> plus de chance </b> d’être apparié au joueur que vous avez classé en première position ou en deuxième position ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[[0, "1ère position"], [1, "2ème position"]],initial=0)
+    test_ranking2 = models.IntegerField(
+        label="2- Avez-vous <b> moins de chance </b> d’être apparié au joueur que vous avez classé en troisième position ou en quatrième position ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[[0, "3ème position"], [1, "4ème position"]], initial=1)
+    test_JeuCollectif = models.IntegerField(
+        label="3- A chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
+        widget=widgets.RadioSelect,
+        choices=[[0, "Ma réponse sera toujours sélectionnée. "],
+                 [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
+                 [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]], initial=2)
+    test_Belief1 = models.IntegerField(
+        label="Si vous pensez avoir correctement compté 3 tableaux dans la partie 3, quelle réponse devait vous indiquer ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[0, 1, 2, 3, 4], initial=3)
+    test_Belief2 = models.IntegerField(
+        label="Si vous pensez que votre partenaire a correctement compté 3 tableaux dans la partie 3, quelle réponse devait vous indiquer ? ",
+        widget=widgets.RadioSelectHorizontal,
+        choices=[0, 1, 2, 3, 4], initial=3)
+    test_Belief3 = models.IntegerField(
+        label="Que gagnerez vous si vous avez correctement estimé votre performance au début de cette partie? ",
+        widget=widgets.RadioSelect,
+        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je gagnerais un point supplémentaire."]], initial=1)
+    test_Belief4 = models.IntegerField(
+        label="Que gagnerez vous si vous avez correctement estimé la performance de votre partenaire au début de cette partie? ",
+        widget=widgets.RadioSelect,
+        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je gagnerais un point supplémentaire."]], initial=1)
+
+    belief_own = models.IntegerField(label="", choices=[0,1,2,3,4],widget=widgets.RadioSelectHorizontal,initial=3)
     belief_partner = models.IntegerField(
-        label="",choices=[0,1,2,3,4],widget=widgets.RadioSelectHorizontal,)
+        label="",choices=[0,1,2,3,4],widget=widgets.RadioSelectHorizontal,initial=3)
 
     rank1 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 1st: </b>"
+        label="<b> 1er Rang: </b>"
     )
 
     rank2 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 2nd: </b>"
+        label="<b> 2ème Rang: </b>"
     )
 
     rank3 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 3rd: </b>"
+        label="<b> 3ème Rang: </b>"
     )
 
     rank4 = models.StringField(
         choices=C.CHOICES,
-        label="<b> Rank 4th: </b>"
+        label="<b> 4ème Rang: </b>"
     )
 
     rank1st = models.IntegerField()
@@ -77,7 +108,7 @@ class Player(BasePlayer):
     count = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?")
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
-    partner_selected = models.BooleanField(doc="Whether the count is correct.")
+    partner_selected = models.BooleanField()
     Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
                                   choices=[[1, "Pas de pression, ce tableau n'est pas simple ! "],
                                            [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"],
@@ -243,73 +274,47 @@ def partner_name(group):
 
 
         if player.participant.partner_gender==1 and player.participant.partner_name==1:
-            player.participant.name_partner='James'
+            player.participant.name_partner='Gabriel'
         elif player.participant.partner_gender==1 and player.participant.partner_name==2:
-            player.participant.name_partner='David'
+            player.participant.name_partner='Léo'
         elif player.participant.partner_gender==1 and player.participant.partner_name==3:
-            player.participant.name_partner='John'
+            player.participant.name_partner='Raphaël'
         elif player.participant.partner_gender==1 and player.participant.partner_name==4:
-            player.participant.name_partner='Robert'
+            player.participant.name_partner='Louis'
+        elif player.participant.partner_gender == 1 and player.participant.partner_name == 5:
+            player.participant.name_partner = 'Noah'
+        elif player.participant.partner_gender == 1 and player.participant.partner_name == 6:
+            player.participant.name_partner = 'Jules'
+        elif player.participant.partner_gender == 1 and player.participant.partner_name == 7:
+            player.participant.name_partner = 'Arthur'
+        elif player.participant.partner_gender == 1 and player.participant.partner_name == 8:
+            player.participant.name_partner = 'Adam'
+        elif player.participant.partner_gender == 1 and player.participant.partner_name == 9:
+            player.participant.name_partner = 'Lucas'
+        elif player.participant.partner_gender == 1 and player.participant.partner_name == 10:
+            player.participant.name_partner = 'Sacha'
         elif player.participant.partner_gender==0 and player.participant.partner_name==1:
-            player.participant.name_partner='Mary'
+            player.participant.name_partner='Jade'
         elif player.participant.partner_gender==0 and player.participant.partner_name==2:
-            player.participant.name_partner='Emma'
+            player.participant.name_partner='Louise'
         elif player.participant.partner_gender==0 and player.participant.partner_name==3:
-            player.participant.name_partner='Patricia'
+            player.participant.name_partner='Ambre'
         elif player.participant.partner_gender==0 and player.participant.partner_name==4:
-            player.participant.name_partner='Elizabeth'
+            player.participant.name_partner='Alba'
+        elif player.participant.partner_gender == 0 and player.participant.partner_name == 5:
+            player.participant.name_partner = 'Emma'
+        elif player.participant.partner_gender == 0 and player.participant.partner_name == 6:
+            player.participant.name_partner = 'Rose'
+        elif player.participant.partner_gender == 0 and player.participant.partner_name == 7:
+            player.participant.name_partner = 'Alice'
+        elif player.participant.partner_gender == 0 and player.participant.partner_name == 8:
+            player.participant.name_partner = 'Romy'
+        elif player.participant.partner_gender == 0 and player.participant.partner_name == 9:
+            player.participant.name_partner = 'Anna'
+        elif player.participant.partner_gender == 0 and player.participant.partner_name == 10:
+            player.participant.name_partner = 'Lina'
 
 
-def creating_m(player):
-
-    session = player.session
-    subsession = player.subsession
-    np.random.seed(0)
-
-    # Define the dimensions of the table
-    rows, columns = 10, 10
-
-    # Initialize a dictionary to store the counts of 0s for each table
-    zeros_counts = {}
-
-    # Generate and save 10 tables as images
-    for i in range(10):
-        # Generate a table of random 0s and 1s
-        table = np.random.randint(2, size=(rows, columns))
-
-        # Count the number of 0s in the table
-        num_zeros = np.sum(table == 0)
-
-        # Store the count in the dictionary with a unique key
-        zeros_counts[f'table_{i + 1}'] = num_zeros
-
-        # Create a figure and axis for the table
-        fig, ax = plt.subplots()
-
-        # Hide axis labels and ticks
-        ax.axis('off')
-
-        # Create a table with 0s and 1s displayed as text, without cell borders
-        table_obj = ax.table(cellText=table, loc='center', cellLoc='center', edges='open', bbox=[0, 0, 1, 1])
-        for key, cell in table_obj._cells.items():
-            cell.set_text_props(fontsize=14)  # Adjust font size as needed
-            if key[0] == 0 or key[1] == -1 or key[1] == columns:
-                cell.set_facecolor('none')
-                cell.set_edgecolor('none')
-            else:
-                cell.set_facecolor('white')
-
-        # Save the table as an image
-        image_filename = f'table_{i + 1}.png'
-        static_path = otree.settings.STATIC_ROOT
-        image_path = os.path.join(static_path, image_filename)
-        plt.savefig(image_path, bbox_inches='tight')
-        plt.close(fig)
-
-    # Store the dictionary of zero counts in the session vars
-
-    session.vars['zeros_counts'] = zeros_counts
-    session.zeros_counts2=zeros_counts
 
 def set_correct(player):
     correct_answers = [49, 42, 45, 48,49,51]
@@ -321,26 +326,6 @@ def set_correct(player):
 
     player.correct = correct
 
-def select_group_answer(group):
-    all_counts = [player.count for player in group.get_players()]
-    selected_count = random.choice(all_counts)
-
-    # Assign selected_count to the group before using it for player comparisons
-    group.selected_count = selected_count
-
-    # Choose a player based on selected_count
-    selected_player = random.choice([p for p in group.get_players() if p.count == selected_count])
-    selected_player_id = selected_player.id_in_group
-    group.selected_player = selected_player_id
-
-    for player in group.get_players():
-        if player.id_in_group == group.selected_player:
-            player.partner_selected = True
-        else:
-            player.partner_selected = False
-import random
-
-
 
 import random
 def select_group_answer(group):
@@ -351,45 +336,13 @@ def select_group_answer(group):
     selected_player_id = selected_player.id_in_group
     group.selected_player= selected_player_id
 
-
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
-            if player.participant.gender == 1 and player.participant.name == 1:
-                player.session.name_selected = 'James'
-            elif player.participant.gender == 1 and player.participant.name == 2:
-                player.session.name_selected = 'David'
-            elif player.participant.gender == 1 and player.participant.name == 3:
-                player.session.name_selected = 'John'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_selected = 'Robert'
-            elif player.participant.gender == 0 and player.participant.name == 1:
-                player.session.name_selected = 'Mary'
-            elif player.participant.gender == 0 and player.participant.name == 2:
-                player.session.name_selected = 'Emma'
-            elif player.participant.gender == 0 and player.participant.name == 3:
-                player.session.name_selected = 'Patricia'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_selected = 'Elizabeth'
-
         else:
             player.partner_selected = False
-            if player.participant.gender == 1 and player.participant.name == 1:
-                player.session.name_NOTselected = 'James'
-            elif player.participant.gender == 1 and player.participant.name == 2:
-                player.session.name_NOTselected = 'David'
-            elif player.participant.gender == 1 and player.participant.name == 3:
-                player.session.name_NOTselected = 'John'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_NOTselected = 'Robert'
-            elif player.participant.gender == 0 and player.participant.name == 1:
-                player.session.name_NOTselected = 'Mary'
-            elif player.participant.gender == 0 and player.participant.name == 2:
-                player.session.name_NOTselected = 'Emma'
-            elif player.participant.gender == 0 and player.participant.name == 3:
-                player.session.name_NOTselected = 'Patricia'
-            elif player.participant.gender == 1 and player.participant.name == 4:
-                player.session.name_NOTselected = 'Elizabeth'
+
+
 
 def message(player):
     player.participant.Message=player.Message
@@ -398,13 +351,13 @@ def send_message(group):
     for player in group.get_players():
         if player.partner_selected == False:
             if player.participant.Message == 1:
-                player.session.Message_selected = '"No stress, this matrix can be tricky!"'
+                player.session.Message_selected = '"Pas de pression, ce tableau n’est pas simple !"'
             elif player.participant.Message == 2:
-                player.session.Message_selected = '"Don’t worry, mistakes happen!"'
+                player.session.Message_selected = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
             elif player.participant.Message == 3:
-                player.session.Message_selected = '"I know it’s tough, but try to focus more."'
+                player.session.Message_selected = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
             elif player.participant.Message == 4:
-                player.session.Message_selected = '"It’s crucial to get the exact count, you should try another counting method."'
+                player.session.Message_selected = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
 
 
 
@@ -502,6 +455,24 @@ class InstructionsNegTreatment2(Page):
     def is_displayed(player: Player):
         return player.round_number == 1 and player.subsession.Treatment == 3
 
+class WaitPage1(WaitPage):
+    pass
+
+class TestCompréhension(Page):
+    form_model = 'player'
+    form_fields = ['test_ranking1','test_ranking2', 'test_JeuCollectif']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+class Compréhension_Error(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.test_ranking1!=0 or player.round_number ==1 and player.test_ranking2!=1 or player.round_number ==1 and player.test_JeuCollectif!=2
+
+
 
 class WaitforChoice(WaitPage):
     wait_for_all_groups = True
@@ -517,7 +488,6 @@ class ChoiceCV_groupA(Page):
 
     def before_next_page(player, timeout_happened):
         cv(player)
-        #creating_m(player)
 
 
 
@@ -580,6 +550,25 @@ class NamePartner(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
+
+class TestCompréhensionBeliefs(Page):
+    form_model = 'player'
+    form_fields = ['test_Belief1','test_Belief2','test_Belief3','test_Belief4']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+class Compréhension_Belief_Error(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.test_Belief1 != 3 or player.round_number == 1 and player.test_Belief2 != 3 or player.round_number == 1 and player.test_Belief3 != 1 or player.round_number == 1 and player.test_Belief4 != 1
+
+
+
+
+
 
 class WaitforBelief(WaitPage):
     wait_for_all_groups = True
@@ -710,7 +699,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestCompréhension, Compréhension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, NamePartner,TestCompréhensionBeliefs, Compréhension_Belief_Error,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
 
 #page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,Count, WaitforNextTable]
 

@@ -35,6 +35,18 @@ dict(
         num_demo_participants=8,
         Treatment=3,
     ),
+dict(
+        name='Test_Surbooking_Control',
+        app_sequence=['Partie1_Surbooking','IndPlay_Surbooking','CollectivePlay_Surbooking','Round2_Surbooking','Round3_Surbooking', 'Post_Survey_FR'],
+        num_demo_participants=4,
+        Treatment=1,
+    ),
+dict(
+        name='Test_Surbooking_T1',
+        app_sequence=['Partie1_Surbooking','IndPlay_Surbooking','CollectivePlay_Surbooking','Round2_Surbooking','Round3_Surbooking', 'Post_Survey_FR'],
+        num_demo_participants=4,
+        Treatment=2,
+    ),
 
 ]
 

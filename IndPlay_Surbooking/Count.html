@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+      Période {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+
+                {% if player.round_number == 1 %}
+
+<img src="{{ static 'global/table_19.png'}}" width="500px"/>
+
+<br>
+<p>
+
+        {{ formfields }}
+</p>
+
+{% elif player.round_number == 2 %}
+
+<img src="{{ static 'global/table_20.png'}}" width="500px"/>
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+{% elif player.round_number == 3 %}
+
+<img src="{{ static 'global/table_21.png'}}" width="500px"/>
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+{% elif player.round_number == 4 %}
+<img src="{{ static 'global/table_22.png'}}" width="500px"/>
+
+
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+
+{% endif %}
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+{% endblock %}
+

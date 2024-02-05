@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+       Exercice de Compréhension
+{% endblock %}
+
+{% block content %}
+
+<p> <b> Avant de commencer vos estimations, veuillez selectionner la bonne réponse aux questions ci-dessous:
+    </b> </p>
+<p> </p>
+
+<p>
+1- Si vous pensez avoir correctement compté 3 tableaux dans la partie 2, quelle réponse devait vous indiquer ?
+         {{ form.test_Belief1}}
+</p>
+<p>
+2- Si vous pensez que votre partenaire a correctement compté 3 tableaux dans la partie 2, quelle réponse devait vous indiquer ?
+         {{ form.test_Belief2}}
+</p>
+
+<p>
+
+    3- A la fin de l'expérience, une partie sera sélectionnée aléatoirement. Que gagnerez-vous si vous avez correctement estimé votre performance au début de cette partie ?
+         {{ form.test_Belief3}}
+</p>
+<p>
+     4-  Que gagnerez-vous si vous avez correctement estimé la performance de votre partenaire au début de cette partie ?
+         {{ form.test_Belief4}}
+</p>
+
+
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+{% endblock %}
+

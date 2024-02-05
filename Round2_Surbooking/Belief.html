@@ -1,0 +1,38 @@
+{% block title %}
+Partie 4 - Partenaire: {{ participant.name_partner_round2 }}
+{% endblock %}
+
+{% block content %}
+
+<p>
+
+  </p>
+
+   Votre estimation de <b> votre performance  </b>  dans la  Partie 3:
+<br>
+    {{ form.belief_own}}
+
+    <br>
+<br>
+    Votre estimation de  <b> la performance de {{ participant.name_partner_round2 }} </b> dans la Partie 3:
+<br>
+    {{ form.belief_partner }}
+
+
+
+
+</p>
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+

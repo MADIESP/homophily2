@@ -1,0 +1,29 @@
+{{ block title }}
+    Partie 3  - Partenaire: {{ participant.name_partner }}
+{{ endblock }}
+{{ block content }}
+<p>
+Sur une échelle de 1 à 7, dans quelle mesure avez-vous apprécié effectuer la partie 3 avec {{ participant.name_partner }}?
+    </p>
+
+
+
+    <p>
+ 1 = Pas du tout satisfait.
+    </p>
+<p>
+ 7 = J'ai beaucoup apprécié.
+    </p>
+<p>
+Note: Votre réponse restera confidentielle.
+    </p>
+
+
+
+
+    {{ formfields }}
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+{{ endblock }}

@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+       Exercice de Compréhension
+{% endblock %}
+
+{% block content %}
+
+<p> <b> Avant de commencer la période 1, veuillez selectionner la bonne réponse aux 2 questions ci-dessous:
+    </b> </p>
+<p> </p>
+
+<p>
+
+        {{ formfields }}
+</p>
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+     Partie 4 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner_round2  }}
+{% endblock %}
+
+{% block content %}
+<p>
+
+    </p>
+
+
+                {% if player.round_number == 1 %}
+
+<img src="{{ static 'global/table_13.png'}}" width="500px"/>
+
+<br>
+<p>
+
+        {{ formfields }}
+</p>
+
+{% elif player.round_number == 2 %}
+
+<img src="{{ static 'global/table_14.png'}}" width="500px"/>
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+{% elif player.round_number == 3 %}
+
+<img src="{{ static 'global/table_15.png'}}" width="500px"/>
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+{% elif player.round_number == 4 %}
+<img src="{{ static 'global/table_16.png'}}" width="500px"/>
+
+
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+{% elif player.round_number == 5 %}
+<img src="{{ static 'global/table_17.png'}}" width="500px"/>
+
+
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+{% elif player.round_number == 6 %}
+<img src="{{ static 'global/table_18.png'}}" width="500px"/>
+
+
+<br>
+ <p>
+        {{ formfields }}
+
+ </p>
+
+
+{% endif %}
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+{% endblock %}
+

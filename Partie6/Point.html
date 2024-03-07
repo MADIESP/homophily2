@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+
+
+
+<style>
+    h1 {text-align: center;}
+    p {text-align: justify;}
+    div {text-align: justify;}
+ </style>
+
+<h1> FIN </h1>
+<p> L’expérience est à présent terminée. </p>
+<p>Vous avez accumulé <b> {{participant.ind_payoff}} points </b> tout au long de l’expérience. </p>
+<p>Vous allez donc recevoir <b>{{participant.ind_payoff}} euros.</b> </p>
+<p>Veuillez compléter la feuille de paiement que nous allons distribuer et faire la queue devant la salle de paiement. </p>
+<p>Si vous avez des questions, veuillez lever la main. </p>
+
+
+{% endblock %}

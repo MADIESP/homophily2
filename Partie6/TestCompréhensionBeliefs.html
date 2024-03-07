@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+      Section 1 - Exercice de compréhension
+{% endblock %}
+
+{% block content %}
+
+<p> <b> Avant de commencer vos estimations, veuillez sélectionner la bonne réponse aux questions ci-dessous :
+    </b> </p>
+<p> </p>
+
+<p>
+1- Qui sont les quatre participants sélectionnés ?
+         {{ form.test_Belief1}}
+</p>
+<p>
+2- Comment ont été classés ces participants ?
+         {{ form.test_Belief2}}
+</p>
+
+<p>
+
+    3- Que gagnerez-vous si vous sélectionnez correctement le rang d’un participant ?
+         {{ form.test_Belief3}}
+</p>
+
+
+<p>
+     4-  Jusqu’à combien de points supplémentaires pouvez-vous gagner ?
+         {{ form.test_Belief4}}
+</p>
+
+
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+{% endblock %}
+

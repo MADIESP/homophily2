@@ -1,0 +1,50 @@
+{% block content %}
+    <style>
+    h1 {text-align: center;}
+    p {text-align: justify;}
+
+    </style>
+
+    <h1>
+       Partie 3 - Instructions - Jeu Collectif
+    </h1>
+<br>
+
+
+
+<p> Dans cet exemple, vous jouez en équipe et votre partenaire est James.  </p>
+
+
+<p> James et vous venez de compter le nombre de zéros dans le tableau 1.</p>
+
+<p> Une seule réponse, la vôtre ou celle de James, a été choisie au hasard comme réponse de l'équipe, et cette réponse est  <b> incorrecte. </b></p>
+
+<p> L'identité du partenaire dont la réponse a été choisi <b> sera  révélée.</b> </p>
+<p> Voici l'écran que vous verrez si votre réponse a été choisie: </p>
+
+<p>
+
+<img src="{{ static 'global/feedbackT1_FR_own.png'}}" width="500px"/>
+</p>
+
+<p> Voici l'écran que vous verrez si la réponse de James a été choisie : </p>
+
+
+<br>
+<p>
+
+<img src="{{ static 'global/feedbackT1_FR.png'}}" width="500px"/>
+</p>
+<br>
+
+<p> Si vous avez des questions, veuillez lever la main pour que nous puissions  vous aider. </p>
+
+
+ <p>  Cliquez sur le bouton pour continuer. </p>
+
+
+
+  <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Continuer </button>
+
+
+{% endblock %}

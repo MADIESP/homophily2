@@ -1,0 +1,23 @@
+
+
+{% block content %}
+{% block title %}
+     Partie 3 - Sélection de votre partenaire
+{% endblock %}
+<!--<form method="post" class="form"> -->
+<p> <i> Chaque CV ci-dessous représente une personne présente dans la salle en ce moment. </i></p>
+<p> <i>  Veuillez classer ces CVs par ordre de préférence: du CV préféré (1er rang) au moins préféré (4ème rang). </i>  </p>
+<img src="{{ static 'global/Image3.png'}}" width="500px"/>
+
+<br>
+    {{ formfields }}
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+</form>
+<script src="{% static 'Choice/rank_choix11.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+

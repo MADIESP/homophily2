@@ -34,7 +34,7 @@ class Player(BasePlayer):
     BornIDF = models.IntegerField(label="Etes vous né.e en  Ile de France ?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[1, "Oui"], [0, "Non"]], initial=0)
     CommutingTime = models.IntegerField(
-        label="Quel est votre temps de trajet quotidien (pour vous rendre à vos activités principales (travail, études, autres engagements)) ?",
+        label="Quel est votre temps de trajet quotidien (pour vous rendre à vos activités principales : travail, études, autres engagements,...) ?",
         widget=widgets.RadioSelectHorizontal,
         choices=[[1, " < 30 minutes"], [0, "> 30 minutes"]], initial=0)
     FemaleNames = models.IntegerField()
@@ -145,7 +145,7 @@ class Survey(Page):
     def error_message(player, timeout_happened):
         if not player.survey_error_displayed:
             player.survey_error_displayed = True  # Set the flag to True
-            return "Veuillez vérifier que vos informations sont exactes et cliquer sur Valider."
+            return "Merci de vérifier que vos informations sont exactes et cliquer sur Valider."
 
 class WaitforInstructionPrénom(WaitPage):
     pass
@@ -232,4 +232,6 @@ class MyWaitPage(WaitPage):
 
 #page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Instructions_général, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [ Instructions_général, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]
+
+page_sequence = [Survey, NameSelectionF, NameSelectionM, MyWaitPage]

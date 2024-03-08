@@ -19,7 +19,7 @@ deploy-job:      # This job runs in the deploy stage.
     - cat $CONFIG_PATH/logs/*.log
 
     ## Pour arreter l'expérience :
-    - $SCRIPT_PATH/stop_test $CONFIG_PATH
+    #- $SCRIPT_PATH/stop_test $CONFIG_PATH
 
     ## ATTENTION!!! LA LIGNE CI-DESSOUS ECRASERA TOUTES VOS DONNEES!!! MERCI DE LA DECOMMENTER A LA FIN DE L'ETUDE OU UNIQUEMENT SI VOUS SAVEZ CE QUE VOUS FAITES!!
     # - $SCRIPT_PATH/resetdb $CONFIG_PATH

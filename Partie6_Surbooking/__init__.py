@@ -418,5 +418,5 @@ class Point(Page):
 
 
 
-#page_sequence = [ Instructions,WaitforSurvey,  BFNE, WaitforPart4, SPSRQ,WaitforQuestionnaireGenre,QuestionGenre, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
-page_sequence = [ Questionnaire, WaitforEnd, Point]
+page_sequence = [ Instructions,WaitforSurvey,  BFNE, WaitforPart4, SPSRQ,WaitforQuestionnaireGenre,QuestionGenre, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
+#page_sequence = [ Questionnaire, WaitforEnd, Point]

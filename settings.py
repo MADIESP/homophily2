@@ -1,42 +1,28 @@
 from os import environ
 
 SESSION_CONFIGS = [
-dict(
-        name='tables',
-        app_sequence=['tables'],
-        num_demo_participants=1,
-
-    ),
-
 
 
 dict(
-        name='Post_Experiment_Survey',
-        app_sequence=['Partie6_Surbooking'],
-        num_demo_participants=1,
-    ),
-
-
-dict(
-        name='Test_FR_Control',
+        name='Control_FR',
         app_sequence=['Partie1', 'Partie2','Partie3','Partie4','Partie5','Partie6'],
-        num_demo_participants=8,
+        num_demo_participants=16,
         Treatment=1,
     ),
 dict(
-        name='Test_FR_T1',
+        name='T1_FR',
         app_sequence=['Partie1', 'Partie2','Partie3','Partie4','Partie5','Partie6'],
         num_demo_participants=8,
         Treatment=2,
     ),
 dict(
-        name='Test_FR_T2',
+        name='T2_FR',
         app_sequence=['Partie1', 'Partie2','Partie3','Partie4','Partie5','Partie6'],
         num_demo_participants=8,
         Treatment=3,
     ),
 dict(
-        name='Test_Surbooking_Control',
+        name='Surbooking_Control',
         app_sequence=['Partie1_Surbooking','Partie2_Surbooking','Partie3_Surbooking','Partie4_Surbooking','Partie5_Surbooking','Partie6_Surbooking'],
         num_demo_participants=2,
         Treatment=1,
@@ -44,9 +30,9 @@ dict(
     ),
 
 dict(
-        name='Test_Surbooking_T1',
+        name='Surbooking_T1',
         app_sequence=['Partie1_Surbooking','Partie2_Surbooking','Partie3_Surbooking','Partie4_Surbooking','Partie5_Surbooking','Partie6_Surbooking'],
-        num_demo_participants=5,
+        num_demo_participants=1,
         Treatment=2,
     ),
 

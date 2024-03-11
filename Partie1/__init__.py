@@ -663,7 +663,7 @@ def image_cv(group):
 
 
 # PAGES
-class Instructions_général(Page):
+class Instructions_general(Page):
     form_model = 'player'
 class WaitforPartie1(WaitPage):
     pass
@@ -788,4 +788,4 @@ class MyWaitPage(WaitPage):
 
 #page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Instructions_général, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]
+page_sequence = [ Instructions_general, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]

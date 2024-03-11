@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie3_Surbooking'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 3
+    TIME_PER_PROBLEM = 10
 
 
 class Subsession(BaseSubsession):
@@ -368,9 +368,9 @@ class Instructions2(Page):
 class WaitforInstructions2(WaitPage):
     wait_for_all_groups = True
 
-
-
-
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 
 
@@ -391,6 +391,10 @@ class InstructionsPosSolo(Page):
 
 class WaitforInstructions3(WaitPage):
     wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 
 class InstructionsNegControl(Page):
@@ -418,6 +422,10 @@ class InstructionsNegControlSolo(Page):
 
 class WaitPage1(WaitPage):
     wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 class TestCompréhension(Page):
     form_model = 'player'
@@ -642,7 +650,7 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestCompréhension, TestCompréhensionImpair, Compréhension_Error, Compréhension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable,Point, WaitforNextRound]
+page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestCompréhension, TestCompréhensionImpair, Compréhension_Error, Compréhension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable, WaitforNextRound]
 
 
 #page_sequence = [ MyWaitPage, NamePartner,  WaitforFirstTable, Count, CountSolo, WaitforFeedback]

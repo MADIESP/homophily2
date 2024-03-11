@@ -359,36 +359,36 @@ def creatingGroups(group):
         else:
             maleC.append(cv)
 
-    #cv_C = [maleC[0], femaleC[0], maleC[1], femaleC[1]]
-    #Group_C[0] = maleC[0][0]
+    cv_C = [maleC[0], femaleC[0], maleC[1], femaleC[1]]
+    Group_C[0] = maleC[0][0]
 
-    #Group_C[1] = femaleC[0][0]
+    Group_C[1] = femaleC[0][0]
 
-    #Group_C[2] = maleC[1][0]
+    Group_C[2] = maleC[1][0]
 
-    #Group_C[3] = femaleC[1][0]
+    Group_C[3] = femaleC[1][0]
 
-    #group.Group_C = str(Group_C)
-    #group.session.Group_C = str(Group_C)
-    #group.cvC = str(cv_C)
-    #group.session.cvC = str(cv_C)
+    group.Group_C = str(Group_C)
+    group.session.Group_C = str(Group_C)
+    group.cvC = str(cv_C)
+    group.session.cvC = str(cv_C)
 
-    #for player in group.get_players():
-        #if player.InGroupA == False and player.InGroupB == False and player.InGroupC==False:
-                #Group_D.append(player.id_in_group)  # only the id is usefull in group_A
-                #cvD.append(player.vec_cv)
-                #player.InGroupD = True
-                #player.participant.InGroupD = True
-                #player.InGroupB = False
-                #player.participant.InGroupB = False
-                #player.InGroupC = False
-                #player.participant.InGroupC = False
-                #player.InGroupA = False
-                #player.participant.InGroupA = False
+    for player in group.get_players():
+        if player.InGroupA == False and player.InGroupB == False and player.InGroupC==False:
+                Group_D.append(player.id_in_group)  # only the id is usefull in group_A
+                cvD.append(player.vec_cv)
+                player.InGroupD = True
+                player.participant.InGroupD = True
+                player.InGroupB = False
+                player.participant.InGroupB = False
+                player.InGroupC = False
+                player.participant.InGroupC = False
+                player.InGroupA = False
+                player.participant.InGroupA = False
 
-        #else:
-            #player.InGroupD = False
-            #player.participant.InGroupD = False
+        else:
+            player.InGroupD = False
+            player.participant.InGroupD = False
 
     cv_D = [eval(cv) for cv in cvD]
     for cv in cv_D:
@@ -396,45 +396,45 @@ def creatingGroups(group):
             femaleD.append(cv)
         else:
             maleD.append(cv)
-    #if len(femaleD) == 2:
-        #cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
-        #Group_D[0] = femaleD[0][0]
+    if len(femaleD) == 2:
+        cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
+        Group_D[0] = femaleD[0][0]
 
-        #Group_D[1] = maleD[0][0]
+        Group_D[1] = maleD[0][0]
 
-        #Group_D[2] = femaleD[1][0]
+        Group_D[2] = femaleD[1][0]
 
-        #Group_D[3] = maleD[1][0]
+        Group_D[3] = maleD[1][0]
 
-    #elif len(femaleD) == 1:
-        #cv_D = [maleD[0], femaleD[0], maleD[1], maleD[2]]
-        #Group_D[0] = maleD[0][0]
+    elif len(femaleD) == 1:
+        cv_D = [maleD[0], femaleD[0], maleD[1], maleD[2]]
+        Group_D[0] = maleD[0][0]
 
-        #Group_D[1] = femaleD[0][0]
+        Group_D[1] = femaleD[0][0]
 
-        #Group_D[2] = maleD[1][0]
+        Group_D[2] = maleD[1][0]
 
-        #Group_D[3] = maleD[2][0]
+        Group_D[3] = maleD[2][0]
 
-    #elif len(femaleD) == 3:
-        #cv_D = [femaleD[0], maleD[0], femaleD[1], femaleD[2]]
-        #Group_D[0] = femaleD[0][0]
+    elif len(femaleD) == 3:
+        cv_D = [femaleD[0], maleD[0], femaleD[1], femaleD[2]]
+        Group_D[0] = femaleD[0][0]
 
-        #Group_D[1] = maleD[0][0]
+        Group_D[1] = maleD[0][0]
 
-        #Group_D[2] = femaleD[1][0]
+        Group_D[2] = femaleD[1][0]
 
-        #Group_D[3] = femaleD[2][0]
+        Group_D[3] = femaleD[2][0]
 
-    #elif len(femaleD) == 4:
-        #cv_D = [femaleD[0], femaleD[1], femaleD[2], femaleD[3]]
-        #Group_D[0] = femaleD[0][0]
+    elif len(femaleD) == 4:
+        cv_D = [femaleD[0], femaleD[1], femaleD[2], femaleD[3]]
+        Group_D[0] = femaleD[0][0]
 
-        #Group_D[1] = femaleD[1][0]
+        Group_D[1] = femaleD[1][0]
 
-        #Group_D[2] = femaleD[2][0]
+        Group_D[2] = femaleD[2][0]
 
-        #Group_D[3] = femaleD[3][0]
+        Group_D[3] = femaleD[3][0]
 
 
 
@@ -463,22 +463,22 @@ def creatingGroups(group):
     group.session.cv_B_3 = str(cv_B[2])
     group.cv_B_4 = str(cvB[3])
     group.session.cv_B_4 = str(cv_B[3])
-    #group.cv_C_1 = str(cvC[0])
-    #group.session.cv_C_1 = str(cv_C[0])
-    #group.cv_C_2 = str(cvC[1])
-    #group.session.cv_C_2 = str(cv_C[1])
-    #group.cv_C_3 = str(cvC[2])
-    #group.session.cv_C_3 = str(cv_C[2])
-    #group.cv_C_4 = str(cvC[3])
-    #group.session.cv_C_4 = str(cv_C[3])
-    #group.cv_D_1 = str(cvD[0])
-    #group.session.cv_D_1 = str(cv_D[0])
-    #group.cv_D_2 = str(cvD[1])
-    #group.session.cv_D_2 = str(cv_D[1])
-    #group.cv_D_3 = str(cvD[2])
-    #group.session.cv_D_3 = str(cv_D[2])
-    #group.cv_D_4 = str(cvD[3])
-    #group.session.cv_D_4 = str(cv_D[3])
+    group.cv_C_1 = str(cvC[0])
+    group.session.cv_C_1 = str(cv_C[0])
+    group.cv_C_2 = str(cvC[1])
+    group.session.cv_C_2 = str(cv_C[1])
+    group.cv_C_3 = str(cvC[2])
+    group.session.cv_C_3 = str(cv_C[2])
+    group.cv_C_4 = str(cvC[3])
+    group.session.cv_C_4 = str(cv_C[3])
+    group.cv_D_1 = str(cvD[0])
+    group.session.cv_D_1 = str(cv_D[0])
+    group.cv_D_2 = str(cvD[1])
+    group.session.cv_D_2 = str(cv_D[1])
+    group.cv_D_3 = str(cvD[2])
+    group.session.cv_D_3 = str(cv_D[2])
+    group.cv_D_4 = str(cvD[3])
+    group.session.cv_D_4 = str(cv_D[3])
 
 
 def create_image_cv(cv_1, cv_2, cv_3, cv_4):
@@ -631,19 +631,19 @@ def image_cv(group):
     cvB2 = eval(group.session.cv_B_2)
     cvB3 = eval(group.session.cv_B_3)
     cvB4 = eval(group.session.cv_B_4)
-    #cvC1 = eval(group.session.cv_C_1)
-    #cvC2 = eval(group.session.cv_C_2)
-    #cvC3 = eval(group.session.cv_C_3)
-    #cvC4 = eval(group.session.cv_C_4)
-    #cvD1 = eval(group.session.cv_D_1)
-    #cvD2 = eval(group.session.cv_D_2)
-    #cvD3 = eval(group.session.cv_D_3)
-    #cvD4 = eval(group.session.cv_D_4)
+    cvC1 = eval(group.session.cv_C_1)
+    cvC2 = eval(group.session.cv_C_2)
+    cvC3 = eval(group.session.cv_C_3)
+    cvC4 = eval(group.session.cv_C_4)
+    cvD1 = eval(group.session.cv_D_1)
+    cvD2 = eval(group.session.cv_D_2)
+    cvD3 = eval(group.session.cv_D_3)
+    cvD4 = eval(group.session.cv_D_4)
 
     image_A = create_image_cv(cvA1, cvA2, cvA3, cvA4)
     image_B = create_image_cv(cvB1, cvB2, cvB3, cvB4)
-    #image_C = create_image_cv(cvC1, cvC2, cvC3, cvC4)
-    #image_D = create_image_cv(cvD1, cvD2, cvD3, cvD4)
+    image_C = create_image_cv(cvC1, cvC2, cvC3, cvC4)
+    image_D = create_image_cv(cvD1, cvD2, cvD3, cvD4)
 
     # static_path = os.path.join(group.subsession.session.path, 'static')
     # image_A_path = os.path.join(static_path, f'image_A.png')
@@ -653,13 +653,13 @@ def image_cv(group):
     static_path = otree.settings.STATIC_ROOT
     image_A_path = os.path.join(static_path, 'Image1.png')
     image_B_path = os.path.join(static_path, 'Image2.png')
-    #image_C_path = os.path.join(static_path, 'Image3.png')
-    #image_D_path = os.path.join(static_path, 'Image4.png')
+    image_C_path = os.path.join(static_path, 'Image3.png')
+    image_D_path = os.path.join(static_path, 'Image4.png')
 
     image_A.save(image_A_path)
     image_B.save(image_B_path)
-    #image_C.save(image_C_path)
-    #image_D.save(image_D_path)
+    image_C.save(image_C_path)
+    image_D.save(image_D_path)
 
 
 # PAGES
@@ -786,6 +786,6 @@ class MyWaitPage(WaitPage):
 
 
 
-page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
 
-#page_sequence = [ Instructions_général, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]
+page_sequence = [ Instructions_général, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]

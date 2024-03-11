@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie4_Surbooking'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 3
+    TIME_PER_PROBLEM = 10
 
 
 class Subsession(BaseSubsession):
@@ -544,7 +544,7 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [WaitforStart,InstructionsPair, InstructionsImpair, Instructions12, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable,Point, WaitforNextRound]
+page_sequence = [WaitforStart,InstructionsPair, InstructionsImpair, Instructions12, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable, WaitforNextRound]
 
 
 #page_sequence = [ MyWaitPage, NamePartner,  WaitforFirstTable, Count, CountSolo, WaitforFeedback]

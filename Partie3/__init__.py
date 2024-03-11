@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie3'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 2
+    TIME_PER_PROBLEM = 10
     CHOICES = ["cvA", "cvB", "cvC", "cvD"]
 
 
@@ -160,12 +160,12 @@ def cv(player):
 def creating_group_with_choices_round_1(subsession):
     Group_A_ch= []
     Group_B_ch = []
-    #Group_C_ch = []
-    #Group_D_ch = []
+    Group_C_ch = []
+    Group_D_ch = []
     groupA=eval(subsession.session.Group_A)
     groupB=eval(subsession.session.Group_B)
-    #groupC=eval(subsession.session.Group_C)
-    #groupD=eval(subsession.session.Group_D)
+    groupC=eval(subsession.session.Group_C)
+    groupD=eval(subsession.session.Group_D)
 
     for player in subsession.get_players():
         if player.participant.InGroupA==True:
@@ -179,32 +179,32 @@ def creating_group_with_choices_round_1(subsession):
                                                     groupA[player.rank3rd - 1],
                                                     groupA[player.rank4th -1])))
 
-        #elif player.participant.InGroupC==True:
-            #Group_C_ch.append((player.id_in_subsession, (groupD[player.rank1st - 1],
-                                                    #groupD[player.rank2nd - 1],
-                                                    #groupD[player.rank3rd - 1],
-                                                    #groupD[player.rank4th -1])))
+        elif player.participant.InGroupC==True:
+            Group_C_ch.append((player.id_in_subsession, (groupD[player.rank1st - 1],
+                                                    groupD[player.rank2nd - 1],
+                                                    groupD[player.rank3rd - 1],
+                                                    groupD[player.rank4th -1])))
 
-        #elif player.participant.InGroupD==True:
-            #Group_D_ch.append((player.id_in_subsession, (groupC[player.rank1st - 1],
-                                                    #groupC[player.rank2nd - 1],
-                                                    #groupC[player.rank3rd - 1],
-                                                    #groupC[player.rank4th -1])))
+        elif player.participant.InGroupD==True:
+            Group_D_ch.append((player.id_in_subsession, (groupC[player.rank1st - 1],
+                                                    groupC[player.rank2nd - 1],
+                                                    groupC[player.rank3rd - 1],
+                                                    groupC[player.rank4th -1])))
 
 
     subsession.groupA_ch=str(Group_A_ch)
     subsession.groupB_ch=str(Group_B_ch)
     subsession.session.groupA_ch = str(Group_A_ch)
     subsession.session.groupB_ch = str(Group_B_ch)
-    #subsession.groupC_ch = str(Group_C_ch)
-    #subsession.groupD_ch = str(Group_D_ch)
-    #subsession.session.groupC_ch = str(Group_C_ch)
-    #subsession.session.groupD_ch = str(Group_D_ch)
+    subsession.groupC_ch = str(Group_C_ch)
+    subsession.groupD_ch = str(Group_D_ch)
+    subsession.session.groupC_ch = str(Group_C_ch)
+    subsession.session.groupD_ch = str(Group_D_ch)
 
 import random
 def making_team_round_1(subsession):
     Group_A_ch=eval(subsession.session.groupA_ch)
-    #Group_C_ch = eval(subsession.session.groupC_ch)
+    Group_C_ch = eval(subsession.session.groupC_ch)
     GroupA=eval(subsession.session.Group_A)
 
     #Group_B_ch=eval(subsession.session.groupB_ch)
@@ -243,35 +243,34 @@ def making_team_round_1(subsession):
         subsession.session.team1_4 = str(team1_4)
 
 
-        #for i in range(4):
-            #player_C = random.choice([p_c for p_c in Group_C_ch if p_c not in player_C_chosen])
-            #player_C_chosen.append(player_C)
-            #player_C_id = player_C[0]
-            #choices_D = player_C[1]  # Classement des choix du joueur A dans le groupe B
+        for i in range(4):
+            player_C = random.choice([p_c for p_c in Group_C_ch if p_c not in player_C_chosen])
+            player_C_chosen.append(player_C)
+            player_C_id = player_C[0]
+            choices_D = player_C[1]  # Classement des choix du joueur A dans le groupe B
 
                 # Recherche du choix préféré non encore pris
-            #for player_D_id in choices_D:
-                #if player_D_id not in (p_d_id for (p_c_id, p_d_id) in team_5_6_7_8):
-                    #team_5_6_7_8.append((player_C_id, player_D_id))
-                    #break
+            for player_D_id in choices_D:
+                if player_D_id not in (p_d_id for (p_c_id, p_d_id) in team_5_6_7_8):
+                    team_5_6_7_8.append((player_C_id, player_D_id))
+                    break
 
 
-        #team1_5 = team_5_6_7_8[0]
-        #team1_6 = team_5_6_7_8[1]
-        #team1_7 = team_5_6_7_8[2]
-        #team1_8 = team_5_6_7_8[3]
-        #subsession.session.team1_5 = str(team1_5)
-        #subsession.session.team1_6 = str(team1_6)
-        #subsession.session.team1_7 = str(team1_7)
-        #subsession.session.team1_8 = str(team1_8)
+        team1_5 = team_5_6_7_8[0]
+        team1_6 = team_5_6_7_8[1]
+        team1_7 = team_5_6_7_8[2]
+        team1_8 = team_5_6_7_8[3]
+        subsession.session.team1_5 = str(team1_5)
+        subsession.session.team1_6 = str(team1_6)
+        subsession.session.team1_7 = str(team1_7)
+        subsession.session.team1_8 = str(team1_8)
 
-        #new_matrix=[team1_1, team1_2, team1_3, team1_4, team1_5, team1_6, team1_7, team1_8]
-        new_matrix = [team1_1, team1_2, team1_3, team1_4]
+        new_matrix=[team1_1, team1_2, team1_3, team1_4, team1_5, team1_6, team1_7, team1_8]
         subsession.set_group_matrix(new_matrix)
         subsession.team_1_2_3_4 = str(team_1_2_3_4)
-        #subsession.team_5_6_7_8 = str(team_5_6_7_8)
+        subsession.team_5_6_7_8 = str(team_5_6_7_8)
         subsession.session.team_1_2_3_4 = str(subsession.team_1_2_3_4)
-        #subsession.session.team_5_6_7_8 = str(subsession.team_5_6_7_8)
+        subsession.session.team_5_6_7_8 = str(subsession.team_5_6_7_8)
 
     else:
         subsession.group_like_round(1)
@@ -464,6 +463,10 @@ class InstructionsRanking(Page):
 class WaitforInstructions2(WaitPage):
     wait_for_all_groups = True
 
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
 class InstructionsRanking2(Page):
     
     form_model= 'player'
@@ -474,6 +477,10 @@ class InstructionsRanking2(Page):
 
 class WaitforInstructions3(WaitPage):
     wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 class Instructions (Page):
     
@@ -494,6 +501,10 @@ class InstructionsTreatment2(Page):
 class WaitforInstructions4(WaitPage):
     wait_for_all_groups = True
 
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
 class InstructionsPos(Page):
     form_model = 'player'
 
@@ -503,6 +514,10 @@ class InstructionsPos(Page):
 
 class WaitforInstructions5(WaitPage):
     wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 class InstructionsNegControl(Page):
     form_model = 'player'
@@ -526,7 +541,11 @@ class InstructionsNegTreatment2(Page):
         return player.round_number == 1 and player.subsession.Treatment == 3
 
 class WaitPage1(WaitPage):
-    pass
+    wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 class TestCompréhension(Page):
     form_model = 'player'
@@ -546,6 +565,10 @@ class Compréhension_Error(Page):
 
 class WaitforChoice(WaitPage):
     wait_for_all_groups = True
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 class ChoiceCV_groupA(Page):
 
     @staticmethod
@@ -797,9 +820,9 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-#page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestCompréhension, Compréhension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,WaitforPartnerName, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestCompréhension, Compréhension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,WaitforPartnerName, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
 
-page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
+#page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 
 #page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching,WaitforPartnerName, WaitforMatching2, Belief, Count,  WaitforNextTable, WaitforSurvey]
 

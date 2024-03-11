@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie5'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 2
+    TIME_PER_PROBLEM = 10
     CHOICES = ["cvA", "cvB", "cvC", "cvD"]
 
 
@@ -426,6 +426,10 @@ class Instructions(Page):
 class WaitforChoice(WaitPage):
     wait_for_all_groups = True
 
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
 
 class ChoiceCV_groupA(Page):
 
@@ -646,7 +650,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-#page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
 
-page_sequence = [ WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
+#page_sequence = [ WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 

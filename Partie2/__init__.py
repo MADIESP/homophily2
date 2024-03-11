@@ -14,7 +14,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie2'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
-    TIME_PER_PROBLEM = 3
+    TIME_PER_PROBLEM = 10
 
 
 class Subsession(BaseSubsession):
@@ -130,5 +130,5 @@ class WaitForCollective(WaitPage):
 
 
 
-#page_sequence = [Instructions,Instructions_Exemple, WaitforComprehension, ComprehensionCheck,ComprehensionCheck_error,  Start, WaitforCount,  Count, WaitForCollective]
-page_sequence = [ Count, WaitForCollective]
+page_sequence = [Instructions,Instructions_Exemple, WaitforComprehension, ComprehensionCheck,ComprehensionCheck_error,  Start, WaitforCount,  Count, WaitForCollective]
+#page_sequence = [ Count, WaitForCollective]

@@ -106,6 +106,13 @@ class Player(BasePlayer):
                                            [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"],
                                            [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
                                            [4, "Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "]])
+    Message_CD = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
+                                     choices=[
+                                         [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
+                                         [4, "Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "],
+                                         [1, "Pas de pression, ce tableau n'est pas simple ! "],
+                                         [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"]])
+
     points_partie3 = models.IntegerField()
     points_beliefs1= models.IntegerField()
 # FUNCTIONS
@@ -388,7 +395,10 @@ def select_group_answer(group):
 
 
 def message(player):
-    player.participant.Message=player.Message
+    if player.participant.InGroupA == True or player.participant.InGroupB==True:
+        player.participant.Message=player.Message
+    elif player.participant.InGroupC == True or player.participant.InGroupD==True:
+        player.participant.Message=player.Message_CD
 
 def send_message(group):
     for player in group.get_players():
@@ -761,13 +771,23 @@ class FeedbackNeg2(Page):
         return player.correct_Group == False  and player.partner_selected!=True and player.subsession.Treatment == 2
 
 class Message(Page):
-
     form_model = 'player'
     form_fields = ['Message']
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected!=True and player.subsession.Treatment==3
+        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupA==True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupB== True
+
+    def before_next_page(player, timeout_happened):
+        message(player)
+
+class Message_CD(Page):
+    form_model = 'player'
+    form_fields = ['Message_CD']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupC== True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupD== True
 
     def before_next_page(player, timeout_happened):
         message(player)
@@ -820,7 +840,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestComprehension, Comprehension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,WaitforPartnerName, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestComprehension, Comprehension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,WaitforPartnerName, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message,Message_CD, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
 
 #page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 

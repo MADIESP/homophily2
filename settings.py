@@ -18,7 +18,7 @@ dict(
 dict(
         name='T2_FR',
         app_sequence=['Partie1', 'Partie2','Partie3','Partie4','Partie5','Partie6'],
-        num_demo_participants=8,
+        num_demo_participants=16,
         Treatment=3,
     ),
 dict(
@@ -32,7 +32,7 @@ dict(
 dict(
         name='Surbooking_T1',
         app_sequence=['Partie1_Surbooking','Partie2_Surbooking','Partie3_Surbooking','Partie4_Surbooking','Partie5_Surbooking','Partie6_Surbooking'],
-        num_demo_participants=1,
+        num_demo_participants=2,
         Treatment=2,
     ),
 

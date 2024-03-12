@@ -547,7 +547,7 @@ class WaitPage1(WaitPage):
     def is_displayed(player: Player):
         return player.round_number == 1
 
-class TestCompréhension(Page):
+class TestComprehension(Page):
     form_model = 'player'
     form_fields = ['test_ranking1','test_ranking2', 'test_JeuCollectif']
 
@@ -555,7 +555,7 @@ class TestCompréhension(Page):
     def is_displayed(player: Player):
         return player.round_number == 1
 
-class Compréhension_Error(Page):
+class Comprehension_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
@@ -660,7 +660,7 @@ class NamePartner(Page):
     def is_displayed(player: Player):
         return player.round_number == 1
 
-class TestCompréhensionBeliefs(Page):
+class TestComprehensionBeliefs(Page):
     form_model = 'player'
     form_fields = ['test_Belief1','test_Belief2','test_Belief3','test_Belief4']
 
@@ -668,7 +668,7 @@ class TestCompréhensionBeliefs(Page):
     def is_displayed(player: Player):
         return player.round_number == 1
 
-class Compréhension_Belief_Error(Page):
+class Comprehension_Belief_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
@@ -820,7 +820,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestCompréhension, Compréhension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,WaitforPartnerName, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [InstructionsRanking, WaitforInstructions2, InstructionsRanking2, WaitforInstructions3, Instructions, InstructionsTreatment2, WaitforInstructions4, InstructionsPos, WaitforInstructions5, InstructionsNegControl, InstructionsNegTreatment1, InstructionsNegTreatment2, WaitPage1, TestComprehension, Comprehension_Error,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,WaitforPartnerName, NamePartner,WaitforBelief ,Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, Enjoy, WaitforSurvey]
 
 #page_sequence = [ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 

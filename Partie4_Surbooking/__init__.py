@@ -61,9 +61,9 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.", initial=False)
     partner_selected = models.BooleanField(initial=False)
-    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, initial=2)
+    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4,5,6], widget=widgets.RadioSelectHorizontal, initial=2)
     belief_partner = models.IntegerField(
-        label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, initial=2)
+        label="", choices=[0, 1, 2, 3, 4, 5,6], widget=widgets.RadioSelectHorizontal, initial=2)
     points_partie4 = models.IntegerField()
     points_beliefs2 = models.IntegerField()
     solo=models.BooleanField()

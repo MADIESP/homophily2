@@ -61,9 +61,9 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.", initial=False)
     partner_selected = models.BooleanField(initial=False)
-    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, initial=2)
+    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4,5,6], widget=widgets.RadioSelectHorizontal, initial=2)
     belief_partner = models.IntegerField(
-        label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, initial=2)
+        label="", choices=[0, 1, 2, 3, 4,5,6], widget=widgets.RadioSelectHorizontal, initial=2)
     points_partie5 = models.IntegerField()
     points_beliefs3 = models.IntegerField()
     solo=models.BooleanField()
@@ -109,7 +109,7 @@ def creating_session(subsession:Subsession):
         #subsession.group_like_round(1)
 
 def set_correct(player):
-    correct_answers = [47, 52, 46, 61, 54, 50]
+    correct_answers = [44, 55, 49, 40, 50, 52]
     for player, correct in zip(player.in_all_rounds(), correct_answers):
         if player.count == correct:
             correct = True

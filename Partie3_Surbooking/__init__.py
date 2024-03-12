@@ -620,6 +620,12 @@ class FeedbackNegControl(Page):
     def is_displayed(player: Player):
         return player.correct_Group == False  and player.subsession.Treatment == 1  and player.participant.solo == False
 
+class FeedbackNeg2(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == True  and player.subsession.Treatment == 2  and player.participant.solo == False
+
 class FeedbackNegativeSolo(Page):
     @staticmethod
     def is_displayed(player: Player):
@@ -650,7 +656,7 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestComprehension, TestComprehensionImpair, Comprehension_Error, Comprehension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable, WaitforNextRound]
+page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestComprehension, TestComprehensionImpair, Comprehension_Error, Comprehension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, WaitforNextTable, WaitforNextRound]
 
 
 #page_sequence = [ MyWaitPage, NamePartner,  WaitforFirstTable, Count, CountSolo, WaitforFeedback]

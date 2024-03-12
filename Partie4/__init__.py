@@ -86,6 +86,12 @@ class Player(BasePlayer):
                                            [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
                                            [4,
                                             "Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "]])
+    Message_CD = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
+                                     choices=[
+                                         [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
+                                         [4,"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "],
+                                         [1, "Pas de pression, ce tableau n'est pas simple ! "],
+                                         [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"]])
 
     points_partie4 = models.IntegerField()
     points_beliefs2 = models.IntegerField()
@@ -346,7 +352,10 @@ def select_group_answer(group):
 
 
 def message(player):
-    player.participant.Message_round2 = player.Message
+    if player.participant.InGroupA == True or player.participant.InGroupB==True:
+        player.participant.Message=player.Message
+    elif player.participant.InGroupC == True or player.participant.InGroupD==True:
+        player.participant.Message=player.Message_CD
 
 
 def send_message(group):
@@ -598,7 +607,18 @@ class Message(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3
+        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupA==True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupB== True
+
+    def before_next_page(player, timeout_happened):
+        message(player)
+
+class Message_CD(Page):
+    form_model = 'player'
+    form_fields = ['Message_CD']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupC== True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupD== True
 
     def before_next_page(player, timeout_happened):
         message(player)
@@ -648,7 +668,7 @@ class WaitforSurvey(WaitPage):
 
 #page_sequence = [ WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 
-page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, Message_CD, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
 
 
 

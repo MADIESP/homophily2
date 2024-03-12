@@ -518,7 +518,7 @@ class FeedbackNeg2(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == True  and player.subsession.Treatment == 2  and player.participant.solo == False
+        return player.correct_Group == False and player.partner_selected==False   and player.subsession.Treatment == 2  and player.participant.solo == False
 
 class FeedbackNegativeSolo(Page):
     @staticmethod

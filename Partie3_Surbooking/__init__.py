@@ -427,7 +427,7 @@ class WaitPage1(WaitPage):
     def is_displayed(player: Player):
         return player.round_number == 1
 
-class TestCompréhension(Page):
+class TestComprehension(Page):
     form_model = 'player'
     form_fields = [ 'test_JeuCollectif']
 
@@ -435,7 +435,7 @@ class TestCompréhension(Page):
     def is_displayed(player: Player):
         return player.round_number == 1 and player.participant.nb_participants == 4  or player.round_number == 1 and player.participant.nb_participants == 2 or player.round_number == 1 and player.participant.nb_participants == 6 or player.round_number == 1 and player.participant.nb_participants == 8
 
-class TestCompréhensionImpair(Page):
+class TestComprehensionImpair(Page):
     form_model = 'player'
     form_fields = [ 'test_JeuCollectif_équipe', 'test_JeuCollectif_solo']
 
@@ -443,14 +443,14 @@ class TestCompréhensionImpair(Page):
     def is_displayed(player: Player):
         return player.round_number == 1 and player.participant.nb_participants == 3 or player.round_number == 1 and player.participant.nb_participants == 5 or player.round_number == 1 and player.participant.nb_participants == 7
 
-class Compréhension_Error(Page):
+class Comprehension_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 2  or  player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 4 or  player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 6 or  player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 8
 
 
-class Compréhension_Error_Impair(Page):
+class Comprehension_Error_Impair(Page):
 
     @staticmethod
     def is_displayed(player: Player):
@@ -650,7 +650,7 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestCompréhension, TestCompréhensionImpair, Compréhension_Error, Compréhension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable, WaitforNextRound]
+page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestComprehension, TestComprehensionImpair, Comprehension_Error, Comprehension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative,  WaitforNextTable, WaitforNextRound]
 
 
 #page_sequence = [ MyWaitPage, NamePartner,  WaitforFirstTable, Count, CountSolo, WaitforFeedback]

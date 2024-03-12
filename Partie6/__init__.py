@@ -477,12 +477,12 @@ class WaitforSurvey(WaitPage):
 class Ranking_gender_instructions(Page):
     pass
 
-class TestCompréhensionBeliefs(Page):
+class TestComprehensionBeliefs(Page):
     form_model = 'player'
     form_fields = ['test_Belief1','test_Belief2','test_Belief3','test_Belief4']
 
 
-class Compréhension_Belief_Gender_Error(Page):
+class Comprehension_Belief_Gender_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
@@ -556,5 +556,5 @@ class Point(Page):
 
 
 
-page_sequence = [ Instructions,WaitforSurvey,  Ranking_gender_instructions, TestCompréhensionBeliefs, Compréhension_Belief_Gender_Error, WaitPageforRanking, Ranking_genderAB,  WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
+page_sequence = [ Instructions,WaitforSurvey,  Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error, WaitPageforRanking, Ranking_genderAB,  WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
 #page_sequence = [Ranking_genderAB,  WaitPageforPart2,Point ]

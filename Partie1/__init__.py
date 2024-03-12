@@ -52,7 +52,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     survey_error_displayed = models.BooleanField(initial=False)
-    gender = models.IntegerField(label="À quel genre vous identifiez-vous ?", widget=widgets.RadioSelectHorizontal,
+    gender = models.IntegerField(label="Quel est votre genre ?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[0, "Femme"], [1, "Homme"]], initial=0)
     BornIDF = models.IntegerField(label="Etes vous né.e en  Ile de France ?", widget=widgets.RadioSelectHorizontal,
                                  choices=[[1, "Oui"], [0, "Non"]], initial=0)
@@ -685,10 +685,10 @@ class Survey(Page):
             player.survey_error_displayed = True  # Set the flag to True
             return "Merci de vérifier que vos informations sont exactes et cliquer sur Valider."
 
-class WaitforInstructionPrénom(WaitPage):
+class WaitforInstructionPrenom(WaitPage):
     pass
 
-class Prénom(Page):
+class Prenom(Page):
     form_model = 'player'
 
 class WaitForNames(WaitPage):
@@ -788,4 +788,4 @@ class MyWaitPage(WaitPage):
 
 #page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Instructions_general, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrénom, Prénom, NameSelectionF, NameSelectionM, MyWaitPage]
+page_sequence = [ Instructions_general, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]

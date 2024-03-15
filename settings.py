@@ -39,6 +39,11 @@ dict(
 ]
 
 ROOMS = [
+    {
+        'name': 'LEEP',
+        'display_name': 'Laboratoire d’Economie Expérimentale de Paris',
+        'participant_label_file': '_rooms/LEEP.txt',
+    },
 
     dict(
         name='Class',
@@ -52,8 +57,15 @@ ROOMS = [
 # the session config can be accessed from methods in your apps as self.session.config,
 # e.g. self.session.config['participation_fee']
 
+bot_labels=[]
+for i in range(24): bot_labels.append("bot%d"%(i+1))
+
+#bot_labels=["AMS", "ATH", "BER", "BRU", "BUD", "DUB", "HEL", "LIS", "LON", "MAD", "MOS", "OSL", "PRA", "RIG", "ROM", "SOF", "VAR", "VIE", "VIL", "ZUR", "LAB", "BOX1", "BOX2", "BOX3", "BOX4", "BOX5", "BOX6", "BOX7", "BOX8"]
+
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00, participation_fee=0.00, doc="", bot_labels=bot_labels,
+    SERVER_URL=open("config.txt").read().split(";")[1],
+    REST_KEY=open("config.txt").read().split(";")[0],
 )
 
 PARTICIPANT_FIELDS = ['nb_participants','solo','points_beliefs1', 'points_beliefs2', 'points_beliefs3', 'points_beliefs4','partner_point2', 'partner_point3', 'partner_point4','points_partie2', 'points_partie3', 'points_partie4','points_partie5','expiry', 'sum1', 'InGroupA', 'InGroupB', 'InGroupC', 'InGroupD',  'ind_payoff', 'vec_couple', 'vec_cv', 'vec_cv_round2', 'vec_cv_round3', 'vec_matching', 'vec_matching_round2', 'vec_matching_round3', 'name_partner', 'name_partner_round2', 'name_partner_round3', 'gender', 'name', 'name_round2', 'name_round3', 'FemaleNames','FemaleNames_round2', 'FemaleNames_round3',  'MaleNames', 'MaleNames_round2', 'MaleNames_round3', 'Message', 'Message_round2', 'Message_round3', 'partner_name', 'partner_name_round2', 'partner_name_round3', 'partner_gender', 'partner_gender_round2', 'partner_gender_round3', 'Job',  'BornPA',  'College']
@@ -72,7 +84,7 @@ INSTALLED_APPS = [
 ]
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = True
 use_browser_bots=True
 

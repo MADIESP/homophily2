@@ -290,7 +290,7 @@ def partner_name(group):
             player.participant.name_partner_round2 = 'Raphaël'
         elif player.participant.partner_gender_round2 == 1 and player.participant.partner_name_round2 == 4:
             player.participant.name_partner_round2 = 'Louis'
-        elif player.participant.partner_gender_round2 == 0 and player.participant.partner_name_round2 == 5:
+        elif player.participant.partner_gender_round2 == 1 and player.participant.partner_name_round2 == 5:
             player.participant.name_partner_round2 = 'Noah'
         elif player.participant.partner_gender_round2 == 1 and player.participant.partner_name_round2 == 6:
             player.participant.name_partner_round2 = 'Jules'

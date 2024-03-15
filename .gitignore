@@ -12,3 +12,4 @@ __pycache__/
 .DS_Store
 *.otreezip
 output*.log
+config.txt

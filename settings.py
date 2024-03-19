@@ -1,7 +1,11 @@
 from os import environ
 
 SESSION_CONFIGS = [
-
+dict(
+        name='Sondage',
+        app_sequence=['Partie0'],
+        num_demo_participants=16,
+    ),
 
 dict(
         name='Control_Main',

@@ -11,7 +11,7 @@ Your app description
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Partie1'
+    NAME_IN_URL = 'Partie0'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     Fnames = ["Jade", "Louise", "Ambre", "Alba", "Emma", "Rose", "Alice", "Romy", "Anna", "Lina"]

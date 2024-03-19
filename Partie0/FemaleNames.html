@@ -1,0 +1,33 @@
+{% block content %}
+{%  include 'Bot.html' %}
+<script>
+    // Define a function to update the list of options
+    function updateOptions(availableOptions) {
+        var select = $('#id_chosen_option');
+        select.empty();
+        $.each(availableOptions, function(index, option) {
+            select.append($('<option>', {
+                value: option,
+                text: option
+            }));
+        });
+    }
+
+    // Listen for updates from the live method and update options when received
+    oTree.subscribe("live.update_choices", function(data) {
+        updateOptions(data.available_options);
+    });
+</script>
+
+    <p class="center">
+
+
+
+    <p>
+        {{ formfields }}
+    </p>
+    <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Sélectionner </button>
+
+
+{% endblock %}
+

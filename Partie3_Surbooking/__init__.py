@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie3_Surbooking'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 10
+    TIME_PER_PROBLEM = 30
 
 
 class Subsession(BaseSubsession):
@@ -28,21 +28,20 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     nb_participants=models.IntegerField()
-    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal,
-                                initial=3)
+    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal)
     Treatment = models.IntegerField()
     test_JeuCollectif = models.IntegerField(
         label="A chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
         widget=widgets.RadioSelect,
         choices=[[0, "Ma réponse sera toujours sélectionnée. "],
                  [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
-                 [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]],initial=2)
+                 [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]])
     test_JeuCollectif_équipe = models.IntegerField(
         label="Si vous jouez en équipe : à chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
         widget=widgets.RadioSelect,
         choices=[[0, "Ma réponse sera toujours sélectionnée. "],
                  [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
-                 [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]], initial=2)
+                 [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]])
     test_JeuCollectif_solo = models.IntegerField(
         label="Si vous jouez seul : à chaque période, combien de points obtiendrez-vous si votre réponse est correcte ? ",
         widget=widgets.RadioSelect,
@@ -50,8 +49,6 @@ class Player(BasePlayer):
                  [1, "Je n'obtiendrais aucun point. "]], initial=1)
 
 
-    gender = models.IntegerField(label="What gender do you identify with?", widget=widgets.RadioSelectHorizontal,
-                                 choices=[[0, "Female"], [1, "Male"]], default=1)
     FemaleNames = models.IntegerField()
     MaleNames = models.IntegerField()
     name = models.IntegerField()
@@ -61,9 +58,9 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.", initial=False)
     partner_selected = models.BooleanField(initial=False)
-    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, initial=2)
+    belief_own = models.IntegerField(label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal)
     belief_partner = models.IntegerField(
-        label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal, initial=2)
+        label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal)
     points_partie3 = models.IntegerField()
     points_beliefs1 = models.IntegerField()
     solo=models.BooleanField()

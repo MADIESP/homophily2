@@ -1,16 +1,29 @@
 {% block content %}
 {%  include 'Bot.html' %}
-    <p class="center">
+    <style>
+    h1 {text-align: center;}
+    p {text-align: justify;}
 
-    <h3>
+    </style>
+
+
+
+    <h1>
         Partie 1
-    </h3>
+    </h1>
+<br>
 
-    <p>
+<p> Bienvenue dans la première partie de l'expérience. </p>
+
+<p> Répondez soigneusement aux 3 questions suivantes.
+</p>
+
+<p>
         {{ formfields }}
     </p>
      <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
 
 
-{% endblock %}
 
+
+{% endblock %}

@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie4'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 6
-    TIME_PER_PROBLEM = 10
+    TIME_PER_PROBLEM = 30
     CHOICES = ["cvA", "cvB", "cvC", "cvD"]
 
 
@@ -40,10 +40,10 @@ class Group(BaseGroup):
     points4 = models.IntegerField()
 
 class Player(BasePlayer):
-    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal, initial=3 )
-    belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal,initial=3)
+    enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal)
+    belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal)
     belief_partner = models.IntegerField(
-        label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal, initial=3)
+        label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal)
     rank1 = models.StringField(
         choices=C.CHOICES,
         label="<b> 1er Rang : </b>"

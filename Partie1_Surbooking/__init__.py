@@ -110,8 +110,8 @@ def Mnames(player):
 
 def gender(player):
     player.participant.gender = player.gender
-    player.participant.BornPA=player.BornIDF
-    player.participant.Job=player.CommutingTime
+    player.participant.BornIDF = player.BornIDF
+    player.participant.CommutingTime = player.CommutingTime
 
 
 def Femalename(player):
@@ -130,11 +130,7 @@ class Instructions_general(Page):
 class WaitforPartie1(WaitPage):
     pass
 
-class Instructions(Page):
-    form_model = 'player'
 
-class WaitForSurvey(WaitPage):
-    pass
 class Survey(Page):
     form_model = 'player'
     form_fields = ['gender', 'BornIDF', 'CommutingTime' ]
@@ -146,6 +142,7 @@ class Survey(Page):
         if not player.survey_error_displayed:
             player.survey_error_displayed = True  # Set the flag to True
             return "Merci de vérifier que vos informations sont exactes et cliquer sur Valider."
+
 
 class WaitforInstructionPrenom(WaitPage):
     pass
@@ -228,10 +225,10 @@ class MyWaitPage(WaitPage):
 
 
 
-
+page_sequence = [ Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
 
 #page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Instructions_general, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [ Instructions_general, WaitforPartie1,Survey,WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
 
 #page_sequence = [Survey, NameSelectionF, NameSelectionM, MyWaitPage]

@@ -53,13 +53,13 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     survey_error_displayed = models.BooleanField(initial=False)
     gender = models.IntegerField(label="Quel est votre genre ?", widget=widgets.RadioSelectHorizontal,
-                                 choices=[[0, "Femme"], [1, "Homme"]], initial=0)
+                                 choices=[[0, "Femme"], [1, "Homme"]])
     BornIDF = models.IntegerField(label="Etes vous né.e en  Ile de France ?", widget=widgets.RadioSelectHorizontal,
-                                 choices=[[1, "Oui"], [0, "Non"]], initial=0)
+                                 choices=[[1, "Oui"], [0, "Non"]])
     CommutingTime = models.IntegerField(
         label="Quel est votre temps de trajet quotidien (pour vous rendre à vos activités principales: travail, études, autres engagements,...) ?",
         widget=widgets.RadioSelectHorizontal,
-        choices=[[1, " < 30 minutes"], [0, "> 30 minutes"]], initial=0)
+        choices=[[1, " < 30 minutes"], [0, "> 30 minutes"]])
     FemaleNames = models.IntegerField()
     MaleNames = models.IntegerField()
     chosen_nameF = models.StringField(
@@ -77,6 +77,8 @@ class Player(BasePlayer):
     InGroupB=models.BooleanField(default=False,)
     InGroupC = models.BooleanField(default=False, )
     InGroupD = models.BooleanField(default=False, )
+    Main= models.BooleanField(default=False, )
+    Surbooking = models.BooleanField(default=False, )
     vec_couple = models.LongStringField()
     vec_cv = models.LongStringField()
     name = models.IntegerField()
@@ -151,8 +153,8 @@ def creating_couple_id_gender(player):
 
 def gender(player):
     player.participant.gender = player.gender
-    player.participant.BornPA=player.BornIDF
-    player.participant.Job=player.CommutingTime
+    player.participant.BornIDF=player.BornIDF
+    player.participant.CommutingTime=player.CommutingTime
 
 
 def Femalename(player):
@@ -176,11 +178,47 @@ def creating_CV_ind(player):
     player.participant.vec_cv = player.vec_cv
 
 
+def creatingMain(group):
+    sum_h = 0
+    sum_f = 0
+
+
+    for player in group.get_players():
+        if player.gender == 1:
+            if sum_h < 8:
+                player.Main = True  # only the id is useful in group_A
+                player.participant.Main = True
+                player.Surbooking = False
+                player.participant.Surbooking = False
+                sum_h += 1
+            else:
+                player.Main = False
+                player.participant.Main = False
+                player.Surbooking = True
+                player.participant.Surbooking = True
+        else:
+            if sum_f < 8:
+                player.Main = True
+                player.participant.Main = True
+                player.Surbooking = False
+                player.participant.Surbooking = False
+
+                sum_f += 1
+            else:
+                player.Main = False
+                player.participant.Main = False
+                player.Surbooking = True
+                player.participant.Surbooking = True
+
+
+
+
 def creatingGroups(group):
     Group_A = []
     Group_B = []
     Group_C= []
     Group_D=[]
+    Group_S=[]
     cvA = []
     cvB = []
     cvC=[]
@@ -373,22 +411,23 @@ def creatingGroups(group):
     group.cvC = str(cv_C)
     group.session.cvC = str(cv_C)
 
+
     for player in group.get_players():
         if player.InGroupA == False and player.InGroupB == False and player.InGroupC==False:
-                Group_D.append(player.id_in_group)  # only the id is usefull in group_A
-                cvD.append(player.vec_cv)
-                player.InGroupD = True
-                player.participant.InGroupD = True
-                player.InGroupB = False
-                player.participant.InGroupB = False
-                player.InGroupC = False
-                player.participant.InGroupC = False
-                player.InGroupA = False
-                player.participant.InGroupA = False
-
+            Group_D.append(player.id_in_group)  # only the id is usefull in group_A
+            cvD.append(player.vec_cv)
+            player.InGroupD = True
+            player.participant.InGroupD = True
+            player.InGroupB = False
+            player.participant.InGroupB = False
+            player.InGroupA = False
+            player.participant.InGroupA = False
+            player.InGroupC = False
+            player.participant.InGroupC = False
         else:
             player.InGroupD = False
             player.participant.InGroupD = False
+
 
     cv_D = [eval(cv) for cv in cvD]
     for cv in cv_D:
@@ -396,55 +435,20 @@ def creatingGroups(group):
             femaleD.append(cv)
         else:
             maleD.append(cv)
-    if len(femaleD) == 2:
-        cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
-        Group_D[0] = femaleD[0][0]
 
-        Group_D[1] = maleD[0][0]
+    cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
+    Group_D[0] = femaleD[0][0]
 
-        Group_D[2] = femaleD[1][0]
+    Group_D[1] = maleD[0][0]
 
-        Group_D[3] = maleD[1][0]
+    Group_D[2] = femaleD[1][0]
 
-    elif len(femaleD) == 1:
-        cv_D = [maleD[0], femaleD[0], maleD[1], maleD[2]]
-        Group_D[0] = maleD[0][0]
-
-        Group_D[1] = femaleD[0][0]
-
-        Group_D[2] = maleD[1][0]
-
-        Group_D[3] = maleD[2][0]
-
-    elif len(femaleD) == 3:
-        cv_D = [femaleD[0], maleD[0], femaleD[1], femaleD[2]]
-        Group_D[0] = femaleD[0][0]
-
-        Group_D[1] = maleD[0][0]
-
-        Group_D[2] = femaleD[1][0]
-
-        Group_D[3] = femaleD[2][0]
-
-    elif len(femaleD) == 4:
-        cv_D = [femaleD[0], femaleD[1], femaleD[2], femaleD[3]]
-        Group_D[0] = femaleD[0][0]
-
-        Group_D[1] = femaleD[1][0]
-
-        Group_D[2] = femaleD[2][0]
-
-        Group_D[3] = femaleD[3][0]
-
-
-
-
+    Group_D[3] = maleD[1][0]
 
     group.Group_D = str(Group_D)
     group.session.Group_D = str(Group_D)
     group.cvD = str(cv_D)
     group.session.cvD = str(cv_D)
-
 
 
     group.cv_A_1 = str(cvA[0])
@@ -479,6 +483,74 @@ def creatingGroups(group):
     group.session.cv_D_3 = str(cv_D[2])
     group.cv_D_4 = str(cvD[3])
     group.session.cv_D_4 = str(cv_D[3])
+
+    # for player in group.get_players():
+    # if player.InGroupA == False and player.InGroupB == False and player.InGroupC==False:
+    # Group_D.append(player.id_in_group)  # only the id is usefull in group_A
+    # cvD.append(player.vec_cv)
+    # player.InGroupD = True
+    # player.participant.InGroupD = True
+    # player.InGroupB = False
+    # player.participant.InGroupB = False
+    # player.InGroupC = False
+    # player.participant.InGroupC = False
+    # player.InGroupA = False
+    # player.participant.InGroupA = False
+
+    # else:
+    # player.InGroupD = False
+    # player.participant.InGroupD = False
+
+    # cv_D = [eval(cv) for cv in cvD]
+    # for cv in cv_D:
+    # if cv[-1] == 0:
+    # femaleD.append(cv)
+    # else:
+    # maleD.append(cv)
+    # if len(femaleD) == 2:
+    # cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
+    # Group_D[0] = femaleD[0][0]
+
+    # Group_D[1] = maleD[0][0]
+
+    # Group_D[2] = femaleD[1][0]
+
+    # Group_D[3] = maleD[1][0]
+
+    # elif len(femaleD) == 1:
+    # cv_D = [maleD[0], femaleD[0], maleD[1], maleD[2]]
+    # Group_D[0] = maleD[0][0]
+
+    # Group_D[1] = femaleD[0][0]
+
+    # Group_D[2] = maleD[1][0]
+
+    # Group_D[3] = maleD[2][0]
+
+    # elif len(femaleD) == 3:
+    # cv_D = [femaleD[0], maleD[0], femaleD[1], femaleD[2]]
+    # Group_D[0] = femaleD[0][0]
+
+    # Group_D[1] = maleD[0][0]
+
+    # Group_D[2] = femaleD[1][0]
+
+    # Group_D[3] = femaleD[2][0]
+
+    # elif len(femaleD) == 4:
+    # cv_D = [femaleD[0], femaleD[1], femaleD[2], femaleD[3]]
+    # Group_D[0] = femaleD[0][0]
+
+    # Group_D[1] = femaleD[1][0]
+
+    # Group_D[2] = femaleD[2][0]
+
+    # Group_D[3] = femaleD[3][0]
+
+    # group.Group_D = str(Group_D)
+    # group.session.Group_D = str(Group_D)
+    # group.cvD = str(cv_D)
+    # group.session.cvD = str(cv_D)
 
 
 def create_image_cv(cv_1, cv_2, cv_3, cv_4):
@@ -668,22 +740,28 @@ class Instructions_general(Page):
 class WaitforPartie1(WaitPage):
     pass
 
-class Instructions(Page):
-    form_model = 'player'
-
-class WaitForSurvey(WaitPage):
-    pass
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['gender', 'BornIDF', 'CommutingTime' ]
+    form_fields = ['gender', 'BornIDF', 'CommutingTime']
 
     def before_next_page(player, timeout_happened):
         gender(player)
 
-    def error_message(player, timeout_happened):
-        if not player.survey_error_displayed:
-            player.survey_error_displayed = True  # Set the flag to True
-            return "Merci de vérifier que vos informations sont exactes et cliquer sur Valider."
+    #def error_message(player, timeout_happened):
+        #if not player.survey_error_displayed:
+            #player.survey_error_displayed = True  # Set the flag to True
+
+class WaitforSessionName(WaitPage):
+    after_all_players_arrive = creatingMain
+
+class Main(Page):
+    def is_displayed(player):
+         return player.Main==True
+
+class Surbooking(Page):
+
+    def is_displayed(player):
+         return player.Surbooking==True
 
 class WaitforInstructionPrenom(WaitPage):
     pass
@@ -788,4 +866,6 @@ class MyWaitPage(WaitPage):
 
 #page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Instructions_general, WaitforPartie1,Instructions, WaitForSurvey,Survey,WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [ Instructions_general, WaitforPartie1,Survey, WaitforSessionName,Main, Surbooking , WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
+
+page_sequence = [ Prenom, NameSelectionF, NameSelectionM, MyWaitPage]

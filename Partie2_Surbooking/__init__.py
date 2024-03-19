@@ -14,7 +14,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie2_Surbooking'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
-    TIME_PER_PROBLEM = 10
+    TIME_PER_PROBLEM = 30
 
 
 class Subsession(BaseSubsession):
@@ -27,7 +27,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     count_ind = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?")
     correct_ind = models.BooleanField(doc="Whether the first sum provided is correct.")
-    count_test = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?", initial=4)
+    count_test = models.IntegerField(label="Combien de zéros il y a-t-il dans ce tableau?")
     count_error = models.IntegerField(label="Cette réponse est incorrecte, veuillez à nouveau entrer le nombre de zéros dans ce tableau.")
     points_partie2 = models.IntegerField()
 

@@ -125,4 +125,5 @@ class WaitforInstructionPrenom(WaitPage):
 
 #page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
 
-page_sequence = [ Instructions_general, WaitforPartie1,Survey, WaitforSessionName,Main, Surbooking , WaitforInstructionPrenom]
+# page_sequence = [ Instructions_general, WaitforPartie1,Survey, WaitforSessionName,Main, Surbooking , WaitforInstructionPrenom]
+page_sequence = [ Instructions_general, WaitforPartie1,Survey, WaitforSessionName]

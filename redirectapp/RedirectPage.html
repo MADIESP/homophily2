@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<p id=lastinfo>
+	Veuillez patienter...
+
+</p>
+
+<p id=wait_for_next_button></p>
+
+
+<script>
+	var redirect_page = '{{redirect_page}}';
+	var redirect_directly = {{ redirect_directly }};
+	$(document).ready(function () {
+		starttime = (new Date()).getTime();
+		if (redirect_directly) {
+			if (redirect_page != '') $(window).attr('location', redirect_page.replace(/&amp;/gi, '&'));
+			else $('#lastinfo').text("Merci. Vous pouvez fermer l'onglet.");
+		}
+		else if (typeof liveSend === 'function') liveSend('load|' + starttime.toString());
+	});
+	function liveRecv(data) {
+		console.log("receved:",data)
+		if (data == "ok") {
+			if (redirect_page != '') $(window).attr('location', redirect_page.replace(/&amp;/gi, '&'));
+			else $('#lastinfo').text("Merci. Vous pouvez fermer l'onglet.");
+		}
+		else if (data != "wait") $("#wait_for_next_button").html(data)
+		if (data == "wait") {
+			if (typeof liveSend === 'function') setTimeout(function () { liveSend('check|'); }, 1000);
+		}
+	}
+
+</script>
+
+{% endblock %}

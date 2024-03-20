@@ -8,5 +8,11 @@
 
         <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Sélectionner </button>
 
-
+<script>
+$(document).ready(function(){
+	$("option").each(function() {
+		if(js_vars.selected.indexOf($(this).text())>=0) $(this).prop( "disabled", true );
+	});
+})
+</script>
 {% endblock %}

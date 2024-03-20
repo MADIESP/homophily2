@@ -77,14 +77,18 @@ function botProceedInput(index) {
 						else console.log("chosen not to check",name);
 					}
 					else if(form_map[name][i].type.split('-')[0] == "select") {
-						var options = form_map[name][i].getElementsByTagName("option");
-						var values = [];
-						for(var io = 0; io<options.length; io++) {
-							if(options[io].value) values.push([io,options[io].value])
+						if($(form_map[name][i]).is(":visible")) {
+							var options = form_map[name][i].getElementsByTagName("option");
+							var values = [];
+							for(var io = 0; io<options.length; io++) {
+								if(options[io].value) values.push([io,options[io].value])
+							}
+							var choosen=Math.floor(Math.random()*values.length);
+							form_map[name][i].value=values[choosen][1];
+							$(form_map[name][i]).change();
+							console.log(name,form_map[name][i].type+" value set to ",values[choosen][1]);
 						}
-						var choosen=Math.floor(Math.random()*values.length);
-						form_map[name][i].value=values[choosen][1];
-						console.log(name,form_map[name][i].type+" value set to ",values[choosen][1]);
+						else console.log("invisible: ",form_map[name][i]);
 							
 					}
 					else if(form_map[name][i].type != "hidden" || !$(form_map[name][i]).val() ) {
@@ -138,6 +142,12 @@ $(document).ready(function() {if(_bot_input_forms_passed==0) {
 	if(bot_submit_but_name) bot_name_array.push(bot_submit_but_name);
 	console.log(bot_name_array,form_map,_bot_input_forms_passed)
 	if(bot_name_array.length>0) setTimeout(function() {bot_loaded=true; botProceedInput(0);},500);
+	var test_nosubmit=false;
+	if(test_nosubmit) $("form.otree-form").on("submit",function(event) {
+		event.stopPropagation();
+		return false;
+	});
+
 // for(var name in form_map) {
 
 // }

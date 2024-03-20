@@ -1,1 +1,1 @@
-;http://localhost:8000
+PaulineMadies;http://s2ch-adm-c-lab.ad.univ-paris1.fr:8000

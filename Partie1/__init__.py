@@ -769,6 +769,13 @@ class WaitforInstructionPrenom(WaitPage):
 class Prenom(Page):
     form_model = 'player'
 
+    def vars_for_template(player):
+        player.gender=player.participant.gender
+        player.BornIDF=player.participant.BornIDF
+        player.CommutingTime=player.participant.CommutingTime
+        player.Main=player.participant.Main
+        player.Surbooking=player.participant.Surbooking
+
 class WaitForNames(WaitPage):
     pass
 
@@ -780,12 +787,14 @@ class NameSelectionF(Page):
          return player.chosen_nameF == "" and player.gender==0
 
         # Show the page if the player hasn't chosen a name yet
-
     def error_message(self, values):
         chosen_nameF = values['chosen_nameF']
         if chosen_nameF in [p.chosen_nameF for p in self.group.get_players()]:
             return "Ce prénom a déjà été choisi par un autre participant. Veuillez en sélectionner un nouveau."
 
+    def js_vars(player):
+        return dict(selected=[p.chosen_nameF for p in player.group.get_players()])
+        
     def before_next_page(player, timeout_happened):
         Fnames(player)
         creating_couple_id_gender(player)
@@ -807,6 +816,9 @@ class NameSelectionM(Page):
         if chosen_nameM in [p.chosen_nameM for p in self.group.get_players()]:
             return "Ce prénom a déjà été choisi par un autre participant. Veuillez en sélectionner un nouveau."
 
+    def js_vars(player):
+        return dict(selected=[p.chosen_nameM for p in player.group.get_players()])
+        
     def before_next_page(player, timeout_happened):
         Mnames(player)
         creating_couple_id_gender(player)

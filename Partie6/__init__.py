@@ -53,7 +53,6 @@ class Player(BasePlayer):
                  [2, 'Rang 2'],
                  [3, ' Rang 3'],
                  [4, ' Rang 4'], ],
-        initial=1,
         label="<b> Jade : </b>",
         widget=widgets.RadioSelectHorizontal,
 
@@ -64,7 +63,6 @@ class Player(BasePlayer):
                  [3, ' Rang 3'],
                  [4, ' Rang 4'], ],
         label="<b> Louise : </b>",
-        initial=1,
         widget=widgets.RadioSelectHorizontal,
 
     )
@@ -74,7 +72,6 @@ class Player(BasePlayer):
                  [3, ' Rang 3'],
                  [4, ' Rang 4'], ],
         label="<b> Gabriel : </b>",
-        initial=1,
         widget=widgets.RadioSelectHorizontal,
 
     )
@@ -84,7 +81,6 @@ class Player(BasePlayer):
                  [3, ' Rang 3'],
                  [4, ' Rang 4'], ],
         label="<b> Léo : </b>",
-        initial=1,
         widget=widgets.RadioSelectHorizontal,
 
     )
@@ -94,7 +90,6 @@ class Player(BasePlayer):
                  [3, ' Un peu utile'],
                  [4, ' Inutile'], ],
         label="<b> Prénom fictif:  </b>",
-        initial=1,
         widget=widgets.RadioSelectHorizontal,
 
     )
@@ -104,7 +99,6 @@ class Player(BasePlayer):
                  [3, ' Un peu utile'],
                  [4, ' Inutile'], ],
         label="<b> Genre:  </b>",
-        initial=1,
         widget=widgets.RadioSelectHorizontal,
     )
     rank_born = models.IntegerField(
@@ -113,7 +107,6 @@ class Player(BasePlayer):
                  [3, ' Un peu utile'],
                  [4, ' Inutile'], ],
         label="<b> Naissance en Ile De France: </b>",
-        initial=1,
         widget=widgets.RadioSelectHorizontal,
     )
     rank_commute = models.IntegerField(
@@ -121,7 +114,6 @@ class Player(BasePlayer):
                  [2, 'Utile'],
                  [3, ' Un peu utile'],
                  [4, ' Inutile'], ],
-        initial=1,
         label="<b> Temps de Trajet: </b>",
         widget=widgets.RadioSelectHorizontal,
     )

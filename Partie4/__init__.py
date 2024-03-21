@@ -492,12 +492,12 @@ class ChoiceCV_groupD(Page):
 class WaitForMatching(WaitPage):
     wait_for_all_groups = True
 
-    #@staticmethod
-    #def call_both_functions(subsession):
-        #creating_group_with_choices_round_2(subsession)
-        #making_team_round_2(subsession)
+    @staticmethod
+    def call_both_functions(subsession):
+        creating_group_with_choices_round_2(subsession)
+        making_team_round_2(subsession)
 
-    #after_all_players_arrive = call_both_functions
+    after_all_players_arrive = call_both_functions
 
     def is_displayed(player):
         return player.round_number == 1

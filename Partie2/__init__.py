@@ -130,5 +130,5 @@ class WaitForCollective(WaitPage):
 
 
 
-page_sequence = [Instructions,Instructions_Exemple, WaitforComprehension, ComprehensionCheck,ComprehensionCheck_error,  Start, WaitforCount,  Count, WaitForCollective]
+page_sequence = [Instructions,Instructions_Exemple, WaitforComprehension, ComprehensionCheck,ComprehensionCheck_error,  WaitforCount, Start, Count, WaitForCollective]
 #page_sequence = [ Count, WaitForCollective]

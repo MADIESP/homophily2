@@ -405,7 +405,7 @@ class Player(BasePlayer):
 
 
 
-def get_points(player):
+def get_points_s2(player):
 
     if player.rank_Jade==1:
         points= 1
@@ -428,6 +428,11 @@ def get_points(player):
     player.participant.points_beliefs4=player.points_beliefs4
 
     player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3 + player.participant.points_beliefs4
+    player.participant.ind_payoff=player.ind_payoff
+
+def get_points(player):
+
+    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3
     player.participant.ind_payoff=player.ind_payoff
 
 def set_payoffs(group: Group):
@@ -501,7 +506,7 @@ class Ranking_genderAB(Page):
         return player.s1== False and participant.InGroupA == True or player.s1== False and participant.InGroupB == True
 
     def before_next_page(player, timeout_happened):
-        get_points(player)
+        get_points_s2(player)
 
 
 class Ranking_genderCD(Page):
@@ -513,7 +518,7 @@ class Ranking_genderCD(Page):
         return  player.s1== False and participant.InGroupC == True or player.s1== False and participant.InGroupD == True
 
     def before_next_page(player, timeout_happened):
-        get_points(player)
+        get_points_s2(player)
 
 class WaitPageforPart2(WaitPage):
     pass

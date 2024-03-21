@@ -254,7 +254,7 @@ def making_team_round_1(subsession):
             player_C = random.choice([p_c for p_c in Group_C_ch if p_c not in player_C_chosen])
             player_C_chosen.append(player_C)
             player_C_id = player_C[0]
-            choices_D = player_C[1]  # Classement des choix du joueur A dans le groupe B
+            choices_D = player_C[1]  # Classement des choix du joueur C dans le groupe D
 
                 # Recherche du choix préféré non encore pris
             for player_D_id in choices_D:

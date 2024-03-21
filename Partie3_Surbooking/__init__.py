@@ -451,7 +451,7 @@ class Comprehension_Error_Impair(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and  player.test_JeuCollectif_équipe!=2 and  player.participant.nb_participants == 3  or  player.round_number == 1 and  player.test_JeuCollectif_équipe!=2 and  player.participant.nb_participants == 5 or  player.round_number == 1 and  player.test_JeuCollectif_équipe!=2 and  player.participant.nb_participants == 7 or player.round_number == 1 and  player.test_JeuCollectif_solo!=0 and  player.participant.nb_participants == 3  or  player.round_number == 1 and  player.test_JeuCollectif_solo!=0 and  player.participant.nb_participants == 5 or  player.round_number == 1 and  player.test_JeuCollectif_solo!=0 and  player.participant.nb_participants == 7
+        return player.round_number == 1 and  player.test_JeuCollectif_equipe!=2 and  player.participant.nb_participants == 3  or  player.round_number == 1 and  player.test_JeuCollectif_equipe!=2 and  player.participant.nb_participants == 5 or  player.round_number == 1 and  player.test_JeuCollectif_equipe!=2 and  player.participant.nb_participants == 7 or player.round_number == 1 and  player.test_JeuCollectif_solo!=0 and  player.participant.nb_participants == 3  or  player.round_number == 1 and  player.test_JeuCollectif_solo!=0 and  player.participant.nb_participants == 5 or  player.round_number == 1 and  player.test_JeuCollectif_solo!=0 and  player.participant.nb_participants == 7
 
 
 

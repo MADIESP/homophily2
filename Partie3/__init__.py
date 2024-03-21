@@ -49,11 +49,11 @@ class Player(BasePlayer):
     test_ranking1 = models.IntegerField(
         label="1- Avez-vous <b> plus de chance </b> d’être apparié au joueur que vous avez classé en première position ou en deuxième position ? ",
         widget=widgets.RadioSelectHorizontal,
-        choices=[[0, "1ère position"], [1, "2ème position"]],initial=0)
+        choices=[[0, "1ère position"], [1, "2ème position"]])
     test_ranking2 = models.IntegerField(
         label="2- Avez-vous <b> moins de chance </b> d’être apparié au joueur que vous avez classé en troisième position ou en quatrième position ? ",
         widget=widgets.RadioSelectHorizontal,
-        choices=[[0, "3ème position"], [1, "4ème position"]], initial=1)
+        choices=[[0, "3ème position"], [1, "4ème position"]])
     test_JeuCollectif = models.IntegerField(
         label="3- A chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
         widget=widgets.RadioSelect,

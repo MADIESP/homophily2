@@ -32,21 +32,21 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
 
     )
-    s1 = models.BooleanField(default=True)
+    s1 = models.BooleanField(initial=True)
     ind_payoff = models.IntegerField()
-    points_beliefs4=models.IntegerField(default=0)
+    points_beliefs4=models.IntegerField(initial=0)
     test_Belief1 = models.IntegerField(
         widget=widgets.RadioSelectHorizontal,
-        choices=[[0, 'Des personnes fictives.'] ,[1,'	Des personnes ayant participé à une session antérieure de l’expérience, et ayant reçu les mêmes instructions que moi.']], default=1)
+        choices=[[0, 'Des personnes fictives.'] ,[1,'	Des personnes ayant participé à une session antérieure de l’expérience, et ayant reçu les mêmes instructions que moi.']])
     test_Belief2 = models.IntegerField(
         widget=widgets.RadioSelectHorizontal,
-        choices=[[0,'Ils ont été classés aléatoirement. '], [1,'Ils ont été classés en fonction du nombre de tableaux qu’ils ont correctement compté dans l’ensemble de l’expérience. '], [2,'Ils ont été classés en fonction du nombre de tableaux que leur équipe a correctement compté dans les 3 parties de jeu collectif.']], defaut=1)
+        choices=[[0,'Ils ont été classés aléatoirement. '], [1,'Ils ont été classés en fonction du nombre de tableaux qu’ils ont correctement compté dans l’ensemble de l’expérience. '], [2,'Ils ont été classés en fonction du nombre de tableaux que leur équipe a correctement compté dans les 3 parties de jeu collectif.']])
     test_Belief3 = models.IntegerField(
         widget=widgets.RadioSelect,
-        choices=[[0, "Je gagnerais un point supplémentaire par rang correct."], [1, "Je n'obtiendrais aucun point supplémentaire."]], default=0)
+        choices=[[0, "Je gagnerais un point supplémentaire par rang correct."], [1, "Je n'obtiendrais aucun point supplémentaire."]])
     test_Belief4 = models.IntegerField(
         widget=widgets.RadioSelect,
-        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je peux obtenir jusqu'à quatre points supplémentaires."]], default=1)
+        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je peux obtenir jusqu'à quatre points supplémentaires."]])
 
     rank_Jade= models.IntegerField(
         choices=[[1, ' Rang 1'],
@@ -483,7 +483,7 @@ class Comprehension_Belief_Gender_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.test_Belief1 != 1  and player.s1 == False or player.test_Belief2 != 1  and player.s1 == False or player.test_Belief3 != 0  and player.s1 == False or player.test_Belief4 != 1 and player.s1 == False
+        return player.field_maybe_none("test_Belief1") != 1  and player.s1 == False or player.field_maybe_none("test_Belief2") != 1  and player.s1 == False or player.field_maybe_none("test_Belief3") != 0  and player.s1 == False or player.field_maybe_none("test_Belief4") != 1 and player.s1 == False
 
 
 class WaitPageforRanking(WaitPage):

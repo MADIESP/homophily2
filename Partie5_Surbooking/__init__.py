@@ -27,6 +27,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    gender=models.IntegerField()
     nb_participants=models.IntegerField()
     enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal)
     Treatment = models.IntegerField()

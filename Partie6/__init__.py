@@ -423,7 +423,7 @@ def get_points(player):
         points2=points+1
     else:
         points2=points
-    if player.rank_Léo==3:
+    if player.rank_Leo==3:
         points3=points2+1
     else:
         points3=points2

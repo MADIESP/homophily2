@@ -239,8 +239,6 @@ class MyWaitPage(WaitPage):
 
 page_sequence = [ Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
 
-#page_sequence = [Instructions, WaitForSurvey, Survey,WaitForNames, NameSelectionF, NameSelectionM, MyWaitPage]
 
-#page_sequence = [ Instructions_general, WaitforPartie1,Survey,WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
+#page_sequence = [ Survey,WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
 
-#page_sequence = [Survey, NameSelectionF, NameSelectionM, MyWaitPage]

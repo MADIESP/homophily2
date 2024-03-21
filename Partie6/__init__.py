@@ -37,16 +37,16 @@ class Player(BasePlayer):
     points_beliefs4=models.IntegerField(default=0)
     test_Belief1 = models.IntegerField(
         widget=widgets.RadioSelectHorizontal,
-        choices=[[0, 'Des personnes fictives.'] ,[1,'	Des personnes ayant participé à une session antérieure de l’expérience, et ayant reçu les mêmes instructions que moi.']])
+        choices=[[0, 'Des personnes fictives.'] ,[1,'	Des personnes ayant participé à une session antérieure de l’expérience, et ayant reçu les mêmes instructions que moi.']], default=1)
     test_Belief2 = models.IntegerField(
         widget=widgets.RadioSelectHorizontal,
-        choices=[[0,'Ils ont été classés aléatoirement. '], [1,'Ils ont été classés en fonction du nombre de tableaux qu’ils ont correctement compté dans l’ensemble de l’expérience. '], [2,'Ils ont été classés en fonction du nombre de tableaux que leur équipe a correctement compté dans les 3 parties de jeu collectif.']])
+        choices=[[0,'Ils ont été classés aléatoirement. '], [1,'Ils ont été classés en fonction du nombre de tableaux qu’ils ont correctement compté dans l’ensemble de l’expérience. '], [2,'Ils ont été classés en fonction du nombre de tableaux que leur équipe a correctement compté dans les 3 parties de jeu collectif.']], defaut=1)
     test_Belief3 = models.IntegerField(
         widget=widgets.RadioSelect,
-        choices=[[0, "Je gagnerais un point supplémentaire par rang correct."], [1, "Je n'obtiendrais aucun point supplémentaire."]])
+        choices=[[0, "Je gagnerais un point supplémentaire par rang correct."], [1, "Je n'obtiendrais aucun point supplémentaire."]], default=0)
     test_Belief4 = models.IntegerField(
         widget=widgets.RadioSelect,
-        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je peux obtenir jusqu'à quatre points supplémentaires."]])
+        choices=[[0, "Je n'obtiendrais aucun point supplémentaire."], [1, "Je peux obtenir jusqu'à quatre points supplémentaires."]], default=1)
 
     rank_Jade= models.IntegerField(
         choices=[[1, ' Rang 1'],
@@ -78,7 +78,7 @@ class Player(BasePlayer):
         widget=widgets.RadioSelectHorizontal,
 
     )
-    rank_Léo = models.IntegerField(
+    rank_Leo = models.IntegerField(
         choices=[[1, ' Rang 1'],
                  [2, 'Rang 2'],
                  [3, ' Rang 3'],
@@ -453,11 +453,17 @@ def set_payoffs(group: Group):
 class Instructions(Page):
     form_model= 'player'
 
-class WaitforSurvey(WaitPage):
+
+
+class WaitforQuestionnaireGenre(WaitPage):
     pass
 
+class QuestionGenre(Page):
+    form_model = 'player'
+    form_fields = ['question_genre']
 
-
+    def is_displayed(player: Player):
+        return player.s1 == True
 
 
 class Ranking_gender_instructions(Page):
@@ -495,7 +501,7 @@ class QuestionGenre(Page):
 
 class Ranking_genderAB(Page):
     form_model= 'player'
-    form_fields = [ 'rank_Jade', 'rank_Gabriel', 'rank_Louise','rank_Léo']
+    form_fields = [ 'rank_Jade', 'rank_Gabriel', 'rank_Louise','rank_Leo']
 
     def is_displayed(player: Player):
         participant = player.participant
@@ -507,7 +513,7 @@ class Ranking_genderAB(Page):
 
 class Ranking_genderCD(Page):
     form_model = 'player'
-    form_fields = ['rank_Léo', 'rank_Louise', 'rank_Gabriel', 'rank_Jade']
+    form_fields = ['rank_Leo', 'rank_Louise', 'rank_Gabriel', 'rank_Jade']
 
     def is_displayed(player: Player):
         participant = player.participant
@@ -557,5 +563,5 @@ class Point(Page):
 
 
 
-page_sequence = [ Instructions,WaitforSurvey,  Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error, WaitPageforRanking, QuestionGenre, Ranking_genderAB, Ranking_genderCD,  WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
+page_sequence = [ Instructions,WaitforQuestionnaireGenre, QuestionGenre, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error, WaitPageforRanking, QuestionGenre, Ranking_genderAB, Ranking_genderCD,  WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
 #page_sequence = [Ranking_genderAB,  WaitPageforPart2,Point ]

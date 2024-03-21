@@ -38,6 +38,7 @@ class Player(BasePlayer):
         choices=[[1, " < 30 minutes"], [0, "> 30 minutes"]])
 
     Main= models.BooleanField(default=False, )
+    Main1 = models.BooleanField(default=False, )
     Surbooking = models.BooleanField(default=False, )
 
 
@@ -53,37 +54,62 @@ def gender(player):
     player.participant.CommutingTime=player.CommutingTime
 
 
+
+
 def creatingMain(group):
+    Group_Main=[]
     sum_h = 0
     sum_f = 0
+
 
 
     for player in group.get_players():
         if player.gender == 1:
             if sum_h < 8:
-                player.Main = True  # only the id is useful in group_A
-                player.participant.Main = True
-                player.Surbooking = False
-                player.participant.Surbooking = False
+                player.Main1=True
+                Group_Main.append(player.id_in_group)
                 sum_h += 1
             else:
-                player.Main = False
-                player.participant.Main = False
-                player.Surbooking = True
-                player.participant.Surbooking = True
+                pass
         else:
             if sum_f < 8:
-                player.Main = True
-                player.participant.Main = True
-                player.Surbooking = False
-                player.participant.Surbooking = False
-
+                player.Main1=True
+                Group_Main.append(player.id_in_group)
                 sum_f += 1
             else:
-                player.Main = False
-                player.participant.Main = False
-                player.Surbooking = True
-                player.participant.Surbooking = True
+                pass
+
+    for player in group.get_players():
+        if player.gender == 1:
+            if player.Main1==False and len(Group_Main)<16:
+                player.Main = True
+                Group_Main.append(player.id_in_group)
+            else:
+                pass
+
+        else:
+            if player.Main1==False and len(Group_Main)<16:
+                player.Main= True
+                Group_Main.append(player.id_in_group)
+            else:
+                pass
+
+    for player in group.get_players():
+        if player.Main==True:
+            player.participant.Main=True
+            player.Surbooking=False
+            player.participant.Surbooking=False
+        elif player.Main1==True:
+            player.participant.Main = True
+            player.Surbooking=False
+            player.participant.Surbooking=False
+        elif player.Main1==False and player.Main== False:
+            player.participant.Main= False
+            player.Surbooking=True
+            player.participant.Surbooking=True
+
+    group.session.Group_Main = str(Group_Main)
+
 
 
 
@@ -109,7 +135,7 @@ class WaitforSessionName(WaitPage):
 
 class Main(Page):
     def is_displayed(player):
-         return player.Main==True
+         return player.participant.Main==True
 
 class Surbooking(Page):
 

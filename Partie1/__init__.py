@@ -420,14 +420,14 @@ def creatingGroups(group):
             player.participant.InGroupD = True
             player.InGroupB = False
             player.participant.InGroupB = False
-            player.InGroupA = False
-            player.participant.InGroupA = False
             player.InGroupC = False
             player.participant.InGroupC = False
+            player.InGroupA = False
+            player.participant.InGroupA = False
+
         else:
             player.InGroupD = False
             player.participant.InGroupD = False
-
 
     cv_D = [eval(cv) for cv in cvD]
     for cv in cv_D:
@@ -436,20 +436,38 @@ def creatingGroups(group):
         else:
             maleD.append(cv)
 
-    cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
-    Group_D[0] = femaleD[0][0]
+    if len(femaleD) == 2:
+        cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
+        Group_D[0] = femaleD[0][0]
+        Group_D[1] = maleD[0][0]
+        Group_D[2] = femaleD[1][0]
+        Group_D[3] = maleD[1][0]
 
-    Group_D[1] = maleD[0][0]
+    elif len(femaleD) == 1:
+        cv_D = [maleD[0], femaleD[0], maleD[1], maleD[2]]
+        Group_D[0] = maleD[0][0]
+        Group_D[1] = femaleD[0][0]
+        Group_D[2] = maleD[1][0]
+        Group_D[3] = maleD[2][0]
 
-    Group_D[2] = femaleD[1][0]
+    elif len(femaleD) == 3:
+        cv_D = [femaleD[0], maleD[0], femaleD[1], femaleD[2]]
+        Group_D[0] = femaleD[0][0]
+        Group_D[1] = maleD[0][0]
+        Group_D[2] = femaleD[1][0]
+        Group_D[3] = femaleD[2][0]
 
-    Group_D[3] = maleD[1][0]
+    elif len(femaleD) == 4:
+        cv_D = [femaleD[0], femaleD[1], femaleD[2], femaleD[3]]
+        Group_D[0] = femaleD[0][0]
+        Group_D[1] = femaleD[1][0]
+        Group_D[2] = femaleD[2][0]
+        Group_D[3] = femaleD[3][0]
 
     group.Group_D = str(Group_D)
     group.session.Group_D = str(Group_D)
     group.cvD = str(cv_D)
     group.session.cvD = str(cv_D)
-
 
     group.cv_A_1 = str(cvA[0])
     group.session.cv_A_1 = str(cv_A[0])
@@ -492,11 +510,10 @@ def creatingGroups(group):
     # player.participant.InGroupD = True
     # player.InGroupB = False
     # player.participant.InGroupB = False
-    # player.InGroupC = False
-    # player.participant.InGroupC = False
     # player.InGroupA = False
     # player.participant.InGroupA = False
-
+    # player.InGroupC = False
+    # player.participant.InGroupC = False
     # else:
     # player.InGroupD = False
     # player.participant.InGroupD = False
@@ -507,7 +524,7 @@ def creatingGroups(group):
     # femaleD.append(cv)
     # else:
     # maleD.append(cv)
-    # if len(femaleD) == 2:
+
     # cv_D = [femaleD[0], maleD[0], femaleD[1], maleD[1]]
     # Group_D[0] = femaleD[0][0]
 
@@ -516,36 +533,6 @@ def creatingGroups(group):
     # Group_D[2] = femaleD[1][0]
 
     # Group_D[3] = maleD[1][0]
-
-    # elif len(femaleD) == 1:
-    # cv_D = [maleD[0], femaleD[0], maleD[1], maleD[2]]
-    # Group_D[0] = maleD[0][0]
-
-    # Group_D[1] = femaleD[0][0]
-
-    # Group_D[2] = maleD[1][0]
-
-    # Group_D[3] = maleD[2][0]
-
-    # elif len(femaleD) == 3:
-    # cv_D = [femaleD[0], maleD[0], femaleD[1], femaleD[2]]
-    # Group_D[0] = femaleD[0][0]
-
-    # Group_D[1] = maleD[0][0]
-
-    # Group_D[2] = femaleD[1][0]
-
-    # Group_D[3] = femaleD[2][0]
-
-    # elif len(femaleD) == 4:
-    # cv_D = [femaleD[0], femaleD[1], femaleD[2], femaleD[3]]
-    # Group_D[0] = femaleD[0][0]
-
-    # Group_D[1] = femaleD[1][0]
-
-    # Group_D[2] = femaleD[2][0]
-
-    # Group_D[3] = femaleD[3][0]
 
     # group.Group_D = str(Group_D)
     # group.session.Group_D = str(Group_D)
@@ -876,7 +863,7 @@ class MyWaitPage(WaitPage):
 
 
 
-#page_sequence = [ Survey, NameSelectionF, NameSelectionM, MyWaitPage]
+
 
 #page_sequence = [ Instructions_general, WaitforPartie1,Survey, WaitforSessionName,Main, Surbooking , WaitforInstructionPrenom, Prenom, NameSelectionF, NameSelectionM, MyWaitPage]
 

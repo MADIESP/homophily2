@@ -36,7 +36,7 @@ class Player(BasePlayer):
         choices=[[0, "Ma réponse sera toujours sélectionnée. "],
                  [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
                  [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]])
-    test_JeuCollectif_équipe = models.IntegerField(
+    test_JeuCollectif_equipe = models.IntegerField(
         label="Si vous jouez en équipe : à chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
         widget=widgets.RadioSelect,
         choices=[[0, "Ma réponse sera toujours sélectionnée. "],
@@ -434,7 +434,7 @@ class TestComprehension(Page):
 
 class TestComprehensionImpair(Page):
     form_model = 'player'
-    form_fields = [ 'test_JeuCollectif_équipe', 'test_JeuCollectif_solo']
+    form_fields = [ 'test_JeuCollectif_equipe', 'test_JeuCollectif_solo']
 
     @staticmethod
     def is_displayed(player: Player):

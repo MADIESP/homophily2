@@ -52,6 +52,7 @@ class Player(BasePlayer):
     FemaleNames = models.IntegerField()
     MaleNames = models.IntegerField()
     name = models.IntegerField()
+    gender=models.IntegerField()
     partner_name = models.IntegerField()
     partner_gender=models.IntegerField()
     count = models.IntegerField(label="Combien de 0s il y a t-il dans ce tableau ?")

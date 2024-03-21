@@ -439,15 +439,14 @@ def get_points(player):
     player.participant.ind_payoff=player.ind_payoff
 
 def set_payoffs(group: Group):
-    players = group.get_players()
 
-    for p in players:
-        if p.participant.ind_payoff < 7:
-            p.participant.payoff=7
-            p.participant.payoff_euros=7
+    for player in group.get_players():
+        if player.participant.ind_payoff < 7:
+            player.participant.payoff=7
+            player.participant.payoff_euros=7
         else:
-            p.participant.payoff = p.participant.ind_payoff
-            p.participant.payoff_euros= p.participant.ind_payoff
+            player.participant.payoff = player.participant.ind_payoff
+            player.participant.payoff_euros= player.participant.ind_payoff
 
 # PAGES
 class Instructions(Page):
@@ -498,6 +497,8 @@ class QuestionGenre(Page):
     def is_displayed(player: Player):
         return player.s1 == True
 
+    def before_next_page(player, timeout_happened):
+        get_points(player)
 
 class Ranking_genderAB(Page):
     form_model= 'player'

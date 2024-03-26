@@ -80,13 +80,13 @@ class Player(BasePlayer):
     correct = models.BooleanField(doc="Whether the count is correct.")
     correct_Group = models.BooleanField(doc="Whether the selected count is correct.")
     partner_selected = models.BooleanField(doc="Whether the count is correct.")
-    Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
+    Message = models.IntegerField(verbose_name='', widget=widgets.RadioSelect, initial=0,
                                   choices=[[1, "Pas de pression, ce tableau n'est pas simple ! "],
                                            [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"],
                                            [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
                                            [4,
                                             "Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "]])
-    Message_CD = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,
+    Message_CD = models.IntegerField(verbose_name='', widget=widgets.RadioSelect,initial=0,
                                      choices=[
                                          [3, "Je sais que c'est difficile mais essaye de te concentrer davantage. "],
                                          [4,"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. "],
@@ -189,71 +189,6 @@ def creating_group_with_choices_round_2(subsession):
     subsession.session.groupD_ch_round2 = str(Group_D_ch)
 
 import random
-def making_team_round_2(subsession):
-    Group_D_ch=eval(subsession.session.groupD_ch_round2)
-    Group_B_ch = eval(subsession.session.groupB_ch_round2)
-    team_1_2_3_4=[]
-    team_5_6_7_8 = []
-    player_D_chosen= []
-    player_B_chosen = []
-
-
-    if subsession.round_number == 1:
-
-        for i in range (4):
-            player_D = random.choice([p_d for p_d in Group_D_ch if p_d not in player_D_chosen ])
-            player_D_chosen.append(player_D)
-            player_D_id = player_D[0]
-            choices_A = player_D[1]  # Classement des choix du joueur A dans le groupe B
-
-        # Recherche du choix préféré non encore pris
-            for player_A_id in choices_A:
-                if player_A_id not in (p_a_id for (p_d_id, p_a_id) in team_1_2_3_4):
-                    team_1_2_3_4.append((player_D_id, player_A_id))
-                    break
-
-        team2_1 = team_1_2_3_4[0]
-        team2_2 = team_1_2_3_4[1]
-        team2_3 = team_1_2_3_4[2]
-        team2_4 = team_1_2_3_4[3]
-        subsession.session.team2_1 = str(team2_1)
-        subsession.session.team2_2 = str(team2_2)
-        subsession.session.team2_3 = str(team2_3)
-        subsession.session.team2_4 = str(team2_4)
-
-
-        for i in range(4):
-            player_B = random.choice([p_b for p_b in Group_B_ch if p_b not in player_B_chosen])
-            player_B_chosen.append(player_B)
-            player_B_id = player_B[0]
-            choices_C = player_B[1]  # Classement des choix du joueur A dans le groupe B
-
-                # Recherche du choix préféré non encore pris
-            for player_C_id in choices_C:
-                if player_C_id not in (p_c_id for (p_b_id, p_c_id) in team_5_6_7_8):
-                    team_5_6_7_8.append((player_B_id, player_C_id))
-                    break
-
-
-        team2_5 = team_5_6_7_8[0]
-        team2_6 = team_5_6_7_8[1]
-        team2_7 = team_5_6_7_8[2]
-        team2_8 = team_5_6_7_8[3]
-        subsession.session.team2_5 = str(team2_5)
-        subsession.session.team2_6 = str(team2_6)
-        subsession.session.team2_7 = str(team2_7)
-        subsession.session.team2_8 = str(team2_8)
-
-        new_matrix=[team2_1, team2_2, team2_3, team2_4, team2_5, team2_6, team2_7, team2_8]
-        subsession.set_group_matrix(new_matrix)
-        subsession.team_1_2_3_4_round2 = str(team_1_2_3_4)
-        subsession.team_5_6_7_8_round2 = str(team_5_6_7_8)
-        subsession.session.team_1_2_3_4_round2 = str(subsession.team_1_2_3_4_round2)
-        subsession.session.team_5_6_7_8_round2 = str(subsession.team_5_6_7_8_round2)
-
-    else:
-        subsession.group_like_round(1)
-
 
 
 def partner_name(group):
@@ -337,9 +272,6 @@ def set_correct(player):
 
 import random
 def select_group_answer(group):
-    all_counts = [player.count for player in group.get_players()]
-    selected_count = random.choice(all_counts)
-    group.selected_count= selected_count
     selected_player = random.choice(group.get_players())
     selected_player_id = selected_player.id_in_group
     group.selected_player= selected_player_id
@@ -347,28 +279,129 @@ def select_group_answer(group):
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
+            selected_count=player.count
         else:
             player.partner_selected = False
 
-
-def message(player):
-    if player.participant.InGroupA == True or player.participant.InGroupB==True:
-        player.participant.Message=player.Message
-    elif player.participant.InGroupC == True or player.participant.InGroupD==True:
-        player.participant.Message=player.Message_CD
+    group.selected_count=selected_count
 
 
-def send_message(group):
+def send_message_round2(group):
     for player in group.get_players():
-        if player.partner_selected == False:
-            if player.participant.Message_round2 == 1:
-                player.session.Message_selected_round2 = '"Pas de pression, ce tabeau n’est pas simple !"'
-            elif player.participant.Message_round2 == 2:
-                player.session.Message_selected_round2 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
-            elif player.participant.Message_round2 == 3:
-                player.session.Message_selected_round2 = '"Je sais que c’est difficile, mais essaye de te concenter davantage."'
-            elif player.participant.Message_round2 == 4:
-                player.session.Message_selected_round2 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+        if player.round_number==1:
+            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+                all_messages7 = [player.Message for player in group.get_players()]
+            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+                all_messages7 = [player.Message_CD for player in group.get_players()]
+            partner_message7=all_messages7[2-player.id_in_group]
+            player.participant.partner_message7= partner_message7
+
+        elif player.round_number==2:
+            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+                all_messages8 = [player.Message for player in group.get_players()]
+            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+                all_messages8 = [player.Message_CD for player in group.get_players()]
+            partner_message8=all_messages8[2-player.id_in_group]
+            player.participant.partner_message8= partner_message8
+
+        elif player.round_number==3:
+            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+                all_messages9 = [player.Message for player in group.get_players()]
+            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+                all_messages9 = [player.Message_CD for player in group.get_players()]
+            partner_message9=all_messages9[2-player.id_in_group]
+            player.participant.partner_message9= partner_message9
+
+        elif player.round_number==4:
+            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+                all_messages10 = [player.Message for player in group.get_players()]
+            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+                all_messages10 = [player.Message_CD for player in group.get_players()]
+            partner_message10=all_messages10[2-player.id_in_group]
+            player.participant.partner_message10= partner_message10
+
+        elif player.round_number==5:
+            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+                all_messages11 = [player.Message for player in group.get_players()]
+            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+                all_messages11 = [player.Message_CD for player in group.get_players()]
+            partner_message11=all_messages11[2-player.id_in_group]
+            player.participant.partner_message11= partner_message11
+
+        elif player.round_number==6:
+            if player.participant.InGroupA == True or player.participant.InGroupB == True:
+                all_messages12 = [player.Message for player in group.get_players()]
+            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+                all_messages12 = [player.Message_CD for player in group.get_players()]
+            partner_message12 = all_messages12[2 - player.id_in_group]
+            player.participant.partner_message12 = partner_message12
+
+
+
+
+    for player in group.get_players():
+        if player.partner_selected == True and player.round_number ==1:
+            if player.participant.partner_message7 == 1:
+                player.participant.Message_selected7 = '"Pas de pression, ce tableau n’est pas simple !"'
+            elif player.participant.partner_message7 == 2:
+                player.participant.Message_selected7 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
+            elif player.participant.partner_message7 == 3:
+                player.participant.Message_selected7 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
+            elif player.participant.partner_message7 == 4:
+                player.participant.Message_selected7 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+
+        elif player.partner_selected == True and player.round_number ==2:
+            if player.participant.partner_message8 == 1:
+                player.participant.Message_selected8 = '"Pas de pression, ce tableau n’est pas simple !"'
+            elif player.participant.partner_message8 == 2:
+                player.participant.Message_selected8 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
+            elif player.participant.partner_message8 == 3:
+                player.participant.Message_selected8 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
+            elif player.participant.partner_message8 == 4:
+                player.participant.Message_selected8 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+
+        elif player.partner_selected == True and player.round_number ==3:
+            if player.participant.partner_message9 == 1:
+                player.participant.Message_selected9 = '"Pas de pression, ce tableau n’est pas simple !"'
+            elif player.participant.partner_message9 == 2:
+                player.participant.Message_selected9 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
+            elif player.participant.partner_message9 == 3:
+                player.participant.Message_selected9 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
+            elif player.participant.partner_message9 == 4:
+                player.participant.Message_selected9 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+
+        elif player.partner_selected == True and player.round_number ==4:
+            if player.participant.partner_message10 == 1:
+                player.participant.Message_selected10 = '"Pas de pression, ce tableau n’est pas simple !"'
+            elif player.participant.partner_message10 == 2:
+                player.participant.Message_selected10 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
+            elif player.participant.partner_message10 == 3:
+                player.participant.Message_selected10 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
+            elif player.participant.partner_message10 == 4:
+                player.participant.Message_selected10 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+
+
+        elif player.partner_selected == True and player.round_number ==5:
+            if player.participant.partner_message11 == 1:
+                player.participant.Message_selected11 = '"Pas de pression, ce tableau n’est pas simple !"'
+            elif player.participant.partner_message11 == 2:
+                player.participant.Message_selected11 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
+            elif player.participant.partner_message11 == 3:
+                player.participant.Message_selected11 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
+            elif player.participant.partner_message11 == 4:
+                player.participant.Message_selected11 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+
+
+        elif player.partner_selected == True and player.round_number ==6:
+            if player.participant.partner_message12 == 1:
+                player.participant.Message_selected12 = '"Pas de pression, ce tableau n’est pas simple !"'
+            elif player.participant.partner_message12 == 2:
+                player.participant.Message_selected12 = '"Ne t’inquiète pas, cela arrive de faire des erreurs !"'
+            elif player.participant.partner_message12 == 3:
+                player.participant.Message_selected12 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
+            elif player.participant.partner_message12 == 4:
+                player.participant.Message_selected12 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
+
 
 
 def set_correct_group(group):
@@ -452,7 +485,7 @@ class ChoiceCV_groupB(Page):
     @staticmethod
     def is_displayed(player: Player):
         participant = player.participant
-        return participant.InGroupA == False and player.round_number == 1
+        return participant.InGroupB == True and player.round_number == 1
 
     form_model = 'player'
     form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
@@ -495,7 +528,6 @@ class WaitForMatching(WaitPage):
     @staticmethod
     def call_both_functions(subsession):
         creating_group_with_choices_round_2(subsession)
-        making_team_round_2(subsession)
 
     after_all_players_arrive = call_both_functions
 
@@ -503,6 +535,72 @@ class WaitForMatching(WaitPage):
         return player.round_number == 1
 
     # after_all_players_arrive= creating_group_with_choices_round_1
+
+class Matching(WaitPage):
+
+    wait_for_all_groups = True
+
+    def making_team_round_2(subsession):
+        Group1 = eval(subsession.session.groupA_ch_round2)
+        Group2 = eval(subsession.session.groupB_ch_round2)
+        Group_C_ch = eval(subsession.session.groupC_ch_round2)
+        Group_D_ch = eval(subsession.session.groupD_ch_round2)
+        team_1_2_3_4 = []
+        team_5_6_7_8 = []
+        group1_chosen = []
+        group2_chosen = []
+
+        if subsession.round_number == 1:
+            Group1.extend(Group_D_ch)
+            Group2.extend(Group_C_ch)
+
+            # Forming teams from Group1
+            for player in range(4):
+                player_group1 = random.choice([p_1 for p_1 in Group1 if p_1[0] not in group1_chosen])
+                player_group1_id = player_group1[0]
+                player_group1_choices = player_group1[1]
+                group1_chosen.append(player_group1_id)
+
+                # Choosing a player for the team
+                chosen_player_id = None
+                for player_id in player_group1_choices:
+                    if player_id not in group1_chosen:
+                        chosen_player_id = player_id
+                        break
+
+                if chosen_player_id is not None:
+                    team_1_2_3_4.append((player_group1_id, chosen_player_id))
+                    group1_chosen.append(chosen_player_id)
+
+            # Forming teams from Group2
+            for player in range(4):
+                player_group2 = random.choice([p_2 for p_2 in Group2 if p_2[0] not in group2_chosen])
+                player_group2_id = player_group2[0]
+                player_group2_choices = player_group2[1]
+                group2_chosen.append(player_group2_id)
+
+                # Choosing a player for the team
+                chosen_player_id = None
+                for player_id in player_group2_choices:
+                    if player_id not in group2_chosen:
+                        chosen_player_id = player_id
+                        break
+
+                if chosen_player_id is not None:
+                    team_5_6_7_8.append((player_group2_id, chosen_player_id))
+                    group2_chosen.append(chosen_player_id)
+
+            new_matrix = team_1_2_3_4 + team_5_6_7_8
+            subsession.set_group_matrix(new_matrix)
+            subsession.team_1_2_3_4_round2 = str(team_1_2_3_4)
+            subsession.team_5_6_7_8_round2 = str(team_5_6_7_8)
+            subsession.session.team_1_2_3_4_round2 = str(team_1_2_3_4)
+            subsession.session.team_5_6_7_8_round2 = str(team_5_6_7_8)
+
+        else:
+            subsession.group_like_round(1)
+
+    after_all_players_arrive = making_team_round_2
 
 
 class WaitforPartnerName(WaitPage):
@@ -609,8 +707,6 @@ class Message(Page):
     def is_displayed(player: Player):
         return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupA==True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupB== True
 
-    def before_next_page(player, timeout_happened):
-        message(player)
 
 class Message_CD(Page):
     form_model = 'player'
@@ -620,16 +716,21 @@ class Message_CD(Page):
     def is_displayed(player: Player):
         return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupC== True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupD== True
 
-    def before_next_page(player, timeout_happened):
-        message(player)
 
+
+class WaitforCommunicationReceived(WaitPage):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == False and player.subsession.Treatment==3 and player.partner_selected==True
+
+    after_all_players_arrive = send_message_round2
+    body_text = "En attente de votre partenaire."
 
 class WaitforCommunication(WaitPage):
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.subsession.Treatment == 3
+        return player.correct_Group == False and player.subsession.Treatment==3 and player.partner_selected==False
 
-    after_all_players_arrive = send_message
     body_text = "En attente de votre partenaire."
 
 
@@ -668,7 +769,8 @@ class WaitforSurvey(WaitPage):
 
 #page_sequence = [ WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 
-page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, WaitForMatching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, Message_CD, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD, WaitForMatching,Matching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, Message_CD, WaitforCommunicationReceived, WaitforCommunication, MessageSent,  MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+
 
 
 

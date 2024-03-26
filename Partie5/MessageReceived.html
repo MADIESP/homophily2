@@ -12,9 +12,37 @@ Partie 5 - Période {{ view.round_number }} - Partenaire: {{ participant.name_pa
 
 
 <br>
+  {% if player.round_number == 1 %}
   <p>
-        {{ session.Message_selected_round3 }}
+        {{ participant.Message_selected13 }}
     </p>
+
+ {% elif player.round_number == 2 %}
+  <p>
+        {{ participant.Message_selected14 }}
+    </p>
+
+ {% elif player.round_number == 3 %}
+  <p>
+        {{ participant.Message_selected15 }}
+    </p>
+
+ {% elif player.round_number == 4 %}
+  <p>
+        {{ participant.Message_selected16 }}
+    </p>
+
+ {% elif player.round_number == 5 %}
+  <p>
+        {{ participant.Message_selected17 }}
+    </p>
+
+ {% elif player.round_number == 6 %}
+  <p>
+        {{ participant.Message_selected18 }}
+    </p>
+
+{% endif %}
 
  <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Suivant </button>
 {% endblock %}

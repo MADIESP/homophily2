@@ -40,7 +40,7 @@ class Player(BasePlayer):
         label="Si vous jouez en équipe : à chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
         widget=widgets.RadioSelect,
         choices=[[0, "Ma réponse sera toujours sélectionnée. "],
-                 [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
+                 [1, "La répofnse de mon partenaire sera toujours sélectionnée. "],
                  [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]])
     test_JeuCollectif_solo = models.IntegerField(
         label="Si vous jouez seul : à chaque période, combien de points obtiendrez-vous si votre réponse est correcte ? ",
@@ -244,9 +244,6 @@ def partner_name(group):
 
 import random
 def select_group_answer(group):
-    all_counts = [player.count for player in group.get_players()]
-    selected_count = random.choice(all_counts)
-    group.selected_count= selected_count
     selected_player = random.choice(group.get_players())
     selected_player_id = selected_player.id_in_group
     group.selected_player= selected_player_id
@@ -254,9 +251,11 @@ def select_group_answer(group):
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
+            selected_count=player.count
         else:
             player.partner_selected = False
 
+    group.selected_count=selected_count
 
 
 def set_correct_group(group):

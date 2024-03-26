@@ -246,9 +246,6 @@ def partner_name(group):
 
 import random
 def select_group_answer(group):
-    all_counts = [player.count for player in group.get_players()]
-    selected_count = random.choice(all_counts)
-    group.selected_count= selected_count
     selected_player = random.choice(group.get_players())
     selected_player_id = selected_player.id_in_group
     group.selected_player= selected_player_id
@@ -256,9 +253,11 @@ def select_group_answer(group):
     for player in group.get_players():
         if player.id_in_group == group.selected_player:
             player.partner_selected = True
+            selected_count=player.count
         else:
             player.partner_selected = False
 
+    group.selected_count=selected_count
 
 
 def set_correct_group(group):

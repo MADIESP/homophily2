@@ -444,7 +444,7 @@ class Comprehension_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 2  or  player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 4 or  player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 6 or  player.round_number == 1 and  player.test_JeuCollectif!=2 and  player.participant.nb_participants == 8
+        return player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 2  or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 4 or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 6 or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 8
 
 
 class Comprehension_Error_Impair(Page):

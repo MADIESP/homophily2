@@ -40,6 +40,19 @@ class Group(BaseGroup):
     points4 = models.IntegerField()
 
 class Player(BasePlayer):
+
+    partner_message7=models.IntegerField()
+    partner_message8 = models.IntegerField()
+    partner_message9 = models.IntegerField()
+    partner_message10 = models.IntegerField()
+    partner_message11 = models.IntegerField()
+    partner_message12 = models.IntegerField()
+    Message_selected7=models.IntegerField()
+    Message_selected8 = models.IntegerField()
+    Message_selected9 = models.IntegerField()
+    Message_selected10 = models.IntegerField()
+    Message_selected11 = models.IntegerField()
+    Message_selected12 = models.IntegerField()
     enjoy = models.IntegerField(label="", choices=[1, 2, 3, 4, 5, 6, 7], widget=widgets.RadioSelectHorizontal)
     belief_own = models.IntegerField(label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal)
     belief_partner = models.IntegerField(
@@ -95,6 +108,7 @@ class Player(BasePlayer):
 
     points_partie4 = models.IntegerField()
     points_beliefs2 = models.IntegerField()
+
 # FUNCTIONS
 
 # def creating_session(subsession: Subsession):
@@ -286,7 +300,7 @@ def select_group_answer(group):
     group.selected_count=selected_count
 
 
-def send_message_round2(group):
+def send_message(group):
     for player in group.get_players():
         if player.round_number==1:
             if player.participant.InGroupA==True or player.participant.InGroupB==True:
@@ -401,8 +415,6 @@ def send_message_round2(group):
                 player.participant.Message_selected12 = '"Je sais que c’est difficile mais essaye de te concentrer davantage."'
             elif player.participant.partner_message12 == 4:
                 player.participant.Message_selected12 = '"Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage."'
-
-
 
 def set_correct_group(group):
     correct_answers = [47, 52, 46, 61, 54, 50]
@@ -723,7 +735,7 @@ class WaitforCommunicationReceived(WaitPage):
     def is_displayed(player: Player):
         return player.correct_Group == False and player.subsession.Treatment==3 and player.partner_selected==True
 
-    after_all_players_arrive = send_message_round2
+    after_all_players_arrive = send_message
     body_text = "En attente de votre partenaire."
 
 class WaitforCommunication(WaitPage):

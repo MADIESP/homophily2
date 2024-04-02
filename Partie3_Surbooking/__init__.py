@@ -304,9 +304,9 @@ def get_points_ind(player:BasePlayer):
     for p, correct in zip(player.in_all_rounds(), correct_answers):
         # print(p.answer, correct, p.answer == correct)
         points_partie3 = points_partie3 + 1 if p.count == correct else points_partie3
-    player.points_partie3 = points_partie3
+    player.points_partie3_solo = points_partie3
 
-    player.participant.points_partie3 = player.points_partie3
+    player.participant.points_partie3_solo = player.points_partie3_solo
 
 def get_points_beliefs(player):
     points_beliefs = 0

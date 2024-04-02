@@ -433,12 +433,13 @@ def get_points_s2(player):
 def get_points(player):
 
     player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3
-    player.participant.ind_payoff=player.ind_payoff
+    player.participant.ind_payoff=player.ind_payoff + 4
 
 
 def set_payoffs_fee(player):
 
     player.participant.payoff_euros= player.participant.ind_payoff + 7
+    player.participant.payoff= player.participant.ind_payoff + 7
 
 def set_payoffs(player):
 

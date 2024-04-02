@@ -435,17 +435,19 @@ def get_points(player):
     player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3
     player.participant.ind_payoff=player.ind_payoff
 
-def set_payoffs(group: Group):
+def set_payoffs(player):
 
-    for player in group.get_players():
-        if player.participant.ind_payoff < 7:
-            player.participant.payoff=7
-            player.participant.payoff_euros=7
-        else:
-            player.participant.payoff = player.participant.ind_payoff
-            player.participant.payoff_euros= player.participant.ind_payoff
+
+    if player.participant.ind_payoff < 7:
+        player.participant.payoff=7
+        player.participant.payoff_euros=7
+    else:
+        player.participant.payoff = player.participant.ind_payoff
+        player.participant.payoff_euros= player.participant.ind_payoff
 
 # PAGES
+class WaitforInstructions(WaitPage):
+    pass
 class Instructions(Page):
     form_model= 'player'
 
@@ -551,9 +553,12 @@ class Questionnaire(Page):
     form_model = 'player'
     form_fields = ['questionnaire_q1', 'questionnaire_q2', 'questionnaire_q3', 'questionnaire_q4']
 
+    def before_next_page(player, timeout_happened):
+        set_payoffs(player)
 
-class WaitforEnd(WaitPage):
-    after_all_players_arrive = set_payoffs
+
+
+
 
 
 class Point(Page):
@@ -561,5 +566,5 @@ class Point(Page):
 
 
 
-page_sequence = [ Instructions,WaitforQuestionnaireGenre, QuestionGenre, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error, WaitPageforRanking, QuestionGenre, Ranking_genderAB, Ranking_genderCD,  WaitPageforPart2, RankingTrait, WaitPageforPart3, BFNE, WaitforPart4, SPSRQ, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
+page_sequence = [ WaitforInstructions,Instructions, QuestionGenre, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error,  QuestionGenre, Ranking_genderAB, Ranking_genderCD,   RankingTrait, BFNE,  SPSRQ,  Questionnaire,Point]
 #page_sequence = [Ranking_genderAB,  WaitPageforPart2,Point ]

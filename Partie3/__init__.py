@@ -115,6 +115,7 @@ class Player(BasePlayer):
                                          [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"]])
 
     points_partie3 = models.IntegerField()
+    points_partie3_solo = models.IntegerField()
     points_beliefs1= models.IntegerField()
 # FUNCTIONS
 
@@ -476,6 +477,15 @@ def get_points(group):
         player.points_partie3 = group.points3
         player.participant.points_partie3 = player.points_partie3
 
+def get_points_solo(player:BasePlayer):
+    points_partie3 = 0
+    correct_answers = [49, 42, 45, 48, 49, 51]
+    for p, correct in zip(player.in_all_rounds(), correct_answers):
+        # print(p.answer, correct, p.answer == correct)
+        points_partie3 = points_partie3 + 1 if p.count == correct else points_partie3
+    player.points_partie3 = points_partie3
+
+    player.participant.points_partie3_solo = player.points_partie3_solo
 
 def get_points_beliefs(player):
     points_beliefs = 0

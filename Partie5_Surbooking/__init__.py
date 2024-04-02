@@ -172,7 +172,7 @@ def partner_name(group):
 
     all_names = [player.participant.name for player in group.get_players()]
     all_gender = [player.participant.gender for player in group.get_players()]
-    all_points = [player.participant.points_partie4 for player in group.get_players()]
+    all_points = [player.participant.points_partie4_solo for player in group.get_players()]
 
     group.session.all_gender=str(all_gender)
     group.session.all_names=str(all_names)
@@ -291,9 +291,10 @@ def get_points_solo(player:BasePlayer):
 
     player.participant.points_partie5 = player.points_partie5
 
+
 def get_points_beliefs(player):
     points_beliefs = 0
-    if player.belief_own== player.participant.points_partie4:
+    if player.belief_own== player.participant.points_partie4_solo:
         points_beliefs= points_beliefs +1
     else:
         points_beliefs = points_beliefs

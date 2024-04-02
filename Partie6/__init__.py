@@ -435,6 +435,11 @@ def get_points(player):
     player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3
     player.participant.ind_payoff=player.ind_payoff
 
+
+def set_payoffs_fee(player):
+
+    player.participant.payoff_euros= player.participant.ind_payoff + 7
+
 def set_payoffs(player):
 
 
@@ -554,7 +559,7 @@ class Questionnaire(Page):
     form_fields = ['questionnaire_q1', 'questionnaire_q2', 'questionnaire_q3', 'questionnaire_q4']
 
     def before_next_page(player, timeout_happened):
-        set_payoffs(player)
+        set_payoffs_fee(player)
 
 
 

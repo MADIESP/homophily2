@@ -65,6 +65,7 @@ class Player(BasePlayer):
     belief_partner = models.IntegerField(
         label="", choices=[0, 1, 2, 3, 4, 5,6], widget=widgets.RadioSelectHorizontal)
     points_partie4 = models.IntegerField()
+    points_partie4_solo = models.IntegerField()
     points_beliefs2 = models.IntegerField()
     solo=models.BooleanField()
 
@@ -174,7 +175,7 @@ def partner_name(group):
 
     all_names = [player.participant.name for player in group.get_players()]
     all_gender = [player.participant.gender for player in group.get_players()]
-    all_points= [player.participant.points_partie3 for player in group.get_players()]
+    all_points= [player.participant.points_partie3_solo for player in group.get_players()]
 
 
     group.session.all_gender=str(all_gender)
@@ -299,9 +300,19 @@ def get_points_solo(player:BasePlayer):
 
     player.participant.points_partie4 = player.points_partie4
 
+def get_points_ind(player:BasePlayer):
+    points_partie4 = 0
+    correct_answers = [47, 52, 46, 61, 54, 50]
+    for p, correct in zip(player.in_all_rounds(), correct_answers):
+        # print(p.answer, correct, p.answer == correct)
+        points_partie4 = points_partie4 + 1 if p.count == correct else points_partie4
+    player.points_partie4_solo = points_partie4
+
+    player.participant.points_partie4_solo = player.points_partie4_solo
+
 def get_points_beliefs(player):
     points_beliefs = 0
-    if player.belief_own== player.participant.points_partie3:
+    if player.belief_own== player.participant.points_partie3_solo:
         points_beliefs= points_beliefs +1
     else:
         points_beliefs = points_beliefs
@@ -431,6 +442,7 @@ class Count(Page):
 
     def before_next_page(player, timeout_happened):
         set_correct(player)
+        get_points_ind(player)
 
     @staticmethod
     def is_displayed(player: Player):

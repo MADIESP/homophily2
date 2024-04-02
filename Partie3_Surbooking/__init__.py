@@ -63,6 +63,7 @@ class Player(BasePlayer):
     belief_partner = models.IntegerField(
         label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal)
     points_partie3 = models.IntegerField()
+    points_partie3_solo = models.IntegerField()
     points_beliefs1 = models.IntegerField()
     solo=models.BooleanField()
 
@@ -288,6 +289,16 @@ def get_points(group):
         player.participant.points_partie3 = player.points_partie3
 
 def get_points_solo(player:BasePlayer):
+    points_partie3 = 0
+    correct_answers = [49, 42, 45, 48, 49, 51]
+    for p, correct in zip(player.in_all_rounds(), correct_answers):
+        # print(p.answer, correct, p.answer == correct)
+        points_partie3 = points_partie3 + 1 if p.count == correct else points_partie3
+    player.points_partie3 = points_partie3
+
+    player.participant.points_partie3 = player.points_partie3
+
+def get_points_ind(player:BasePlayer):
     points_partie3 = 0
     correct_answers = [49, 42, 45, 48, 49, 51]
     for p, correct in zip(player.in_all_rounds(), correct_answers):
@@ -535,6 +546,7 @@ class Count(Page):
 
     def before_next_page(player, timeout_happened):
         set_correct(player)
+        get_points_ind(player)
 
     @staticmethod
     def is_displayed(player: Player):

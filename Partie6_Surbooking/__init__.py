@@ -325,24 +325,21 @@ def get_points(player):
     player.participant.ind_payoff=player.ind_payoff
 
 
-def set_payoffs(group: Group):
-    players = group.get_players()
+def set_payoffs(player):
 
-    for p in players:
-        if p.participant.ind_payoff < 7:
-            p.participant.payoff=7
-            p.participant.payoff_euros=7
-        else:
-            p.participant.payoff = p.participant.ind_payoff
-            p.participant.payoff_euros= p.participant.ind_payoff
+    if player.participant.ind_payoff < 7:
+        player.participant.payoff=7
+        player.participant.payoff_euros=7
+    else:
+        player.participant.payoff = player.participant.ind_payoff
+        player.participant.payoff_euros= player.participant.ind_payoff
 
+class WaitforInstructions(WaitPage):
+    pass
 
 # PAGES
 class Instructions(Page):
     form_model= 'player'
-
-class WaitforSurvey(WaitPage):
-    pass
 
 
 class BFNE(Page):
@@ -367,8 +364,7 @@ class QuestionGenre(Page):
 
 
 
-class WaitforQuestionnaire(WaitPage):
-    pass
+
 class Questionnaire_Instructions(Page):
     form_model = 'player'
 
@@ -378,6 +374,7 @@ class Questionnaire(Page):
 
     def before_next_page(player, timeout_happened):
         get_points(player)
+        set_payoffs(player)
 
 
 
@@ -391,5 +388,5 @@ class Point(Page):
 
 
 
-page_sequence = [ Instructions,WaitforSurvey,  BFNE, WaitforPart4, SPSRQ,WaitforQuestionnaireGenre,QuestionGenre, WaitforQuestionnaire, Questionnaire, WaitforEnd,Point]
+page_sequence = [WaitforInstructions, Instructions,  BFNE, SPSRQ,QuestionGenre, Questionnaire,Point]
 #page_sequence = [ Questionnaire, WaitforEnd, Point]

@@ -299,7 +299,7 @@ class Player(BasePlayer):
         verbose_name='21. Aimez-vous prouver vos capacités physiques même si cela pourrait impliquer un danger ? ',
         widget=widgets.RadioSelectHorizontal,
     )
-    questionnaire_q1 = models.FloatField(label="1- Quel âge avez-vous ?")
+    questionnaire_q1 = models.FloatField(label="1- Quel âge avez-vous ?", min=18, max=99)
     questionnaire_q2 = models.IntegerField(
         verbose_name=' 2- Quel est le dernier diplôme que vous avez obtenu ?  ',
         widget=widgets.RadioSelect,

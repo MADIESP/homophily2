@@ -837,6 +837,7 @@ class Count(Page):
 
     def before_next_page(player, timeout_happened):
         set_correct(player)
+        get_points_solo(player)
 
 class WaitforFeedback(WaitPage):
     body_text = "En attente de votre partenaire."

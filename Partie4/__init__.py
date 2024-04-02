@@ -303,49 +303,49 @@ def select_group_answer(group):
 def send_message(group):
     for player in group.get_players():
         if player.round_number==1:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages7 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages7 = [player.Message_CD for player in group.get_players()]
             partner_message7=all_messages7[2-player.id_in_group]
             player.participant.partner_message7= partner_message7
 
         elif player.round_number==2:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages8 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages8 = [player.Message_CD for player in group.get_players()]
             partner_message8=all_messages8[2-player.id_in_group]
             player.participant.partner_message8= partner_message8
 
         elif player.round_number==3:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages9 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages9 = [player.Message_CD for player in group.get_players()]
             partner_message9=all_messages9[2-player.id_in_group]
             player.participant.partner_message9= partner_message9
 
         elif player.round_number==4:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages10 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages10 = [player.Message_CD for player in group.get_players()]
             partner_message10=all_messages10[2-player.id_in_group]
             player.participant.partner_message10= partner_message10
 
         elif player.round_number==5:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages11 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages11 = [player.Message_CD for player in group.get_players()]
             partner_message11=all_messages11[2-player.id_in_group]
             player.participant.partner_message11= partner_message11
 
         elif player.round_number==6:
-            if player.participant.InGroupA == True or player.participant.InGroupB == True:
+            if player.participant.InGroupD == True or player.participant.InGroupC == True:
                 all_messages12 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages12 = [player.Message_CD for player in group.get_players()]
             partner_message12 = all_messages12[2 - player.id_in_group]
             player.participant.partner_message12 = partner_message12
@@ -717,7 +717,7 @@ class Message(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupA==True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupB== True
+        return (player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupA==True)or (player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupB== True)
 
 
 class Message_CD(Page):
@@ -726,7 +726,7 @@ class Message_CD(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupC== True or player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupD== True
+        return (player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupC== True) or (player.correct_Group == False and player.partner_selected != True and player.subsession.Treatment == 3 and player.participant.InGroupD== True)
 
 
 

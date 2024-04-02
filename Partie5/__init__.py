@@ -290,49 +290,49 @@ def select_group_answer(group):
 def send_message(group):
     for player in group.get_players():
         if player.round_number==1:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupC==True or player.participant.InGroupD==True:
                 all_messages1 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages1 = [player.Message_CD for player in group.get_players()]
             partner_message1=all_messages1[2-player.id_in_group]
             player.participant.partner_message13= partner_message1
 
         elif player.round_number==2:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages2 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages2 = [player.Message_CD for player in group.get_players()]
             partner_message2=all_messages2[2-player.id_in_group]
             player.participant.partner_message14= partner_message2
 
         elif player.round_number==3:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages3 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages3 = [player.Message_CD for player in group.get_players()]
             partner_message3=all_messages3[2-player.id_in_group]
             player.participant.partner_message15= partner_message3
 
         elif player.round_number==4:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages4 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages4 = [player.Message_CD for player in group.get_players()]
             partner_message4=all_messages4[2-player.id_in_group]
             player.participant.partner_message16= partner_message4
 
         elif player.round_number==5:
-            if player.participant.InGroupA==True or player.participant.InGroupB==True:
+            if player.participant.InGroupD==True or player.participant.InGroupC==True:
                 all_messages5 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages5 = [player.Message_CD for player in group.get_players()]
             partner_message5=all_messages5[2-player.id_in_group]
             player.participant.partner_message17= partner_message5
 
         elif player.round_number==6:
-            if player.participant.InGroupA == True or player.participant.InGroupB == True:
+            if player.participant.InGroupD == True or player.participant.InGroupC == True:
                 all_messages6 = [player.Message for player in group.get_players()]
-            elif player.participant.InGroupC == True or player.participant.InGroupD == True:
+            elif player.participant.InGroupA == True or player.participant.InGroupB == True:
                 all_messages6 = [player.Message_CD for player in group.get_players()]
             partner_message6 = all_messages6[2 - player.id_in_group]
             player.participant.partner_message18 = partner_message6

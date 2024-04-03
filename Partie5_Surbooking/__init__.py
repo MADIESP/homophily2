@@ -63,8 +63,9 @@ class Player(BasePlayer):
     belief_partner = models.IntegerField(
         label="", choices=[0, 1, 2, 3, 4,5,6], widget=widgets.RadioSelectHorizontal)
     points_partie5 = models.IntegerField()
+    points_partie5_solo = models.IntegerField()
     points_beliefs3 = models.IntegerField()
-    solo=models.BooleanField()
+    solo_partie5=models.BooleanField()
 
 
 
@@ -126,15 +127,12 @@ def solo(group):
 
     for player in group.get_players():
         if len(all_names)==2:
-            player.solo=False
-            player.participant.solo = False
+            player.solo_partie5=False
+            player.participant.solo_partie5 = False
 
         elif len(all_names)==1:
-            player.solo=True
-            player.participant.solo= True
-
-    group.solo=player.solo
-    group.session.solo=player.solo
+            player.solo_partie5=True
+            player.participant.solo_partie5= True
 
 
     for player in group.get_players():
@@ -233,6 +231,88 @@ def partner_name(group):
         elif len(all_names) == 1:
             pass
 
+def partner_name_impair(group):
+
+    for player in group.get_players():
+        #if player.participant.gender == 0:
+            #player.participant.name = player.participant.FemaleNames
+        #else:
+            #player.participant.name = player.participant.MaleNames
+
+        player.gender=player.participant.gender
+        player.name=player.participant.name
+
+    all_names = [player.participant.name for player in group.get_players()]
+    all_gender = [player.participant.gender for player in group.get_players()]
+
+    group.session.all_gender=str(all_gender)
+    group.session.all_names=str(all_names)
+
+
+
+    for player in group.get_players():
+        if len(all_names)==2:
+            partner_name=all_names[2-player.id_in_group]
+            partner_gender = all_gender[2-player.id_in_group]
+
+
+            player.participant.partner_name_round3 = partner_name
+            player.participant.partner_gender_round3 = partner_gender
+
+
+            if player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 1:
+                player.participant.name_partner_round3 = 'Gabriel'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 2:
+                player.participant.name_partner_round3 = 'Léo'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 3:
+                player.participant.name_partner_round3 = 'Raphaël'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 4:
+                player.participant.name_partner_round3 = 'Louis'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 5:
+                player.participant.name_partner_round3 = 'Noah'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 6:
+                player.participant.name_partner_round3 = 'Jules'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 7:
+                player.participant.name_partner_round3 = 'Arthur'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 8:
+                player.participant.name_partner_round3 = 'Adam'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 9:
+                player.participant.name_partner_round3 = 'Lucas'
+            elif player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 10:
+                player.participant.name_partner_round3 = 'Sacha'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 1:
+                player.participant.name_partner_round3 = 'Jade'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 2:
+                player.participant.name_partner_round3 = 'Louise'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 3:
+                player.participant.name_partner_round3 = 'Ambre'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 4:
+                player.participant.name_partner_round3 = 'Alba'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 5:
+                player.participant.name_partner_round3 = 'Emma'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 6:
+                player.participant.name_partner_round3 = 'Rose'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 7:
+                player.participant.name_partner_round3 = 'Alice'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 8:
+                player.participant.name_partner_round3 = 'Romy'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 9:
+                player.participant.name_partner_round3 = 'Anna'
+            elif player.participant.partner_gender_round3 == 0 and player.participant.partner_name_round3 == 10:
+                player.participant.name_partner_round3 = 'Lina'
+
+        elif len(all_names) == 1:
+            pass
+
+def get_points_ind(player:BasePlayer):
+    points_partie5 = 0
+    correct_answers = [44, 55, 49, 40, 50, 52]
+    for p, correct in zip(player.in_all_rounds(), correct_answers):
+        # print(p.answer, correct, p.answer == correct)
+        points_partie5 = points_partie5 + 1 if p.count == correct else points_partie5
+    player.points_partie5_solo = points_partie5
+
+    player.participant.points_partie5_solo = player.points_partie5_solo
 
 
 
@@ -309,7 +389,7 @@ def get_points_beliefs(player):
 
 def get_points_beliefs_solo(player):
     points_beliefs = 0
-    if player.belief_own== player.participant.points_partie4:
+    if player.belief_own== player.participant.points_partie4_solo:
         points_beliefs= points_beliefs +1
     else:
         points_beliefs = points_beliefs
@@ -324,6 +404,10 @@ class WaitforStart(WaitPage):
 
 
     after_all_players_arrive = solo
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
 class InstructionsPair(Page):
     form_model = 'player'
@@ -347,23 +431,44 @@ class Instructions12(Page):
         return player.round_number == 1 and player.participant.nb_participants == 1 or player.round_number == 1 and player.participant.nb_participants == 2
 
 
+class WaitforForNamePair(WaitPage):
+    body_text = "En attente de votre partenaire."
 
-class MyWaitPage(WaitPage):
-  
 
 
     after_all_players_arrive = partner_name
 
     @staticmethod
     def is_displayed(player: Player):
-        return  player.round_number == 1
+        return player.round_number == 1 and player.participant.nb_participants == 2 or player.round_number == 1 and player.participant.nb_participants == 4 or player.round_number == 1 and player.participant.nb_participants == 6 or player.round_number == 1 and player.participant.nb_participants == 8
+
+
+class WaitforNameImPair(WaitPage):
+    body_text = "En attente de votre partenaire."
+
+
+
+    after_all_players_arrive = partner_name_impair
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.participant.nb_participants == 3 and player.participant.solo_partie5 == False or player.round_number == 1 and player.participant.nb_participants == 5 and player.participant.solo_partie5 == False or player.round_number == 1 and player.participant.nb_participants == 7 and player.participant.solo_partie5 == False
+
+
+
+class MyWaitPageSolo(WaitPage):
+
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return  player.round_number == 1 and player.participant.solo_partie5==True
 
 class NamePartner(Page):
     form_model = 'player'
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and player.participant.solo==False
+        return player.round_number == 1 and player.participant.nb_participants == 2 or player.round_number == 1 and player.participant.nb_participants == 4 or player.round_number == 1 and player.participant.nb_participants == 6 or player.round_number == 1 and player.participant.nb_participants == 8
 
 
 class NamePartnerSolo(Page):
@@ -371,8 +476,15 @@ class NamePartnerSolo(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and player.participant.solo==True
+        return player.round_number == 1 and player.participant.solo_partie5==True
 
+
+class NamePartnerImpair(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.participant.nb_participants==3 and player.participant.solo_partie5==False or player.round_number == 1 and player.participant.nb_participants==5 and player.participant.solo_partie5==False or player.round_number == 1 and player.participant.nb_participants==7 and player.participant.solo_partie5==False
 
 
 
@@ -393,7 +505,7 @@ class Belief(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return  player.round_number == 1 and player.participant.nb_participants>1 and player.participant.solo==False
+        return  player.round_number == 1 and player.participant.nb_participants==2 or player.round_number == 1 and player.participant.nb_participants==4 or  player.round_number == 1 and player.participant.nb_participants==6 or player.round_number == 1 and player.participant.nb_participants==8
     def before_next_page(player, timeout_happened):
         get_points_beliefs(player)
 
@@ -403,9 +515,10 @@ class BeliefSolo(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return  player.round_number == 1 and player.participant.nb_participants==1 or player.round_number == 1 and player.participant.solo==True
+        return  player.round_number == 1 and player.participant.nb_participants==1 or player.round_number == 1 and player.participant.nb_participants==3 or player.round_number == 1 and player.participant.nb_participants==5 or player.round_number == 1 and player.participant.nb_participants==7
     def before_next_page(player, timeout_happened):
         get_points_beliefs_solo(player)
+
 
 
 
@@ -426,10 +539,11 @@ class Count(Page):
 
     def before_next_page(player, timeout_happened):
         set_correct(player)
+        get_points_ind(player)
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.participant.solo==False
+        return player.participant.solo_partie5==False
 
 class CountSolo(Page):
 
@@ -443,10 +557,10 @@ class CountSolo(Page):
         get_points_solo(player)
     @staticmethod
     def is_displayed(player: Player):
-        return player.participant.solo==True
+        return player.participant.solo_partie5==True
 
 
-class WaitforFeedback(WaitPage):
+class WaitforFeedbackPair(WaitPage):
     body_text = "En attente de votre partenaire."
 
     @staticmethod
@@ -457,13 +571,30 @@ class WaitforFeedback(WaitPage):
         get_points(group)
 
 
+    after_all_players_arrive = call_functions
+
+    @staticmethod
+    def is_displayed(player: Player):
+            return player.participant.nb_participants == 2 or player.participant.nb_participants == 4 or  player.participant.nb_participants == 6 or  player.participant.nb_participants == 8
+
+
+class WaitforFeedbackImpair(WaitPage):
+    body_text = "En attente de votre partenaire."
+
+    @staticmethod
+    def call_functions(group):
+        partner_name_impair(group)
+        select_group_answer(group)
+        set_correct_group(group)
+        get_points(group)
 
 
     after_all_players_arrive = call_functions
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.participant.solo == False
+            return player.participant.nb_participants == 3 and player.participant.solo_partie5==False or player.participant.nb_participants == 5 and player.participant.solo_partie5==False or player.participant.nb_participants == 7 and player.participant.solo_partie5==False
+
 
 
 class WaitforFeedbackSolo(WaitPage):
@@ -471,7 +602,7 @@ class WaitforFeedbackSolo(WaitPage):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.participant.solo == True
+        return player.participant.solo_partie5 == True
 
 
 
@@ -479,7 +610,7 @@ class FeedbackPositive(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return  player.correct_Group == True and player.participant.solo == False
+        return  player.correct_Group == True and player.participant.solo_partie5 == False
 
 class FeedbackPositiveSolo(Page):
 
@@ -487,14 +618,14 @@ class FeedbackPositiveSolo(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct == True and player.participant.solo == True
+        return player.correct == True and player.participant.solo_partie5 == True
 
 
 class FeedbackNegative(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected==True  and player.subsession.Treatment != 1 and player.participant.solo == False
+        return player.correct_Group == False and player.partner_selected==True  and player.subsession.Treatment != 1 and player.participant.solo_partie5 == False
 
     #@staticmethod
     #def is_displayed(player: Player):
@@ -506,20 +637,20 @@ class FeedbackNegControl(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False  and player.subsession.Treatment == 1  and player.participant.solo == False
+        return player.correct_Group == False  and player.subsession.Treatment == 1  and player.participant.solo_partie5 == False
 
 class FeedbackNeg2(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False  and player.partner_selected==False and player.subsession.Treatment == 2  and player.participant.solo == False
+        return player.correct_Group == False  and player.partner_selected==False and player.subsession.Treatment == 2  and player.participant.solo_partie5 == False
 
 
 
 class FeedbackNegativeSolo(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct == False and player.participant.solo == True
+        return player.correct == False and player.participant.solo_partie5 == True
 
 
 class WaitforNextTable(WaitPage):
@@ -546,7 +677,7 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [WaitforStart,InstructionsPair,InstructionsImpair, Instructions12, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative, FeedbackNeg2,  WaitforNextTable, WaitforNextRound]
+page_sequence = [WaitforStart,InstructionsPair,InstructionsImpair, Instructions12,WaitforForNamePair, WaitforNameImPair, MyWaitPageSolo, NamePartner, NamePartnerSolo, NamePartnerImpair, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedbackPair, WaitforFeedbackImpair, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative, FeedbackNeg2,  WaitforNextTable, WaitforNextRound]
 
 
 #page_sequence = [ MyWaitPage, NamePartner,  WaitforFirstTable, Count, CountSolo, WaitforFeedback]

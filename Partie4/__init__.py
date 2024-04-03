@@ -219,6 +219,7 @@ def partner_name(group):
     all_names = [player.participant.name for player in group.get_players()]
     all_gender = [player.participant.gender for player in group.get_players()]
     all_points = [player.participant.points_partie3_solo for player in group.get_players()]
+    all_points_equipe= [player.participant.points_partie3 for player in group.get_players()]
 
     group.session.all_gender = str(all_gender)
     group.session.all_names = str(all_names)
@@ -227,10 +228,12 @@ def partner_name(group):
         partner_name = all_names[2 - player.id_in_group]
         partner_gender = all_gender[2 - player.id_in_group]
         partner_point = all_points[2 - player.id_in_group]
+        partner_point_equipe = all_points_equipe[2 - player.id_in_group]
 
         player.participant.partner_name_round2 = partner_name
         player.participant.partner_gender_round2 = partner_gender
         player.participant.partner_point3 = partner_point
+        player.participant.partner_point3_equipe=partner_point_equipe
 
         if player.participant.partner_gender_round2 == 1 and player.participant.partner_name_round2 == 1:
             player.participant.name_partner_round2 = 'Gabriel'

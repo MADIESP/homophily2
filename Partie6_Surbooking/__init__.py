@@ -389,7 +389,18 @@ class WaitforEnd(WaitPage):
 class Point(Page):
     form_model = 'player'
 
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.participant.nb_participants == 2 or player.participant.nb_participants == 4 or player.participant.nb_participants == 6 or player.participant.nb_participants == 8
 
 
-page_sequence = [WaitforInstructions, Instructions,  BFNE, SPSRQ,QuestionGenre, Questionnaire,Point]
+class PointImpair(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.participant.nb_participants == 1 or player.participant.nb_participants == 3 or player.participant.nb_participants == 5 or player.participant.nb_participants == 7
+
+
+page_sequence = [WaitforInstructions, Instructions,  BFNE, SPSRQ,QuestionGenre, Questionnaire,Point, PointImpair]
 #page_sequence = [ Questionnaire, WaitforEnd, Point]

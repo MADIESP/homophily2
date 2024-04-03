@@ -95,6 +95,7 @@ class Player(BasePlayer):
                                             [2, "Ne t'inquiète pas, cela arrive de faire des erreurs !"]])
 
     points_partie5 = models.IntegerField()
+    points_partie5_solo = models.IntegerField()
     points_beliefs3 = models.IntegerField()
 # FUNCTIONS
 
@@ -205,6 +206,7 @@ def partner_name(group):
     all_names = [player.participant.name for player in group.get_players()]
     all_gender = [player.participant.gender for player in group.get_players()]
     all_points = [player.participant.points_partie4_solo for player in group.get_players()]
+    all_points_equipe = [player.participant.points_partie4 for player in group.get_players()]
 
     group.session.all_gender = str(all_gender)
     group.session.all_names = str(all_names)
@@ -213,10 +215,13 @@ def partner_name(group):
         partner_name = all_names[2 - player.id_in_group]
         partner_gender = all_gender[2 - player.id_in_group]
         partner_point = all_points[2 - player.id_in_group]
+        partner_point_equipe = all_points_equipe[2 - player.id_in_group]
+
 
         player.participant.partner_name_round3 = partner_name
         player.participant.partner_gender_round3 = partner_gender
         player.participant.partner_point4 = partner_point
+        player.participant.partner_point4_equipe = partner_point_equipe
 
         if player.participant.partner_gender_round3 == 1 and player.participant.partner_name_round3 == 1:
             player.participant.name_partner_round3 = 'Gabriel'
@@ -271,6 +276,18 @@ def set_correct(player):
             correct = False
 
     player.correct = correct
+
+
+def get_points_solo(player:BasePlayer):
+    points_partie5 = 0
+    correct_answers = [44, 55, 49, 40, 50, 52]
+    for p, correct in zip(player.in_all_rounds(), correct_answers):
+        # print(p.answer, correct, p.answer == correct)
+        points_partie5 = points_partie5 + 1 if p.count == correct else points_partie5
+    player.points_partie5_solo = points_partie5
+
+    player.participant.points_partie5_solo = player.points_partie5_solo
+
 
 import random
 def select_group_answer(group):
@@ -655,6 +672,7 @@ class Count(Page):
 
     def before_next_page(player, timeout_happened):
         set_correct(player)
+        get_points_solo(player)
 
 
 class WaitforFeedback(WaitPage):

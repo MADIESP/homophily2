@@ -63,7 +63,7 @@ class Player(BasePlayer):
     belief_partner = models.IntegerField(
         label="", choices=[0, 1, 2, 3, 4], widget=widgets.RadioSelectHorizontal)
     points_partie3 = models.IntegerField()
-    points_partie3_solo = models.IntegerField()
+    points_partie3_solo = models.IntegerField(initial=10)
     points_beliefs1 = models.IntegerField()
     solo=models.BooleanField()
 
@@ -134,8 +134,6 @@ def solo(group):
             player.solo=True
             player.participant.solo= True
 
-    group.solo=player.solo
-    group.session.solo=player.solo
 
 
     for player in group.get_players():
@@ -295,8 +293,10 @@ def get_points_solo(player:BasePlayer):
         # print(p.answer, correct, p.answer == correct)
         points_partie3 = points_partie3 + 1 if p.count == correct else points_partie3
     player.points_partie3 = points_partie3
+    player.points_partie3_solo = points_partie3
 
     player.participant.points_partie3 = player.points_partie3
+    player.participant.points_partie3_solo = player.points_partie3
 
 def get_points_ind(player:BasePlayer):
     points_partie3 = 0
@@ -340,6 +340,10 @@ class WaitforStart(WaitPage):
 
 
     after_all_players_arrive = solo
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 class Instructions_pair(Page):
     form_model = 'player'
 
@@ -483,7 +487,7 @@ class NamePartner(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and player.participant.solo==False
+        return player.round_number == 1 and player.participant.nb_participants==2 or player.round_number == 1 and player.participant.nb_participants==4 or player.round_number == 1 and player.participant.nb_participants==6 or player.round_number == 1 and player.participant.nb_participants==8
 
 
 class NamePartnerSolo(Page):
@@ -494,6 +498,12 @@ class NamePartnerSolo(Page):
         return player.round_number == 1 and player.participant.solo==True
 
 
+class NamePartnerImpair(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1 and player.participant.nb_participants==3 and player.participant.solo==False or player.round_number == 1 and player.participant.nb_participants==5 and player.participant.solo==False or player.round_number == 1 and player.participant.nb_participants==7 and player.participant.solo==False
 
 
 
@@ -513,7 +523,7 @@ class Belief(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return  player.round_number == 1 and player.participant.nb_participants>1 and player.participant.solo==False
+        return  player.round_number == 1 and player.participant.nb_participants==2 or player.round_number == 1 and player.participant.nb_participants==4 or  player.round_number == 1 and player.participant.nb_participants==6 or player.round_number == 1 and player.participant.nb_participants==8
     def before_next_page(player, timeout_happened):
         get_points_beliefs(player)
 
@@ -523,7 +533,7 @@ class BeliefSolo(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return  player.round_number == 1 and player.participant.nb_participants==1 or player.round_number == 1 and player.participant.solo==True
+        return  player.round_number == 1 and player.participant.nb_participants==1 or player.round_number == 1 and player.participant.nb_participants==3 or player.round_number == 1 and player.participant.nb_participants==5 or player.round_number == 1 and player.participant.nb_participants==7
     def before_next_page(player, timeout_happened):
         get_points_beliefs_solo(player)
 
@@ -665,7 +675,7 @@ class WaitforNextRound(WaitPage):
 #page_sequence = [  MyWaitPage,NamePartner, WaitforBelief, Belief,WaitforFirstTable, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, WaitforCommunication, MessageSent, MessageReceived, WaitforNextTable, WaitforNextRound]
 
 
-page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestComprehension, TestComprehensionImpair, Comprehension_Error, Comprehension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, WaitforNextTable, WaitforNextRound]
+page_sequence = [WaitforStart,Instructions_pair, Instructions_impair, Instructions1, Instructions2,WaitforInstructions2,InstructionsPos,InstructionsPosSolo,WaitforInstructions3,InstructionsNegControl,InstructionsNegControlSolo, InstructionsNegTreatment1, WaitPage1, TestComprehension, TestComprehensionImpair, Comprehension_Error, Comprehension_Error_Impair, MyWaitPage, NamePartner, NamePartnerSolo,NamePartnerImpair, WaitforBelief, Belief, BeliefSolo,WaitforFirstTable, Count, CountSolo, WaitforFeedback, WaitforFeedbackSolo, FeedbackPositive, FeedbackPositiveSolo, FeedbackNegativeSolo, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, WaitforNextTable, WaitforNextRound]
 
 
 #page_sequence = [ MyWaitPage, NamePartner,  WaitforFirstTable, Count, CountSolo, WaitforFeedback]

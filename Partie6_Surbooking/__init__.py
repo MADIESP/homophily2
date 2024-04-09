@@ -314,7 +314,7 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
         choices=[[0, 'Sciences Humaines et Sociales (Sociologie, Economie, Gestion)'], [1, 'Langues'], [2, 'Art'],
                  [3, 'Droit'], [4, 'Sciences Naturelles (Biologie, Physique)'],
-                 [5, 'Mathématiques et/ou Informatique'], [6, 'Santé (médecine, infirmier/infirmière, etc.) '],
+                 [5, 'Mathématiques et/ou Informatique'], [6, 'Santé (médecine, infirmier/infirmière, psychologie, etc.) '],
                  [7, 'Technologie/ Ingénerie'],
                  [8, "Autre "]])
 
@@ -322,7 +322,7 @@ class Player(BasePlayer):
 def get_points(player):
 
     player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3
-    player.participant.ind_payoff=player.ind_payoff + 2
+    player.participant.ind_payoff=player.ind_payoff
 
 def set_payoffs_fee(player):
     player.participant.payoff= player.participant.ind_payoff + 3

@@ -14,7 +14,7 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    Treatment = models.IntegerField()
 
 
 class Group(BaseGroup):
@@ -32,7 +32,7 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
 
     )
-    s1 = models.BooleanField(initial=True)
+    s1 = models.BooleanField(initial=False)
     ind_payoff = models.IntegerField()
     points_beliefs4=models.IntegerField(initial=0)
     test_Belief1 = models.IntegerField(
@@ -57,12 +57,12 @@ class Player(BasePlayer):
         widget=widgets.RadioSelectHorizontal,
 
     )
-    rank_Louise = models.IntegerField(
+    rank_Emma = models.IntegerField(
         choices=[[1, ' Rang 1'],
                  [2, 'Rang 2'],
                  [3, ' Rang 3'],
                  [4, ' Rang 4'], ],
-        label="<b> Louise : </b>",
+        label="<b> Emma : </b>",
         widget=widgets.RadioSelectHorizontal,
 
     )
@@ -75,12 +75,12 @@ class Player(BasePlayer):
         widget=widgets.RadioSelectHorizontal,
 
     )
-    rank_Leo = models.IntegerField(
+    rank_Sacha = models.IntegerField(
         choices=[[1, ' Rang 1'],
                  [2, 'Rang 2'],
                  [3, ' Rang 3'],
                  [4, ' Rang 4'], ],
-        label="<b> Léo : </b>",
+        label="<b> Sacha : </b>",
         widget=widgets.RadioSelectHorizontal,
 
     )
@@ -399,30 +399,67 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
         choices=[[0, 'Sciences Humaines et Sociales (Sociologie, Economie, Gestion)'], [1, 'Langues'], [2, 'Art'],
                  [3, 'Droit'], [4, 'Sciences Naturelles (Biologie, Physique)'],
-                 [5, 'Mathématiques et/ou Informatique'], [6, 'Santé (médecine, infirmier/infirmière, etc.) '],
+                 [5, 'Mathématiques et/ou Informatique'], [6, 'Santé (médecine, infirmier/infirmière, psychologie, etc.) '],
                  [7, 'Technologie/ Ingénerie'],
                  [8, "Autre "]])
 
-
+def creating_session(subsession: Subsession):
+    subsession.Treatment = subsession.session.config['Treatment']
 
 def get_points_s2(player):
+    if player.subsession.Treatment == 1:
+        if player.rank_Jade==4:
+            points= 1
+        else:
+            points =0
+        if player.rank_Gabriel==2:
+            points2=points+1
+        else:
+            points2=points
+        if player.rank_Sacha==1:
+            points3=points2+1
+        else:
+            points3=points2
+        if player.rank_Emma==3:
+            points4=points3+1
+        else:
+            points4=points3
 
-    if player.rank_Jade==1:
-        points= 1
-    else:
-        points =0
-    if player.rank_Gabriel==2:
-        points2=points+1
-    else:
-        points2=points
-    if player.rank_Leo==3:
-        points3=points2+1
-    else:
-        points3=points2
-    if player.rank_Louise==4:
-        points4=points3+1
-    else:
-        points4=points3
+    elif player.subsession.Treatment == 2:
+        if player.rank_Jade==3:
+            points= 1
+        else:
+            points =0
+        if player.rank_Gabriel==4:
+            points2=points+1
+        else:
+            points2=points
+        if player.rank_Sacha==1:
+            points3=points2+1
+        else:
+            points3=points2
+        if player.rank_Emma==2:
+            points4=points3+1
+        else:
+            points4=points3
+
+    elif player.subsession.Treatment == 3:
+        if player.rank_Jade==3:
+            points= 1
+        else:
+            points =0
+        if player.rank_Gabriel==2:
+            points2=points+1
+        else:
+            points2=points
+        if player.rank_Sacha==1:
+            points3=points2+1
+        else:
+            points3=points2
+        if player.rank_Emma==4:
+            points4=points3+1
+        else:
+            points4=points3
 
     player.points_beliefs4=points4
     player.participant.points_beliefs4=player.points_beliefs4
@@ -432,8 +469,8 @@ def get_points_s2(player):
 
 def get_points(player):
 
-    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3
-    player.participant.ind_payoff=player.ind_payoff + 2
+    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3 + player.participant.points_beliefs4
+    player.participant.ind_payoff=player.ind_payoff
 
 
 def set_payoffs_fee(player):
@@ -507,7 +544,7 @@ class QuestionGenre(Page):
 
 class Ranking_genderAB(Page):
     form_model= 'player'
-    form_fields = [ 'rank_Jade', 'rank_Gabriel', 'rank_Louise','rank_Leo']
+    form_fields = [ 'rank_Jade', 'rank_Gabriel', 'rank_Emma','rank_Sacha']
 
     def is_displayed(player: Player):
         participant = player.participant
@@ -519,7 +556,7 @@ class Ranking_genderAB(Page):
 
 class Ranking_genderCD(Page):
     form_model = 'player'
-    form_fields = ['rank_Leo', 'rank_Louise', 'rank_Gabriel', 'rank_Jade']
+    form_fields = ['rank_Sacha', 'rank_Emma', 'rank_Gabriel', 'rank_Jade']
 
     def is_displayed(player: Player):
         participant = player.participant

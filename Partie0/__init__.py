@@ -126,10 +126,11 @@ class Survey(Page):
     def before_next_page(player, timeout_happened):
         gender(player)
 
-    #def error_message(player, timeout_happened):
-        #if not player.survey_error_displayed:
-            #player.survey_error_displayed = True  # Set the flag to True
 
+    def error_message(player, timeout_happened):
+        if not player.survey_error_displayed:
+            player.survey_error_displayed = True  # Set the flag to True
+            return "Merci de vérifier que vos informations sont exactes et cliquer sur Valider."
 class WaitforSessionName(WaitPage):
     after_all_players_arrive = creatingMain
 

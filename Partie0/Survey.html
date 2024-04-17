@@ -21,11 +21,47 @@
     </p>
      <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
 
-
-
-
-
-
+{{ if player.survey_error_displayed }}
+<div class="modal fade" id="modal_confirm_dialog"
+    role="dialog" aria-labelledby="modal_confirm_dialog_label"
+    aria-hidden="true" data-bs-backdrop="static" style="z-index: 8192">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:buttonface">
+                <h5 class="modal-title" id="modal_confirm_dialog_label">
+				Merci de vérifier que vos informations sont exactes:
+                </h5>
+            </div>
+            <div class="modal-body" style="font-size:0.9em"
+                id="modal_confirm_dialog_body" align="center">
+				{{ for field in form }}
+				<p>{{field.label}} <strong>
+				{{for choice in field.choices}}{{if choice.0 == field.data}}{{choice.1}}{{endif}}{{endfor}}
+				</strong></p>
+				{{endfor}}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" id="confirm_ok">Valider</button>
+                <button type="button" class="btn btn-secondary" onclick="close_dialog()" data-dismiss="modal" id="confirm_cancle">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+	   var confirmModalDiv = new bootstrap.Modal(document.getElementById('modal_confirm_dialog'), { 'keyboard': false, 'backdrop': 'static' });
+        confirmModalDiv.toggle();
+		$(".alert-danger").hide();
+		$("#button1").hide();
+		
+})
+function close_dialog() {
+	console.log('closing dialog');
+	$('#modal_confirm_dialog').modal('hide');
+	$("#button1").show();
+}
+</script>
+{{endif}}
 
 
 {% endblock %}

@@ -46,6 +46,10 @@ class Player(BasePlayer):
     belief_partner = models.IntegerField(
         label="",choices=[0,1,2,3,4,5,6],widget=widgets.RadioSelectHorizontal)
 
+    belief_own_part5 = models.IntegerField(label="", choices=[0, 1, 2, 3, 4, 5, 6], widget=widgets.RadioSelectHorizontal)
+    belief_partner_part5 = models.IntegerField(
+        label="", choices=[0, 1, 2, 3, 4, 5, 6], widget=widgets.RadioSelectHorizontal)
+
     rank1 = models.StringField(
         choices=C.CHOICES,
         label="<b> 1er Rang : </b>"
@@ -97,6 +101,8 @@ class Player(BasePlayer):
     points_partie5 = models.IntegerField()
     points_partie5_solo = models.IntegerField()
     points_beliefs3 = models.IntegerField()
+    partner_point5=models.IntegerField()
+    points_beliefs_last=models.IntegerField()
 # FUNCTIONS
 
 # def creating_session(subsession: Subsession):
@@ -465,6 +471,34 @@ def get_points_beliefs(player):
     player.points_beliefs3=points_beliefs1
     player.participant.points_beliefs3=player.points_beliefs3
 
+def point_partner(group):
+
+    all_points = [player.participant.points_partie5_solo for player in group.get_players()]
+
+    for player in group.get_players():
+        partner_point = all_points[2 - player.id_in_group]
+        player.partner_point5=partner_point
+        player.participant.partner_point5 = partner_point
+
+
+def get_points_beliefs_last(player):
+    points_beliefs_last = 0
+    if player.belief_own_part5== player.participant.points_partie5_solo:
+        points_beliefs_last= points_beliefs_last +1
+    else:
+        points_beliefs_last = points_beliefs_last
+
+    if player.belief_partner_part5==player.participant.partner_point5:
+        points_beliefs_last1 = points_beliefs_last + 1
+    else:
+        points_beliefs_last1 = points_beliefs_last
+
+    player.points_beliefs_last=points_beliefs_last1
+    player.participant.points_beliefs_last=player.points_beliefs_last
+    player.participant.points_beliefs_part5= player.participant.points_beliefs3 +  player.participant.points_beliefs_last
+
+
+
 
 
 # PAGES
@@ -767,6 +801,33 @@ class MessageReceived(Page):
 class WaitforNextTable(WaitPage):
     body_text = "En attente de votre partenaire."
 
+class WaitforBeliefsLast(WaitPage):
+    body_text = "En attente de votre partenaire."
+
+    after_all_players_arrive = point_partner
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 6
+
+
+class Belief_last_Instructions(Page):
+    form_model = 'player'
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 6
+
+class Belief_last(Page):
+    form_model = 'player'
+    form_fields = ['belief_own_part5', 'belief_partner_part5']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 6
+
+    def before_next_page(player, timeout_happened):
+        get_points_beliefs_last(player)
+
 class Enjoy(Page):
     form_model = 'player'
     form_fields = ['enjoy']
@@ -784,7 +845,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD,  WaitForMatching,Matching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, Message_CD, WaitforCommunicationReceived, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, Enjoy, WaitforSurvey]
+page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD,  WaitForMatching,Matching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, Message_CD, WaitforCommunicationReceived, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, WaitforBeliefsLast,Belief_last_Instructions,Belief_last, Enjoy, WaitforSurvey]
 
 #page_sequence = [ WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 

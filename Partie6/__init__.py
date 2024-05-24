@@ -395,7 +395,7 @@ class Player(BasePlayer):
         choices=[[0, 'Etudiant/Etudiante en L1'], [1, 'Etudiant/Etudiante en L2'], [2, 'Etudiant/Etudiante en L3'], [3, 'Etudiant/Etudiante en M1'], [4, 'Etudiant/Etudiante en M2'],
                  [5, 'Doctorant/Doctorante'], [6, 'En recherche d’emploi '], [7, 'Agriculteur exploitant /Agricultrice exploitante'], [8,"	Artisan/Artisane, commerçant/commerçante et chef/cheffe d’entreprise "], [9,'Cadre et profession intellectuelle supérieur'],[10,'Employé/Employée à temps plein'], [11,'Employé/Employée à temps partiel'], [12,'Auto-entrepreneur/auto-entrepreneuse'], [12, 'Ouvrier/Ouvrière '], [13,'Retraité/Retraitée'],[14,'Autre']])
     questionnaire_q4 = models.IntegerField(
-        verbose_name=' 4- Quelle est ou quelle a été votre champ d’étude ?  ',
+        verbose_name=' 4- Quel est ou quel a été votre champ d’étude ?  ',
         widget=widgets.RadioSelect,
         choices=[[0, 'Sciences Humaines et Sociales (Sociologie, Economie, Gestion)'], [1, 'Langues'], [2, 'Art'],
                  [3, 'Droit'], [4, 'Sciences Naturelles (Biologie, Physique)'],
@@ -464,12 +464,12 @@ def get_points_s2(player):
     player.points_beliefs4=points4
     player.participant.points_beliefs4=player.points_beliefs4
 
-    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3 + player.participant.points_beliefs4
+    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs_part5 + player.participant.points_beliefs4
     player.participant.ind_payoff=player.ind_payoff
 
 def get_points(player):
 
-    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs3 + player.participant.points_beliefs4
+    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs_part5 + player.participant.points_beliefs4
     player.participant.ind_payoff=player.ind_payoff
 
 

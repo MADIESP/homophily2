@@ -1,0 +1,37 @@
+{% block title %}
+Partie 5  - Partenaire: {{ participant.name_partner_round3 }}
+{% endblock %}
+
+{% block content %}
+{%  include 'Bot.html' %}
+
+<p> <i> <b> Pour rappel, vous gagnerez un point pour chaque estimation correcte. </b> </i> </p>
+
+   Votre estimation de <b> votre performance individuelle  </b>  dans la Partie 5:
+<br>
+    {{ form.belief_own_part5}}
+
+    <br>
+<br>
+    Votre estimation de <b> la performance individuelle de {{ participant.name_partner_round3 }} </b> dans la Partie 5:
+<br>
+    {{ form.belief_partner_part5 }}
+
+
+
+
+</p>
+
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+

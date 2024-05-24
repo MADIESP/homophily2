@@ -1,0 +1,43 @@
+{% block title %}
+Partie 5 - Partenaire: {{ participant.name_partner_round3 }}
+{% endblock %}
+
+{% block content %}
+{%  include 'Bot.html' %}
+
+
+
+Avant de terminer la Partie 5, merci d'estimer votre performance individuelle et celle de {{ participant.name_partner_round3 }} durant cette partie (Partie 5).  </p>
+<p> <u> Par exemple: </u></p>
+
+<p>
+    Si vous pensez n'avoir obtenu aucune réponse correcte dans la partie 5 de l'expérience, sélectionnez "0".
+</p>
+    <p>
+    Si vous pensez avoir correctement compté  le nombre de zéros dans 1 tableau sur 6, sélectionnez "1".
+</p>
+    <p>
+    Si 2 tableaux sur 6, sélectionnez "2", etc.
+</p>
+    <p>
+
+Appliquez la même méthode pour estimer la performance individuelle de  {{ participant.name_partner_round3 }}.
+</p>
+
+<p> Vous gagnerez un point pour chaque estimation correcte. </p>
+
+    <p> Si vous avez des questions, veuillez lever la main pour que nous puissions  vous aider. </p>
+
+<p> Cliquez sur le bouton pour commencer.</p>
+
+
+
+ <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Commencer </button>
+
+
+
+{% endblock %}
+
+
+
+

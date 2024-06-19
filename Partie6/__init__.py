@@ -393,7 +393,7 @@ class Player(BasePlayer):
         verbose_name=' 3- Quelle catégorie décrit-elle le mieux votre situation actuelle ?  ',
         widget=widgets.RadioSelect,
         choices=[[0, 'Etudiant/Etudiante en L1'], [1, 'Etudiant/Etudiante en L2'], [2, 'Etudiant/Etudiante en L3'], [3, 'Etudiant/Etudiante en M1'], [4, 'Etudiant/Etudiante en M2'],
-                 [5, 'Doctorant/Doctorante'], [6, 'En recherche d’emploi '], [7, 'Agriculteur exploitant /Agricultrice exploitante'], [8,"	Artisan/Artisane, commerçant/commerçante et chef/cheffe d’entreprise "], [9,'Cadre et profession intellectuelle supérieur'],[10,'Employé/Employée à temps plein'], [11,'Employé/Employée à temps partiel'], [12,'Auto-entrepreneur/auto-entrepreneuse'], [12, 'Ouvrier/Ouvrière '], [13,'Retraité/Retraitée'],[14,'Autre']])
+                 [5, 'Doctorant/Doctorante'], [6, 'En recherche d’emploi '], [7, 'Agriculteur exploitant /Agricultrice exploitante'], [8,"	Artisan/Artisane, commerçant/commerçante et chef/cheffe d’entreprise "], [9,'Cadre et profession intellectuelle supérieur'],[10,'Employé/Employée à temps plein'], [11,'Employé/Employée à temps partiel'], [12,'Auto-entrepreneur/auto-entrepreneuse'], [13, 'Ouvrier/Ouvrière '], [14,'Retraité/Retraitée'],[15,'Autre']])
     questionnaire_q4 = models.IntegerField(
         verbose_name=' 4- Quel est ou quel a été votre champ d’étude ?  ',
         widget=widgets.RadioSelect,
@@ -499,12 +499,7 @@ class Instructions(Page):
 class WaitforQuestionnaireGenre(WaitPage):
     pass
 
-class QuestionGenre(Page):
-    form_model = 'player'
-    form_fields = ['question_genre']
 
-    def is_displayed(player: Player):
-        return player.s1 == True
 
 
 class Ranking_gender_instructions(Page):
@@ -532,15 +527,7 @@ class WaitPageforRanking(WaitPage):
         return player.s1 == False
 
 
-class QuestionGenre(Page):
-    form_model = 'player'
-    form_fields = ['question_genre']
 
-    def is_displayed(player: Player):
-        return player.s1 == True
-
-    def before_next_page(player, timeout_happened):
-        get_points(player)
 
 class Ranking_genderAB(Page):
     form_model= 'player'
@@ -565,8 +552,10 @@ class Ranking_genderCD(Page):
     def before_next_page(player, timeout_happened):
         get_points_s2(player)
 
-class WaitPageforPart2(WaitPage):
-    pass
+class QuestionGenre(Page):
+    form_model = 'player'
+    form_fields = ['question_genre']
+
 class RankingTrait(Page):
     form_model= 'player'
     form_fields = ['rank_name', 'rank_gender', 'rank_born', 'rank_commute']
@@ -609,5 +598,5 @@ class Point(Page):
 
 
 
-page_sequence = [ WaitforInstructions,Instructions, QuestionGenre, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error,  QuestionGenre, Ranking_genderAB, Ranking_genderCD,   RankingTrait, BFNE,  SPSRQ,  Questionnaire,Point]
+page_sequence = [ WaitforInstructions,Instructions, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error,  Ranking_genderAB, Ranking_genderCD, QuestionGenre,   RankingTrait, BFNE,  SPSRQ,  Questionnaire,Point]
 #page_sequence = [Ranking_genderAB,  WaitPageforPart2,Point ]

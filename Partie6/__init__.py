@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Partie6'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
-    CHOICES=[[1, 'Non'], [2, 'Plutôt Non'],[2, 'Plutôt Oui'],[2, 'Oui']]
+    CHOICES=[[1, 'Non'], [2, 'Plutôt Non'],[3, 'Plutôt Oui'],[4, 'Oui']]
 
 
 class Subsession(BaseSubsession):

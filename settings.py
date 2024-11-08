@@ -1,11 +1,12 @@
 from os import environ
 
 SESSION_CONFIGS = [
+
 dict(
         name='Sondage',
         app_sequence=['Partie0','redirectapp'],
         num_demo_participants=18,
-        Tr='one of : Control, T1, T2'
+        Tr='one of : Control, T1, T2, T3'
     ),
 
 dict(
@@ -25,6 +26,12 @@ dict(
         app_sequence=['Partie1', 'Partie2','Partie3','Partie4','Partie5','Partie6'],
         num_demo_participants=16,
         Treatment=3,
+    ),
+dict(
+        name='T3_Main',
+        app_sequence=['Partie1', 'Partie2','Partie3','Partie4','Partie5','Partie6'],
+        num_demo_participants=16,
+        Treatment=4,
     ),
 dict(
         name='Control_Surbooking',
@@ -66,6 +73,10 @@ ROOMS = [
     dict(
         name='T2_Main',
         display_name='T2_Main'
+    ),
+dict(
+        name='T3_Main',
+        display_name='T3_Main'
     ),
     dict(
         name='Control_Surbooking',

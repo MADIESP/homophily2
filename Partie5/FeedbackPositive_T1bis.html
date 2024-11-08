@@ -1,0 +1,25 @@
+{% block title %}
+Partie 5 - Période {{ view.round_number }} - Partenaire: {{ participant.name_partner_round3 }}
+{% endblock %}
+
+{% block content %}
+{%  include 'Bot.html' %}
+<p>
+
+</p>
+<p>
+La réponse de {{ participant.name_partner_round3 }} a été aléatoirement choisie pour être la réponse de l'équipe.
+<p>
+     Bravo, {{ participant.name_partner_round3 }} donné une bonne réponse et votre équipe a donc gagné 2 points &#128578;
+
+
+     <p>
+<br>
+
+<button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Suivant </button>
+
+{% endblock %}
+
+
+
+

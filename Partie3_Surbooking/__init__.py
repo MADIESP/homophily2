@@ -40,7 +40,7 @@ class Player(BasePlayer):
         label="Si vous jouez en équipe : à chaque période, quelle réponse sera sélectionnée pour être la <b> réponse de l’équipe </b> ? ",
         widget=widgets.RadioSelect,
         choices=[[0, "Ma réponse sera toujours sélectionnée. "],
-                 [1, "La répofnse de mon partenaire sera toujours sélectionnée. "],
+                 [1, "La réponse de mon partenaire sera toujours sélectionnée. "],
                  [2, "Une de nos réponses sera sélectionnée de manière aléatoire. "]])
     test_JeuCollectif_solo = models.IntegerField(
         label="Si vous jouez seul : à chaque période, combien de points obtiendrez-vous si votre réponse est correcte ? ",
@@ -422,7 +422,7 @@ class InstructionsNegTreatment1(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and player.subsession.Treatment == 2 and player.participant.nb_participants>1
+        return player.round_number == 1 and player.subsession.Treatment > 1 and player.participant.nb_participants>1
 
 class InstructionsNegControlSolo(Page):
     form_model = 'player'
@@ -459,7 +459,7 @@ class Comprehension_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 2  or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 4 or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 6 or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif_equipe")!=2 and  player.participant.nb_participants == 8
+        return player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif")!=2 and  player.participant.nb_participants == 2  or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif")!=2 and  player.participant.nb_participants == 4 or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif")!=2 and  player.participant.nb_participants == 6 or  player.round_number == 1 and  player.field_maybe_none("test_JeuCollectif")!=2 and  player.participant.nb_participants == 8
 
 
 class Comprehension_Error_Impair(Page):
@@ -625,7 +625,7 @@ class FeedbackNegative(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected==True  and player.subsession.Treatment != 1 and player.participant.solo == False
+        return player.correct_Group == False and player.partner_selected==True  and player.subsession.Treatment >1  and player.participant.solo == False
 
     #@staticmethod
     #def is_displayed(player: Player):
@@ -643,7 +643,7 @@ class FeedbackNeg2(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected==False and player.subsession.Treatment == 2  and player.participant.solo == False
+        return player.correct_Group == False and player.partner_selected==False and player.subsession.Treatment >1   and player.participant.solo == False
 
 class FeedbackNegativeSolo(Page):
     @staticmethod

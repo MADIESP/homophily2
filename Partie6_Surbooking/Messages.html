@@ -1,0 +1,30 @@
+{{ block title }}
+    Partie 6 - Section 1/5
+{{ endblock }}
+
+{{ block content }}
+{{ include 'Bot.html' }}
+<style>
+    h1 {text-align: justify;}
+    p {text-align: justify;}
+    div {text-align: justify;}
+ </style>
+
+<p> Imaginez que vous avez réalisé la même tâche que dans les parties 3, 4 et 5. </p>
+<p> <b>Votre réponse </b> a été choisie comme réponse de l'équipe, et elle est <b>incorrecte.</b> </p>
+<p>Votre partenaire doit alors sélectionner <b> un message </b> et vous l'envoyer. </p>
+
+<br>
+
+
+<p>
+    <b> Pour chaque message, indiquez si vous le percevez comme positif, négatif ou neutre: </b>
+</p>
+
+
+ {{ formfields }}
+
+      <button class="btn btn-danger" id='button1' style="margin-left: 75%; display: block;"> Valider </button>
+{{ endblock }}
+
+

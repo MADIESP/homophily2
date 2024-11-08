@@ -726,24 +726,31 @@ class FeedbackPositive(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == True
+        return player.correct_Group == True and player.subsession.Treatment != 4
 
+class FeedbackPositive_T1bis(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == True and player.partner_selected!=True and player.subsession.Treatment == 4
+
+class FeedbackPositive_T1bis_own(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.correct_Group == True and player.partner_selected==True and player.subsession.Treatment == 4
 
 class FeedbackNegative(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.partner_selected == True and player.subsession.Treatment != 1
-
-    # @staticmethod
-    # def is_displayed(player: Player):
-    # return player.partner_selected == True
+        return (player.correct_Group == False and player.partner_selected==True and player.subsession.Treatment == 2) or (player.correct_Group == False and player.partner_selected==True and player.subsession.Treatment == 3)
 
 
 class FeedbackNegControl(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.correct_Group == False and player.subsession.Treatment == 1
+        return (player.correct_Group == False and player.subsession.Treatment == 1) or (player.correct_Group == False and player.subsession.Treatment == 4)
 
 
 class FeedbackNeg2(Page):
@@ -845,7 +852,7 @@ class WaitforSurvey(WaitPage):
         return player.round_number == 6
 
 
-page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD,  WaitForMatching,Matching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, Message_CD, WaitforCommunicationReceived, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, WaitforBeliefsLast,Belief_last_Instructions,Belief_last, Enjoy, WaitforSurvey]
+page_sequence = [Instructions,WaitforChoice, ChoiceCV_groupA, ChoiceCV_groupB, ChoiceCV_groupC, ChoiceCV_groupD,  WaitForMatching,Matching, WaitforPartnerName,  NamePartner,WaitforBelief, Belief, WaitforTable1, Count, WaitforFeedback, FeedbackPositive, FeedbackPositive_T1bis, FeedbackPositive_T1bis_own, FeedbackNegControl, FeedbackNegative, FeedbackNeg2, Message, Message_CD, WaitforCommunicationReceived, WaitforCommunication, MessageSent, MessageReceived,  WaitforNextTable, WaitforBeliefsLast,Belief_last_Instructions,Belief_last, Enjoy, WaitforSurvey]
 
 #page_sequence = [ WaitForMatching, WaitforPartnerName, Belief,WaitforTable1, Count,WaitforFeedback]
 

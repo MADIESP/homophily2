@@ -24,6 +24,35 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     ind_payoff = models.IntegerField()
+    Message1 = models.IntegerField(
+        choices=[[1, 'Positif' ],[2 ,'Négatif'], [ 3,'Neutre' ]],
+        # widget=widgets.Select,
+        verbose_name=' Pas de pression, ce tableau n’est pas simple ! ',
+        widget=widgets.RadioSelectHorizontal,
+
+    )
+    Message2 = models.IntegerField(
+        choices=[[1, 'Positif'], [2, 'Négatif'], [3, 'Neutre']],
+        # widget=widgets.Select,
+        verbose_name=' Ne t’inquiète pas, cela arrive de faire des erreurs ! ',
+        widget=widgets.RadioSelectHorizontal,
+
+    )
+    Message3 = models.IntegerField(
+        choices=[[1, 'Positif'], [2, 'Négatif'], [3, 'Neutre']],
+        # widget=widgets.Select,
+        verbose_name=' Je sais que c’est difficile, mais essaye de te concentrer davantage. ',
+        widget=widgets.RadioSelectHorizontal,
+
+    )
+    Message4 = models.IntegerField(
+        choices=[[1, 'Positif'], [2, 'Négatif'], [3, 'Neutre']],
+        # widget=widgets.Select,
+        verbose_name='Il est très important de donner la bonne réponse, tu devrais essayer une autre technique de comptage. ',
+        widget=widgets.RadioSelectHorizontal,
+
+    )
+
     question_genre = models.IntegerField(
         choices=[[1,'Les femmes comptent correctement plus de tableaux.'], [2,'Les hommes comptent correctement plus de tableaux.'], [3,'Il n’y a pas de différence entre les femmes et les hommes.']],
 
@@ -344,6 +373,14 @@ class WaitforInstructions(WaitPage):
 class Instructions(Page):
     form_model= 'player'
 
+class Messages(Page):
+    form_model = 'player'
+    form_fields = ['Message1', 'Message2', 'Message3', 'Message4']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.participant.nb_participants > 1
+
 
 class BFNE(Page):
     form_model = 'player'
@@ -402,5 +439,5 @@ class PointImpair(Page):
         return player.participant.nb_participants == 1 or player.participant.nb_participants == 3 or player.participant.nb_participants == 5 or player.participant.nb_participants == 7
 
 
-page_sequence = [WaitforInstructions, Instructions,  BFNE, SPSRQ,QuestionGenre, Questionnaire,Point, PointImpair]
+page_sequence = [WaitforInstructions, Instructions, Messages, BFNE, SPSRQ,QuestionGenre, Questionnaire,Point, PointImpair]
 #page_sequence = [ Questionnaire, WaitforEnd, Point]

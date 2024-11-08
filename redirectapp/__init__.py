@@ -108,8 +108,8 @@ class Player(BasePlayer):
 def creating_session(subsession: Subsession):
     session = subsession.session
     players = subsession.get_players()
-    if not session.config["Tr"] in ['T2','T1','T0','Control']:
-        raise ValueError('The Treatment should be set to a Control (or T0), T1 or T2 "Configure session"!')
+    if not session.config["Tr"] in ['T3','T2','T1','T0','Control']:
+        raise ValueError('The Treatment should be set to a Control (or T0), T1, T2 or T3 "Configure session"!')
     if subsession.round_number == 1:
         #creating rooms for redirection
         surbook_if_less_then_8=False
@@ -147,6 +147,8 @@ def get_next_room(session,main):
         next_room = 'T1_Main' if main else "T1_Surbooking"
     if tr == 2:
         next_room = 'T2_Main' if main else "T1_Surbooking"
+    if tr == 3:
+        next_room = 'T3_Main' if main else "T1_Surbooking"
     return next_room
 
 

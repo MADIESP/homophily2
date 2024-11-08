@@ -443,23 +443,6 @@ def get_points_s2(player):
         else:
             points4=points3
 
-    elif player.subsession.Treatment == 3:
-        if player.rank_Jade==3:
-            points= 1
-        else:
-            points =0
-        if player.rank_Gabriel==2:
-            points2=points+1
-        else:
-            points2=points
-        if player.rank_Sacha==1:
-            points3=points2+1
-        else:
-            points3=points2
-        if player.rank_Emma==4:
-            points4=points3+1
-        else:
-            points4=points3
 
     player.points_beliefs4=points4
     player.participant.points_beliefs4=player.points_beliefs4
@@ -469,7 +452,7 @@ def get_points_s2(player):
 
 def get_points(player):
 
-    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs_part5 + player.participant.points_beliefs4
+    player.ind_payoff=player.participant.points_partie2 + player.participant.points_partie3+player.participant.points_partie4 + player.participant.points_partie5 + player.participant.points_beliefs1 + player.participant.points_beliefs2 + player.participant.points_beliefs_part5
     player.participant.ind_payoff=player.ind_payoff
 
 
@@ -504,14 +487,14 @@ class WaitforQuestionnaireGenre(WaitPage):
 
 class Ranking_gender_instructions(Page):
     def is_displayed(player: Player):
-        return player.s1 == False
+        return player.s1 == False  and player.subsession.Treatment != 4
 
 
 class TestComprehensionBeliefs(Page):
     form_model = 'player'
     form_fields = ['test_Belief1','test_Belief2','test_Belief3','test_Belief4']
     def is_displayed(player: Player):
-        return player.s1 == False
+        return player.s1 == False and player.subsession.Treatment != 4
 
 
 
@@ -519,12 +502,12 @@ class Comprehension_Belief_Gender_Error(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.field_maybe_none("test_Belief1") != 1  and player.s1 == False or player.field_maybe_none("test_Belief2") != 1  and player.s1 == False or player.field_maybe_none("test_Belief3") != 0  and player.s1 == False or player.field_maybe_none("test_Belief4") != 1 and player.s1 == False
+        return player.field_maybe_none("test_Belief1") != 1  and player.s1 == False and player.subsession.Treatment != 4 or player.field_maybe_none("test_Belief2") != 1  and player.s1 == False and player.subsession.Treatment != 4 or player.field_maybe_none("test_Belief3") != 0  and player.s1 == False and player.subsession.Treatment != 4 or player.field_maybe_none("test_Belief4") != 1 and player.s1 == False and player.subsession.Treatment != 4
 
 
 class WaitPageforRanking(WaitPage):
     def is_displayed(player: Player):
-        return player.s1 == False
+        return player.s1 == False and player.subsession.Treatment != 4
 
 
 
@@ -535,7 +518,7 @@ class Ranking_genderAB(Page):
 
     def is_displayed(player: Player):
         participant = player.participant
-        return player.s1== False and participant.InGroupA == True or player.s1== False and participant.InGroupB == True
+        return player.s1== False and participant.InGroupA == True and player.subsession.Treatment != 4 or player.s1== False and participant.InGroupB == True and player.subsession.Treatment != 4
 
     def before_next_page(player, timeout_happened):
         get_points_s2(player)
@@ -547,7 +530,7 @@ class Ranking_genderCD(Page):
 
     def is_displayed(player: Player):
         participant = player.participant
-        return  player.s1== False and participant.InGroupC == True or player.s1== False and participant.InGroupD == True
+        return  player.s1== False and participant.InGroupC == True and player.subsession.Treatment != 4 or player.s1== False and participant.InGroupD == True and player.subsession.Treatment != 4
 
     def before_next_page(player, timeout_happened):
         get_points_s2(player)
@@ -555,6 +538,9 @@ class Ranking_genderCD(Page):
 class QuestionGenre(Page):
     form_model = 'player'
     form_fields = ['question_genre']
+
+    def before_next_page(player, timeout_happened):
+        get_points(player)
 
 class RankingTrait(Page):
     form_model= 'player'

@@ -584,5 +584,6 @@ class Point(Page):
 
 
 
-page_sequence = [ WaitforInstructions,Instructions, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error,  Ranking_genderAB, Ranking_genderCD, QuestionGenre,   RankingTrait, BFNE,  SPSRQ,  Questionnaire,Point]
+page_sequence = [ WaitforInstructions,Instructions, QuestionGenre,   RankingTrait, BFNE,  SPSRQ,  Questionnaire,Point]
+#page_sequence = [ WaitforInstructions,Instructions, Ranking_gender_instructions, TestComprehensionBeliefs, Comprehension_Belief_Gender_Error,  Ranking_genderAB, Ranking_genderCD, QuestionGenre,   RankingTrait, BFNE,  SPSRQ,  Questionnaire,Point]
 #page_sequence = [Ranking_genderAB,  WaitPageforPart2,Point ]
